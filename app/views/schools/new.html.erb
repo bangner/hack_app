@@ -1,0 +1,100 @@
+<h1>School Registration</h1>
+
+<%= form_for @school, url: {action: "create"} do |school_form| %>
+
+  <span class="payment-errors"></span>
+
+  <div>
+    <%= school_form.label :name, 'School Name' %>
+    <%= school_form.text_field :name %>
+  </div>
+
+  <%= school_form.fields_for :accounts do |accounts_form| %>
+
+    <div>
+      <%= accounts_form.label :name, 'Administrator Name' %>
+      <%= accounts_form.text_field :name %>
+    </div>
+
+    <div>
+      <%= accounts_form.label :email, 'Administrator Email' %>
+      <%= accounts_form.email_field :email %>
+    </div>
+
+    <div>
+      <%= label_tag :password %>
+      <%= password_field_tag :password %>
+    </div>
+
+  <% end %>
+
+  <div>
+    <label>
+      <span>Card Number</span>
+      <input type="text" size="20" data-stripe="number"/>
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <span>CVC</span>
+      <input type="text" size="4" data-stripe="cvc"/>
+    </label>
+  </div>
+
+  <div>
+    <label>
+      <span>Expiration (MM/YYYY)</span>
+      <input type="text" size="2" data-stripe="exp-month"/>
+    </label>
+    <span> / </span>
+    <input type="text" size="4" data-stripe="exp-year"/>
+  </div>
+
+  <ul>
+  <% @primary_questions.each do |question| %>
+    <li>
+      <input type="checkbox" name="questions[primary][<%= question.id %>]" value="yes" />
+      <%= question.label %>
+    </li>
+  <% end %>
+  </ul>
+
+  <ul>
+  <% @secondary_questions.each do |question| %>
+    <li>
+      <input type="checkbox" name="questions[secondary][<%= question.id %>]" value="yes" />
+      <%= question.label %>
+    </li>
+  <% end %>
+  </ul>
+
+  <div>
+    <%= button_tag "Register", :name => "commit", :type => "submit" %>
+  </div>
+
+<% end %>
+
+<% content_for :scripts do %>
+  <%= javascript_include_tag "https://js.stripe.com/v2/" %>
+  <script>
+    Stripe.setPublishableKey("<%= Rails.configuration.stripe_pk %>");
+    jQuery(function($) {
+      $('#new_school').submit(function(event) {
+        var $form = $(this);
+        $form.find('button').prop('disabled', true);
+        Stripe.card.createToken($form, function(status, response) {
+          if (response.error) {
+            $form.find('.payment-errors').text(response.error.message);
+            $form.find('button').prop('disabled', false);
+          } else {
+            var token = response.id;
+            $form.append($('<input type="hidden" name="stripe_card_token" />').val(token));
+            $form.get(0).submit();
+          }
+        });
+        return false;
+      });
+    });
+  </script>
+<% end %>

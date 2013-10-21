@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>hack_app</title>
+    <%= favicon_link_tag 'favicon.ico' %>
+    <%= stylesheet_link_tag "//cloud.typography.com/7222252/625882/css/fonts.css", media: "all" %>
+    <%= stylesheet_link_tag "main", media: "all" %>
+  </head>
+  <body>
+    <%= yield %>
+    <%= javascript_include_tag "main" %>
+    <%= yield :scripts %>
+  </body>
+</html>

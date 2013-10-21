@@ -1,0 +1,29 @@
+<h1><%= @school.name %></h1>
+
+<table>
+
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Stripe Customer ID</th>
+    <th>Created At</th>
+    <th>Admin Name</th>
+    <th>Admin Email</th>
+    <th>Admin Role</th>
+    <th>PA - Question Count</th>
+    <th>SA - Question Count</th>
+  </tr>
+ 
+  <tr>
+    <td><%= @school.id %></td>
+    <td><%= @school.name %></td>
+    <td><%= @school.stripe_customer_id %></td>
+    <td><%= @school.created_at %></td>
+    <td><%= @school.accounts.first.name %></td>
+    <td><%= @school.accounts.first.email %></td>
+    <td><%= @school.accounts.first.roles.first.name %></td>
+    <td><%= @school.primary_application.questions.count %></td>
+    <td><%= @school.secondary_application.questions.count %></td>
+  </tr>
+
+</table>
