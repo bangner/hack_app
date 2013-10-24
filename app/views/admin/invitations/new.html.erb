@@ -1,0 +1,24 @@
+<h1>School Invitations (New)</h1>
+
+<%= form_for @invitation, url: {action: "create"} do |invitation_form| %>
+
+  <div>
+    <%= invitation_form.label :school_id, 'School' %>
+    <%= invitation_form.collection_select :school_id, School.all, :id, :name %>
+  </div>
+
+  <div>
+    <%= invitation_form.label :email, 'School Administrator Email' %>
+    <%= invitation_form.email_field :email %>
+  </div>
+
+  <div>
+    <%= invitation_form.label :code, 'Invitation Code' %>
+    <%= invitation_form.text_field :code, :readonly => "readonly", :value => @code %>
+  </div>
+
+  <div>
+    <%= button_tag "Create", :name => "commit", :type => "submit" %>
+  </div>
+
+<% end %>

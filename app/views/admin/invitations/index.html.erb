@@ -1,0 +1,33 @@
+<h1>School Invitations</h1>
+
+<ul>
+  <li>
+    <a href="<%= new_admin_invitation_path %>">New</a>
+  </li>
+</ul>
+
+<table>
+
+  <tr>
+    <th>ID</th>
+    <th>School</th>
+    <th>Email</th>
+    <th>Code</th>
+    <th>Expired?</th>
+    <th>Expire</th>
+  </tr>
+ 
+  <% @invitations.each do |invitation| %>
+  <tr>
+    <td><%= invitation.id %></td>
+    <td><%= invitation.school.name %></td>
+    <td><%= invitation.email %></td>
+    <td><%= invitation.code %></td>
+    <td><%= invitation.is_expired %></td>
+    <td>
+      <a href="">Expire</a>
+    </td>
+  </tr>
+  <% end %>
+
+</table>

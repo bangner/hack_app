@@ -27,6 +27,17 @@ HackappNew::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+  # SMTP Settings
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'hackapp.co',
+    :user_name            => 'stephen@hackapp.co',
+    :password             => 'wafWajdl0tea',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
+
   # Stripe API keys
   config.stripe_pk = "pk_test_3L0pQ9kdQFxpcAAheVcu3ZWo"
   config.stripe_sk = "sk_test_gLMiILPEHRkXOVgtmxTwBh5n"

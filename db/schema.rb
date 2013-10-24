@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20131021015658) do
     t.integer  "school_id"
     t.string   "email"
     t.string   "code"
+    t.boolean  "is_expired", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

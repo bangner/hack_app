@@ -22,8 +22,8 @@
     </div>
 
     <div>
-      <%= label_tag :password %>
-      <%= password_field_tag :password %>
+      <%= accounts_form.label :password_hash, 'Password' %>
+      <%= accounts_form.password_field :password_hash %>
     </div>
 
   <% end %>

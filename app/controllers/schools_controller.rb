@@ -1,5 +1,4 @@
-class SchoolsController < MainController
-  include Security
+class SchoolsController < ApplicationController
 
   def index
     @schools = School.all
@@ -32,8 +31,7 @@ class SchoolsController < MainController
     school = School.new(school_permitted)
     
     school.stripe_customer_id = customer[:id]
-    school.accounts.first.password_hash = hash_password(params[:password])
-    school.accounts.first.roles = [Role.find_by_name('SchoolAdmin')]
+    school.accounts.first.roles = [Role.find_by_name(Role::SCHOOL_ADMIN)]
 
     school.primary_application = SchoolApplication.new
     school.primary_application.question_ids = params[:questions][:primary].keys
