@@ -7,7 +7,7 @@ class ApplicationController < HackappController
 
   def login_post
     if @account = Account.find_by_email(params[:email])
-      if BCrypt::Password.new(@account.password_hash).is_password? params[:password]
+      if @account.is_password? params[:password]
         session[:account_id] = @account.id
         return redirect_to home_path
       else

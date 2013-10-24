@@ -1,0 +1,31 @@
+<h1>School Administrator Registration</h1>
+
+<%= form_for @school_administrator, url: {action: "create"} do |school_administrator_form| %>
+
+  <%= hidden_field_tag :code, @invitation.code %>
+
+  <div>
+    <%= label_tag :name, 'School Name' %>
+    <%= text_field_tag :name, @invitation.school.name, :readonly => "readonly" %>
+  </div>
+
+  <div>
+    <%= school_administrator_form.label :name, 'Administrator Name' %>
+    <%= school_administrator_form.text_field :name %>
+  </div>
+
+  <div>
+    <%= school_administrator_form.label :email, 'Administrator Email' %>
+    <%= school_administrator_form.email_field :email, :readonly => "readonly", :value => @invitation.email %>
+  </div>
+
+  <div>
+    <%= school_administrator_form.label :password_hash, 'Password' %>
+    <%= school_administrator_form.password_field :password_hash %>
+  </div>
+
+  <div>
+    <%= button_tag "Register", :name => "commit", :type => "submit" %>
+  </div>
+
+<% end %>

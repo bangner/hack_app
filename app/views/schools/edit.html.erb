@@ -1,34 +1,8 @@
-<h1>School Registration</h1>
+<h1>School Edit</h1>
 
-<%= form_for @school, url: {action: "create"} do |school_form| %>
+<%= form_for @school, url: {action: "create"} do |school| %>
 
-  <span class="payment-errors"></span>
-
-  <div>
-    <%= school_form.label :name, 'School Name' %>
-    <%= school_form.text_field :name %>
-  </div>
-
-  <%= school_form.fields_for :accounts do |accounts_form| %>
-
-    <div>
-      <%= accounts_form.label :name, 'Administrator Name' %>
-      <%= accounts_form.text_field :name %>
-    </div>
-
-    <div>
-      <%= accounts_form.label :email, 'Administrator Email' %>
-      <%= accounts_form.email_field :email %>
-    </div>
-
-    <div>
-      <%= accounts_form.label :password_hash, 'Password' %>
-      <%= accounts_form.password_field :password_hash %>
-    </div>
-
-  <% end %>
-
-  <div>
+<div>
     <label>
       <span>Card Number</span>
       <input type="text" size="20" data-stripe="number"/>
@@ -80,7 +54,7 @@
   <script>
     Stripe.setPublishableKey("<%= Rails.configuration.stripe_pk %>");
     jQuery(function($) {
-      $('#new_school').submit(function(event) {
+      $('#new_school_administrator').submit(function(event) {
         var $form = $(this);
         $form.find('button').prop('disabled', true);
         Stripe.card.createToken($form, function(status, response) {

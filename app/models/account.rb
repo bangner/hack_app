@@ -7,8 +7,12 @@ class Account < ActiveRecord::Base
 
   accepts_nested_attributes_for :roles
 
-  def has_role?(role)
+  def has_role? role
     self.roles.where(:name => role).any?
+  end
+
+  def is_password? password
+    BCrypt::Password.new(self.password_hash).is_password? password
   end
 
   private

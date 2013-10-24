@@ -6,7 +6,7 @@ class Admin::InvitationsController < Admin::ApplicationController
 
   def new
     @invitation = SchoolInvitation.new
-    @code = SecureRandom.base64
+    @code = SecureRandom.urlsafe_base64
   end
 
   def create
