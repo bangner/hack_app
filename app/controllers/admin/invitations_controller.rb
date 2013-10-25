@@ -11,7 +11,7 @@ class Admin::InvitationsController < Admin::ApplicationController
 
   def create
     SchoolInvitation.create(school_invitation_permitted)
-    SchoolInvitationMailer.invite_school_admin(params[:school_invitation][:email], params[:school_invitation][:code]).deliver
+    SchoolInvitationMailer.invite_school_admin(params[:school_invitation][:email], params[:school_invitation][:school_id], params[:school_invitation][:code]).deliver
     redirect_to admin_invitations_path
   end
 

@@ -1,4 +1,4 @@
-class School::AdminsController < ApplicationController
+class AdminsController < ApplicationController
   before_filter :valid_invite, :only => [:new, :create]
 
   def new
@@ -19,17 +19,24 @@ class School::AdminsController < ApplicationController
     #   :card  => params[:stripe_card_token]
     # )
 
-    account = Account.new(school_administrator_permitted)
-    account.roles << Role.find_by_name(Role::SCHOOL_ADMIN)
+    @school_administrator = Account.new(school_administrator_permitted)
+    @school_administrator.roles << Role.find_by_name(Role::SCHOOL_ADMIN)
 
-    if account.save
-      invite = SchoolInvitation.find_by_code params[:code]
-      school = School.find_by_id invite.school_id
-      school.accounts << account
-      session[:account_id] = account.id
+    @invitation = SchoolInvitation.find_by_code params[:code]
+
+    if @school_administrator.save
+      school = School.find_by_id @invitation.school_id
+      school.accounts << @school_administrator
+
+      @invitation.expire!
+
+      session[:account_id] = @school_administrator.id
+
+      redirect_to school
+    else
+      render "admins/new"
     end
 
-    redirect_to school
   end
 
   private
@@ -44,7 +51,9 @@ class School::AdminsController < ApplicationController
   protected
     def valid_invite
       return redirect_to home_path unless params.key? :code
-      redirect_to home_path unless SchoolInvitation.find_by_code params[:code]
+      invitation = SchoolInvitation.find_by_code params[:code]
+      return redirect_to home_path unless invitation
+      redirect_to home_path if invitation.is_expired
     end
 
 end

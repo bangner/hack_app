@@ -2,6 +2,17 @@
 
 <%= form_for @school_administrator, url: {action: "create"} do |school_administrator_form| %>
 
+  <% if @school_administrator.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@school_administrator.errors.count, "error") %> prohibited this post from being saved:</h2>
+      <ul>
+      <% @school_administrator.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= hidden_field_tag :code, @invitation.code %>
 
   <div>

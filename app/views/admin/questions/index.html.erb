@@ -1,0 +1,31 @@
+<h1>Questions</h1>
+
+<ul>
+  <li>
+    <a href="<%= new_admin_question_path %>">New</a>
+  </li>
+</ul>
+
+<table>
+
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Label</th>
+    <th>Filter</th>
+    <th>Question Type</th>
+    <th>Extra</th>
+  </tr>
+ 
+  <% @questions.each do |question| %>
+  <tr>
+    <td><%= question.id %></td>
+    <td><%= question.name %></td>
+    <td><%= question.label %></td>
+    <td><%= question.filter %></td>
+    <td><%= question.question_type %></td>
+    <td><%= question.extra %></td>
+  </tr>
+  <% end %>
+
+</table>

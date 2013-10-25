@@ -78,8 +78,23 @@ HackappNew::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
+  # SMTP Settings
+  config.action_mailer.default_url_options = {
+    :host => 'localhost',
+    :port => 3000
+  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'hackapp.co',
+    :user_name            => 'johnreagan@hackapp.co',
+    :password             => 'wafWajdl0tea',
+    :authentication       => 'plain',
+    :enable_starttls_auto => true  }
+
   # Stripe API keys
   config.stripe_pk = "pk_live_3qplDPdakMqHxZGQBLVCmPU1"
   config.stripe_sk = "sk_live_hcdtG0ojcw1T4aE6o0MgSj4F"
-  
+
 end

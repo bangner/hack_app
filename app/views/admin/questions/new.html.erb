@@ -1,0 +1,34 @@
+<h1>Question (New)</h1>
+
+<%= form_for @question, url: {action: "create"} do |question_form| %>
+
+  <div>
+    <%= question_form.label :name, 'Name' %>
+    <%= question_form.text_field :name %>
+  </div>
+
+  <div>
+    <%= question_form.label :label, 'Label' %>
+    <%= question_form.text_field :label %>
+  </div>
+
+  <div>
+    <%= question_form.label :filter, 'Filter' %>
+    <%= question_form.text_field :filter %>
+  </div>
+
+  <div>
+    <%= question_form.label :question_type, 'Type' %>
+    <%= question_form.text_field :question_type %>
+  </div>
+
+  <div>
+    <%= question_form.label :extra, 'Extra' %>
+    <%= question_form.text_field :extra %>
+  </div>
+
+  <div>
+    <%= button_tag "Create", :name => "commit", :type => "submit" %>
+  </div>
+
+<% end %>

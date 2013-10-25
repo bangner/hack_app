@@ -2,14 +2,15 @@ HackappNew::Application.routes.draw do
 
   # Super Administration
   namespace :admin do
-    root 'application#index'
     resources :invitations, :only => [:index, :new, :create]
+    resources :questions, :only => [:index, :new, :create]
+    resources :schools, :only => [:index, :new, :create]
+    root 'application#index'
   end
 
   # Schools
-  resources :schools, :only => [:index, :show]
-  namespace :school do
-    resources :admins, :only => [:index, :new, :create], :path_names => { 'new' => 'register' }
+  resources :schools, :only => [:index, :show] do
+    resources :admins, :only => [:index, :new, :create], :path_names => { :new => 'register' }
   end
 
   # Login/Logout

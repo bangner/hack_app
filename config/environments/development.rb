@@ -38,7 +38,7 @@ HackappNew::Application.configure do
     :port                 => 587,
     :domain               => 'hackapp.co',
     :user_name            => 'stephen@hackapp.co',
-    :password             => 'wafWajdl0tea',
+    :password             => CONFIG["smtp_password"],
     :authentication       => 'plain',
     :enable_starttls_auto => true  }
 

@@ -1,6 +1,9 @@
 class Account < ActiveRecord::Base
+  before_validation :lowercase_email
   before_save :hash_password
+
   validates_presence_of :name, :email, :password_hash
+  validates :email, :uniqueness => true
 
   has_and_belongs_to_many :schools
   has_and_belongs_to_many :roles
@@ -18,6 +21,11 @@ class Account < ActiveRecord::Base
   private
     def hash_password
       self.password_hash = BCrypt::Password.create(self.password_hash)
+    end
+
+  private
+    def lowercase_email
+      self.email = self.email.downcase
     end
 
 end
