@@ -7,6 +7,33 @@
     <%= stylesheet_link_tag "main", media: "all" %>
   </head>
   <body>
+    <header>
+      <ul>
+        <li>
+          <a href="<%= schools_path %>">Schools</a>
+        </li>
+        <% if role_signed_in? Role::SUPER_ADMIN %>
+        <li>
+          <a href="<%= admin_root_path %>">Admin</a>
+        </li>
+        <% elsif role_signed_in? Role::SCHOOL_ADMIN %>
+        <li>
+          <a href="/">Profile</a>
+        </li>
+        <% elsif role_signed_in? Role::APPLICANT %>
+        <li>
+          <a href="/">Your Application</a>
+        </li>
+        <li>
+          <a href="/">Account*</a>
+        </li>
+        <% elsif guest? %>
+        <li>
+          <a href="<%= new_application_path %>">Apply Now</a>
+        </li>
+        <% end %>
+      </ul>
+    </header>
     <%= yield %>
     <%= javascript_include_tag "main" %>
     <%= yield :scripts %>

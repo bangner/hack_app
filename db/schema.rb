@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131021015658) do
+ActiveRecord::Schema.define(version: 20131028004017) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -73,6 +73,21 @@ ActiveRecord::Schema.define(version: 20131021015658) do
     t.string   "stripe_customer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
+    t.string   "duration"
+    t.string   "stack"
+    t.string   "website"
+    t.string   "email"
+    t.string   "twitter"
+    t.string   "facebook"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "price"
+    t.string   "video"
+    t.string   "zip"
+    t.text     "content"
+    t.text     "logo"
   end
 
 end

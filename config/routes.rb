@@ -8,6 +8,9 @@ HackappNew::Application.routes.draw do
     root 'application#index'
   end
 
+  # Applications
+  resources :applications, :only => [:new, :create]
+
   # Schools
   resources :schools, :only => [:index, :show] do
     resources :admins, :only => [:index, :new, :create], :path_names => { :new => 'register' }

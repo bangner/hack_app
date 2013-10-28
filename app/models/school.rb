@@ -1,6 +1,6 @@
 class School < ActiveRecord::Base
-  validates_presence_of :name
-  
+  validates_presence_of :name, :description, :duration, :stack, :website, :email, :street, :city, :state, :price, :zip, :logo
+
   has_and_belongs_to_many :accounts
   has_many :school_invitations
 

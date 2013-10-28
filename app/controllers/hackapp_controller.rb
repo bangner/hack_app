@@ -1,5 +1,5 @@
 class HackappController < ActionController::Base
-  helper_method :current_account, :account_signed_in?
+  helper_method :current_account, :account_signed_in?, :guest?, :role_signed_in?
 
   def current_account
     return nil if !session.key? "account_id"
@@ -32,6 +32,10 @@ class HackappController < ActionController::Base
 
   def account_signed_in?
     current_account
+  end
+
+  def guest?
+    current_account.nil?
   end
 
   def role_signed_in? role
