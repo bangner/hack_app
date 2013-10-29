@@ -1,0 +1,14 @@
+.site-nav li {
+  float: left;
+  margin-left: golden-factor(2);
+  &:first-child {
+    margin-left: 0;
+  }
+  a {
+    height: rem($header-height);
+    line-height: rem($header-height);
+
+    text-decoration: none;
+    color: #333;
+  }
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131028004017) do
+ActiveRecord::Schema.define(version: 20131029011651) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -29,6 +29,23 @@ ActiveRecord::Schema.define(version: 20131028004017) do
   create_table "accounts_schools", force: true do |t|
     t.integer "account_id"
     t.integer "school_id"
+  end
+
+  create_table "applicant_profiles", force: true do |t|
+    t.integer  "account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "applicant_profiles_questions", force: true do |t|
+    t.integer "applicant_profile_id"
+    t.integer "question_id"
+  end
+
+  create_table "applications", force: true do |t|
+    t.integer  "applicant_profile_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "questions", force: true do |t|
@@ -62,6 +79,14 @@ ActiveRecord::Schema.define(version: 20131028004017) do
     t.string   "email"
     t.string   "code"
     t.boolean  "is_expired", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "school_selections", force: true do |t|
+    t.integer  "priority"
+    t.integer  "school_id"
+    t.integer  "application_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

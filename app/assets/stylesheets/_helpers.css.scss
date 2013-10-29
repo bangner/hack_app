@@ -1,0 +1,125 @@
+/* Trimming */
+
+.trim {
+  @include trim("*");
+}
+
+.trim--p {
+  @include trim("p");
+}
+
+.trim--p--top {
+  @include trim-top("p");
+}
+
+.trim--p--bottom {
+  @include trim-bottom("p");
+}
+
+/* The ol' clearfix */
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Vertical Centering */
+
+.middle--outer {
+  font-size: 0;
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+}
+
+.middle--inner {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+
+/* Alignment */
+
+.align--left {
+  text-align: left;
+}
+
+.align--center {
+  text-align: center;
+}
+
+.align--right {
+  text-align: right;
+}
+
+/*img*/.dynamic {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Decoration */
+
+.bg--alpha {
+  background-color: $color-alpha;
+}
+
+.bg--beta {
+  background-color: $color-beta;
+}
+
+.case--upper {
+  text-transform: uppercase;
+}
+
+.case--lower {
+  text-transform: lowercase;
+}
+
+/* Layout */
+
+.gut {
+  max-width: rem($gut-max-width);
+
+  padding-left: golden-factor(1.5);
+  padding-right: golden-factor(1.5);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  @media only screen and (min-width: 480px) {
+    padding-left: golden-factor(2);
+    padding-right: golden-factor(2);
+  }
+}
+
+.list--layout {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+$list: 0 1 2 3 4 5 6 7 8 9 10;
+@each $pad in $list {
+  @each $direction in (top left bottom right) {
+    .pad--#{$direction}-#{$pad} {
+      padding-#{$direction}: factor($pad);
+    }
+    .space--#{$direction}-#{$pad} {
+      margin-#{$direction}: factor($pad);
+    }
+  }
+}
+
+.font--reset {
+  font-size: 0;
+}
+
+.flick--none {
+  @include backface-visibility(hidden);
+  @include perspective(1000);
+}

@@ -1,0 +1,20 @@
+/* Colors */
+
+$color-alpha: #3abc80;
+$color-alpha-light: lighten($color-alpha, 10%);
+$color-alpha-dark: darken($color-alpha, 10%);
+
+$color-beta: #6497cb;
+$color-beta-light: lighten($color-beta, 10%);
+$color-beta-dark: darken($color-beta, 10%);
+
+/* Typography */
+
+$font-size-base: 16;
+
+/* Layout */
+
+$golden-factor: 12px;
+$gut-max-width: 1140px;
+
+$header-height: 80px;

@@ -1,0 +1,10 @@
+.site-logo {
+  $logo-height: 29px;
+
+  display: block;
+  margin-top: rem(($header-height - $logo-height) / 2);
+  
+  background-image: image-url("logo@2x.png");
+  background-repeat: no-repeat;
+  @include retina-img(132px, $logo-height);
+}

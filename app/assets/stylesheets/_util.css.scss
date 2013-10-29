@@ -1,0 +1,131 @@
+$default-prefixes: webkit moz ms o;
+
+@mixin build-prefixes($property, $value, $prefixes: $default-prefixes) {
+  @each $prefix in $prefixes {
+    -#{$prefix}-#{$property}: #{$value};
+  }
+  #{$property}: #{$value};
+}
+
+@mixin box-sizing($bs) {
+  $bs: unquote($bs);
+  @include build-prefixes('box-sizing', $bs);
+}
+
+@mixin backface-visibility($bv) {
+  $bv: unquote($bv);
+  @include build-prefixes('backface-visibility', $bv); 
+}
+
+@mixin perspective($p) {
+  $p: unquote($p);
+  @include build-prefixes('perspective', $p); 
+}
+
+@mixin box-shadow($bs) {
+  $bs: unquote($bs);
+  @include build-prefixes('box-shadow', $bs);
+}
+
+@mixin transition($t...) {
+  $t: unquote($t);
+  @include build-prefixes('transition', $t);
+}
+
+@mixin transition-prefix($t...) {
+  $t: unquote($t);
+  @each $prefix in $default-prefixes {
+    -#{$prefix}-transition: -#{$prefix}-#{$t};
+  }
+  transition: #{$t};
+}
+
+@mixin animation($a...) {
+  $a: unquote($a);
+  @include build-prefixes('animation', $a);
+}
+
+@mixin text-rendering($tr) {
+  $tr: unquote($tr);
+  @include build-prefixes('text-rendering', $tr);
+}
+
+@mixin transform($t...) {
+  $t: unquote($t);
+  @include build-prefixes('transform', $t);
+}
+
+@mixin disable-select() {
+  -webkit-touch-callout: none;
+  @include build-prefixes('user-select', none);
+}
+
+@mixin retina-img($width, $height) {
+  background-size: rem($width) rem($height);
+  width: rem($width);
+  height: rem($height);
+}
+
+@mixin calc($property, $expression) { 
+  #{$property}: -moz-calc(#{$expression}); 
+  #{$property}: -o-calc(#{$expression}); 
+  #{$property}: -webkit-calc(#{$expression}); 
+  #{$property}: calc(#{$expression}); 
+} 
+
+@mixin opacity($value) {
+  opacity: $value;
+  filter: alpha(opacity=($value * 100));
+}
+
+@mixin trim($type) {
+  & > #{$type}:first-of-type {
+    padding-top: 0;
+    margin-top: 0;
+  }
+  & > #{$type}:last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+}
+
+@mixin trim-top($type) {
+  & > #{$type}:first-of-type {
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+
+@mixin trim-bottom($type) {
+  & > #{$type}:last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+}
+
+@mixin stretch-hor($offset: 0) {
+  left: $offset;
+  right: $offset;
+}
+
+@mixin stretch-ver($offset: 0) {
+  top: $offset;
+  bottom: $offset;
+}
+
+@mixin stretch($offset: 0) {
+  @include stretch-hor;
+  @include stretch-ver;
+}
+
+@function golden-factor($multiplier) {
+  @return rem($golden-factor * $multiplier);
+}
+
+@function rem($size) {
+  @return (strip-unit($size) / $font-size-base) + rem
+}
+
+@function strip-unit($number) {
+  @return $number / ($number * 0 + 1);
+}
