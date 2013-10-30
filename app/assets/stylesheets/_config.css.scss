@@ -2,11 +2,13 @@
 
 $color-alpha: #3abc80;
 $color-alpha-light: lighten($color-alpha, 10%);
-$color-alpha-dark: darken($color-alpha, 10%);
+$color-alpha-dark: darken($color-alpha, 3%);
 
 $color-beta: #6497cb;
 $color-beta-light: lighten($color-beta, 10%);
 $color-beta-dark: darken($color-beta, 10%);
+
+$color-bg-warm: #f7f5f2;
 
 /* Typography */
 
@@ -17,4 +19,18 @@ $font-size-base: 16;
 $golden-factor: 12px;
 $gut-max-width: 1140px;
 
-$header-height: 80px;
+$header-height: $golden-factor * 6.5;
+
+$feature-btn-height: $golden-factor * 3;
+
+/* Decoration */
+
+$border-radius-alpha: 4px;
+
+/* Effects */
+
+$speed-transition-xfast: .5s;
+$speed-transition-fast: .1s;
+$speed-transition: .2s;
+$speed-transition-slow: .4s;
+$speed-transition-xslow: .8s;

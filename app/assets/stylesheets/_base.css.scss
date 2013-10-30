@@ -3,12 +3,13 @@
 }
 
 html {
-  font-family: sans-serif;
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-size: percentage($font-size-base / 16);
   font-weight: 400;
 }
 
 body {
+  background-color: $color-bg-warm;
   position: relative;
 }
 

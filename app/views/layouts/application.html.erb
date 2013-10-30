@@ -7,9 +7,9 @@
     <%= stylesheet_link_tag "main", media: "all" %>
   </head>
   <body>
-    <header class="site-header group">
-      <div class="gut">
-        <%= image_tag "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7", class: "site-logo" %>
+    <header class="site-header">
+      <div class="gut group">
+        <%= link_to image_tag("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"), home_path, class: "site-logo" %>
         <nav class="site-nav" role="navigation">
           <ul class="list--layout group">
             <li>
@@ -31,7 +31,7 @@
               <a href="/">Account*</a>
             </li>
             <% elsif guest? %>
-            <li>
+            <li class="feature-btn">
               <a href="<%= new_application_path %>">Apply Now</a>
             </li>
             <% end %>
@@ -39,7 +39,9 @@
         </nav>
       </div>
     </header>
-    <%= yield %>
+    <section class="site-content">
+      <%= yield %>
+    </section>
     <%= javascript_include_tag "main" %>
     <%= yield :scripts %>
   </body>

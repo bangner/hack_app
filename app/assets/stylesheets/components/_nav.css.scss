@@ -1,14 +1,44 @@
 .site-nav li {
   float: left;
-  margin-left: golden-factor(2);
+  margin-left: golden-factor(0);
   &:first-child {
     margin-left: 0;
   }
   a {
+    display: block;
     height: rem($header-height);
-    line-height: rem($header-height);
+    padding: 0 golden-factor(2);
 
+    font-size: rem(14px);
+    font-weight: 700;
+    line-height: rem($header-height);
     text-decoration: none;
+
     color: #333;
+
+    @include transition(color $speed-transition ease-in-out);
+
+    &:hover {
+      color: $color-alpha;
+    }
+  }
+  &.feature-btn {
+    margin-left: rem(($header-height - $feature-btn-height) / 2); 
+    margin-top: rem(($header-height - $feature-btn-height) / 2);
+    a {
+      height: rem($feature-btn-height);
+      line-height: rem($feature-btn-height);
+      padding: 0 golden-factor(2);
+
+      background-color: $color-alpha;
+      border-radius: $border-radius-alpha;
+      color: white;
+
+      @include transition(background-color $speed-transition ease-in-out);
+
+      &:hover {
+        background-color: $color-alpha-dark;
+      }
+    }
   }
 }

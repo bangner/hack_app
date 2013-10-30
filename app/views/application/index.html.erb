@@ -1,25 +1,3 @@
-<h1>hack_app</h1>
+<section class="hero hero--home">
 
-<ul>
-  <li>
-    <a href="<%= schools_path %>">Schools</a>
-  </li>
-</ul>
-<ul>
-  <li>
-    <% if account_signed_in? %>
-    <a href="<%= logout_path %>"><%= current_account.name %> <%= current_account.roles.pluck(:name) %>, Logout</a>
-    <% if current_account.has_role? Role::SUPER_ADMIN %>
-    <span> | </span>
-    <a href="<%= admin_root_path %>">Admin</a>
-    <% end %>
-    <% else %>
-    <a href="<%= login_path %>">Login</a>
-    <% end %>
-  </li>
-</ul>
-<ul>
-  <li>
-    <a href="/">Applicant Signup</a>
-  </li>
-</ul>
+</section>
