@@ -1,0 +1,19 @@
+.filter {
+  position: relative;
+  &:after {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    right: golden-factor(.75);
+    margin-top: -7px;
+    width: 14px;
+    height: 14px;
+
+    background-image: image-url("admin/search.png");
+    opacity: .25;
+  }
+  input {
+    width: 100%;
+  }
+}

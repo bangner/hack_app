@@ -2,8 +2,7 @@ class HackappController < ActionController::Base
   helper_method :current_account, :account_signed_in?, :guest?, :role_signed_in?
 
   def current_account
-    return nil if !session.key? "account_id"
-    @current_account ||= Account.find_by_id(session[:account_id])
+    @current_account ||= Account.find_by_auth_token(cookies[:h_a]) if cookies[:h_a]
   end
 
   def guest_access_only

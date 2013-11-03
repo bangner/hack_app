@@ -1,21 +1,4 @@
-<h1><%= @school.name %></h1>
+<div class="gut">
+  <h1><%= @school.name %></h1>
+</div>
 
-<table>
-
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Stripe Customer ID</th>
-    <th>Created At</th>
-    <th>Admins</th>
-  </tr>
- 
-  <tr>
-    <td><%= @school.id %></td>
-    <td><%= @school.name %></td>
-    <td><%= @school.stripe_customer_id %></td>
-    <td><%= @school.created_at %></td>
-    <td><%= @school.accounts.pluck(:name) %></td>
-  </tr>
-
-</table>

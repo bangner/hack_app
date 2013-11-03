@@ -1,0 +1,28 @@
+<nav role="membership">
+  <ul class="list--layout group">
+    <% if role_signed_in? Role::SCHOOL_ADMIN %>
+    <li>
+      <a href="/">Profile</a>
+    </li>
+    <% elsif role_signed_in? Role::APPLICANT %>
+    <li class="featured">
+      <a href="/" class="btn--green">Your Application</a>
+    </li>
+    <li>
+      <a href="<%= logout_path %>">Log Out</a>
+    </li>
+    <% elsif guest? %>
+    <li class="featured">
+      <a href="<%= new_applicant_path %>" class="btn--green">Apply Now</a>
+    </li>
+    <li>
+      <a href="<%= login_path %>">Log In</a>
+    </li>
+    <% end %>
+    <% if role_signed_in? Role::SUPER_ADMIN %>
+    <li>
+      <a href="<%= admin_root_path %>" class="<%= active_admin %>">Admin</a>
+    </li>
+    <% end %>
+  </ul>
+</nav>

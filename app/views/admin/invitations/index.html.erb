@@ -1,33 +1,69 @@
-<h1>School Invitations</h1>
+<header class="admin-header">
+  <div class="gut group">
+    <h1>Invitations</h1>
+    <a href="<%= new_admin_invitation_path %>" class="add btn--green">New</a>
+  </div>
+</header>
 
-<ul>
-  <li>
-    <a href="<%= new_admin_invitation_path %>">New</a>
-  </li>
-</ul>
+<%= render partial: "admin/shared/subheader", locals: { result_count: @invitations.size } %>
 
-<table>
+<section class="admin-listing">
+  <div class="gut">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>School</th>
+          <th>Email</th>
+          <th>Invitation Code</th>
+          <th>Invited</th>
+          <th>Expired?</th>
+          <th>Expire</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invitations.each do |invitation| %>
+        <tr>
+          <td class="id"><%= invitation.id %></td>
+          <td class="js-filter-this"><%= invitation.school.name %></td>
+          <td class="js-filter-this"><%= invitation.email %></td>
+          <td class="js-filter-this"><%= invitation.code %></td>
+          <td class="js-filter-this"><%= invitation.created_at.strftime("%b %-d, %Y") %></td>
+          <td class="js-filter-this"><%= invitation.is_expired ? "Expired" : "Not Expired" %></td>
+          <td class="expire">
+            <a href="<%= admin_invitation_path(invitation.id, :format => :json) %>">Expire</a>
+          </td>
+          <td class="remove">
+            <a href="<%= admin_invitation_path(invitation.id, :format => :json) %>">Remove</a>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>
 
-  <tr>
-    <th>ID</th>
-    <th>School</th>
-    <th>Email</th>
-    <th>Code</th>
-    <th>Expired?</th>
-    <th>Expire</th>
-  </tr>
- 
-  <% @invitations.each do |invitation| %>
-  <tr>
-    <td><%= invitation.id %></td>
-    <td><%= invitation.school.name %></td>
-    <td><%= invitation.email %></td>
-    <td><%= invitation.code %></td>
-    <td><%= invitation.is_expired %></td>
-    <td>
-      <a href="">Expire</a>
-    </td>
-  </tr>
-  <% end %>
+<% content_for :scripts do %>
+<script>
+// Expire invitation
+$(document).on('click', '.admin-listing tbody td.expire a', function(e) {
+  e.stopPropagation();
+  e.preventDefault();
 
-</table>
+  if (confirm('Are you sure you want to expire this invitation?')) {
+    $.ajax({
+      url: $(this).attr('href'),
+      type: 'PATCH',
+      data: {
+        'school_invitation': {
+          'is_expired': true
+        }
+      }
+    }).done(function(result) {
+      location.reload();
+    });
+  }
+});
+</script>
+<% end %>

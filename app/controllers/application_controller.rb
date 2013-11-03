@@ -7,21 +7,29 @@ class ApplicationController < HackappController
 
   def login_post
     if @account = Account.find_by_email(params[:email])
-      if @account.is_password? params[:password]
-        session[:account_id] = @account.id
+      if @account.authenticate params[:password]
+
+        # Regenerate auth token
+        @account.generate_auth_token!
+
+        if params[:remember_me]
+          cookies.permanent[:h_a] = @account.auth_token
+        else
+          cookies[:h_a] = @account.auth_token
+        end
+
         return redirect_to home_path
       else
-        @error = "Improper credentials."
+        @error = "Sorry, that password wasn't right."
       end
     else
-      @error = "Couldn't find user with that email address."
+      @error = "Sorry, we couldn't find an account with that email."
     end
     render "application/login"
   end
 
   def logout
-    reset_session
-
+    cookies.delete(:h_a)
     redirect_to home_path
   end
 

@@ -1,0 +1,15 @@
+.admin-header {
+  padding: golden-factor(1.25) 0;
+  h1 {
+    float: left;
+    height: rem(36px);
+    line-height: rem(36px);
+
+    font-size: rem(22px);
+    font-weight: 500;
+    letter-spacing: -1px;
+  }
+  .add {
+    float: right;
+  }
+}

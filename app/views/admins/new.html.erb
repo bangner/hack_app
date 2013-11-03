@@ -1,42 +1,43 @@
-<h1>School Administrator Registration</h1>
+<div class="gut">
 
-<%= form_for @school_administrator, url: {action: "create"} do |school_administrator_form| %>
+  <%= form_for @school_administrator, url: {action: "create"} do |school_administrator_form| %>
 
-  <% if @school_administrator.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@school_administrator.errors.count, "error") %> prohibited this post from being saved:</h2>
-      <ul>
-      <% @school_administrator.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+    <% if @school_administrator.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@school_administrator.errors.count, "error") %> prohibited this post from being saved:</h2>
+        <ul>
+        <% @school_administrator.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= hidden_field_tag :code, @invitation.code %>
+
+    <div class="form-field">
+      <%= label_tag :name, 'School Name' %>
+      <%= text_field_tag :name, @invitation.school.name, :readonly => "readonly" %>
     </div>
+
+    <div class="form-field">
+      <%= school_administrator_form.label :name, 'Administrator Name' %>
+      <%= school_administrator_form.text_field :name %>
+    </div>
+
+    <div class="form-field">
+      <%= school_administrator_form.label :email, 'Administrator Email' %>
+      <%= school_administrator_form.email_field :email, :readonly => "readonly", :value => @invitation.email %>
+    </div>
+
+    <div class="form-field">
+      <%= school_administrator_form.label :password_hash, 'Password' %>
+      <%= school_administrator_form.password_field :password_hash %>
+    </div>
+
+    <div class="form-field">
+      <%= button_tag "Register", :name => "commit", :type => "submit", :class => "btn--green" %>
+    </div>
+
   <% end %>
-
-  <%= hidden_field_tag :code, @invitation.code %>
-
-  <div>
-    <%= label_tag :name, 'School Name' %>
-    <%= text_field_tag :name, @invitation.school.name, :readonly => "readonly" %>
-  </div>
-
-  <div>
-    <%= school_administrator_form.label :name, 'Administrator Name' %>
-    <%= school_administrator_form.text_field :name %>
-  </div>
-
-  <div>
-    <%= school_administrator_form.label :email, 'Administrator Email' %>
-    <%= school_administrator_form.email_field :email, :readonly => "readonly", :value => @invitation.email %>
-  </div>
-
-  <div>
-    <%= school_administrator_form.label :password_hash, 'Password' %>
-    <%= school_administrator_form.password_field :password_hash %>
-  </div>
-
-  <div>
-    <%= button_tag "Register", :name => "commit", :type => "submit" %>
-  </div>
-
-<% end %>
+</div>

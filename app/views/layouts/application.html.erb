@@ -5,44 +5,27 @@
     <%= favicon_link_tag 'favicon.ico' %>
     <%= stylesheet_link_tag "//cloud.typography.com/7222252/625882/css/fonts.css", media: "all" %>
     <%= stylesheet_link_tag "main", media: "all" %>
+    <%= stylesheet_link_tag "admin", media: "all" if admin_namespace? %>
+    <%= yield :styles %>
   </head>
-  <body>
+  <body class="<%= "admin " if admin_namespace? %><%= controller_name %> <%= action_name %>">
     <header class="site-header">
       <div class="gut group">
         <%= link_to image_tag("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"), home_path, class: "site-logo" %>
-        <nav class="site-nav" role="navigation">
-          <ul class="list--layout group">
-            <li>
-              <a href="<%= schools_path %>">Schools</a>
-            </li>
-            <% if role_signed_in? Role::SUPER_ADMIN %>
-            <li>
-              <a href="<%= admin_root_path %>">Admin</a>
-            </li>
-            <% elsif role_signed_in? Role::SCHOOL_ADMIN %>
-            <li>
-              <a href="/">Profile</a>
-            </li>
-            <% elsif role_signed_in? Role::APPLICANT %>
-            <li>
-              <a href="/">Your Application</a>
-            </li>
-            <li>
-              <a href="/">Account*</a>
-            </li>
-            <% elsif guest? %>
-            <li class="feature-btn">
-              <a href="<%= new_application_path %>">Apply Now</a>
-            </li>
-            <% end %>
-          </ul>
-        </nav>
+        <div class="site-nav group">
+          <%= render "shared/nav/main" %>
+          <%= render "shared/nav/membership" %>
+        </div>
       </div>
     </header>
+    <% if admin_namespace? %>
+    <%= render "admin/shared/menu" %>
+    <% end %>
     <section class="site-content">
       <%= yield %>
     </section>
     <%= javascript_include_tag "main" %>
+    <%= javascript_include_tag "admin" if admin_namespace? %>
     <%= yield :scripts %>
   </body>
 </html>

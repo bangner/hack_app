@@ -1,0 +1,7 @@
+.admin-manage {
+  padding: golden-factor(2) 0;
+  form {
+    max-width: 720px;
+    @include block-center;
+  }
+}

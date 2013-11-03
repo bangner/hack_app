@@ -1,0 +1,46 @@
+<header class="admin-header">
+  <div class="gut group">
+    <h1>Edit Account</h1>
+    <a href="<%= admin_accounts_path %>" class="add btn--green">Listing</a>
+  </div>
+</header>
+<section class="admin-subheader">
+  <div class="gut group">
+    <div class="info--primary">
+      Use this form to manage an existing account.
+    </div>
+  </div>
+</section>
+<section class="admin-manage">
+  <div class="gut">
+    <%= form_for @account, url: { action: "update" } do |account_form| %>
+
+      <div class="form-field-group--double group">
+        <div class="form-field">
+          <%= account_form.label :name, 'Name' %>
+          <%= account_form.text_field :name %>
+        </div>
+        <div class="form-field">
+          <%= account_form.label :email, 'Email' %>
+          <%= account_form.text_field :email %>
+        </div>
+      </div>
+
+      <div class="form-field-group--double group">
+        <div class="form-field">
+          <%= label_tag :password_hash, 'Password Hash' %>
+          <%= text_field_tag :password_hash, account_form.object.password_hash, :readonly => "readonly" %>
+        </div>
+        <div class="form-field">
+          <%= account_form.label :role_ids, 'Roles' %>
+          <%= account_form.select(:role_ids, options_for_select(Role.all.map {|r| [r.name, r.id]}, account_form.object.roles.pluck(:id)), { :include_hidden => false }, { :multiple => true, :size => 3 }) %>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <%= button_tag "Update", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+
+    <% end %>
+  </div>
+</section>

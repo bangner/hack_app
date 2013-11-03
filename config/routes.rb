@@ -2,19 +2,27 @@ HackappNew::Application.routes.draw do
 
   # Super Administration
   namespace :admin do
-    resources :invitations, :only => [:index, :new, :create]
-    resources :questions, :only => [:index, :new, :create]
-    resources :schools, :only => [:index, :new, :create]
-    root 'application#index'
+    resources :accounts, :except => [:new, :create]
+    resources :schools
+    resources :questions
+    resources :invitations, :except => [:edit]
+    root :to => redirect('/admin/accounts')
   end
 
-  # Applications
-  resources :applications, :only => [:new, :create]
+  # Applicants
+  resources :applicants, :except => [:index, :show, :destroy], :path_names => { :new => 'register' }
+  get 'applicants/:id/:slug' => 'applicants#show', as: 'applicant_seo'
 
-  # Schools
+  # Schools and School Admins
   resources :schools, :only => [:index, :show] do
     resources :admins, :only => [:index, :new, :create], :path_names => { :new => 'register' }
   end
+  resources :admins, :only => [:edit, :update]
+  get 'schools/:id/:slug' => 'schools#show', as: 'school_seo'
+
+  # Apply
+  get 'apply', to: 'application#apply_get', as: 'apply'
+  post 'apply', to: 'application#apply_post', as: 'apply_post'
 
   # Login/Logout
   get 'login', to: 'application#login_get', as: 'login'

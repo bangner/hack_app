@@ -1,14 +1,8 @@
-<h1>School (New)</h1>
-
-<%= form_for @school, url: {action: "create"} do |school_form| %>
-
-  <div>
-    <%= school_form.label :name, 'School Name' %>
-    <%= school_form.text_field :name %>
-  </div>
-
-  <div>
-    <%= button_tag "Create", :name => "commit", :type => "submit" %>
-  </div>
-
-<% end %>
+<%=
+render partial: "admin/schools/manage", locals: {
+  action: "New",
+  action_complete: "Create",
+  instructions: "Use this form to create a new school.",
+  school: @school
+}
+%>

@@ -1,8 +1,8 @@
 class School < ActiveRecord::Base
-  validates_presence_of :name, :description, :duration, :stack, :website, :email, :street, :city, :state, :price, :zip, :logo
+  validates_presence_of :name, :description, :website, :email, :logo
 
-  has_and_belongs_to_many :accounts
-  has_many :school_invitations
+  has_and_belongs_to_many :admins, class_name: "Account"
+  has_many :school_invitations, :dependent => :destroy
 
   belongs_to :primary_application,
     class_name: "SchoolApplication",
@@ -14,5 +14,5 @@ class School < ActiveRecord::Base
     :foreign_key => 'secondary_application_id',
     dependent: :destroy
 
-  accepts_nested_attributes_for :accounts
+  accepts_nested_attributes_for :admins
 end

@@ -1,0 +1,34 @@
+<header class="admin-header">
+  <div class="gut group">
+    <h1>Accounts</h1>
+  </div>
+</header>
+
+<%= render partial: "admin/shared/subheader", locals: { result_count: @accounts.size } %>
+
+<section class="admin-listing">
+  <div class="gut">
+    <table class="editable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th>Registered</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @accounts.each do |account| %>
+        <tr>
+          <td class="id" data-edit-path="<%= edit_admin_account_path(account.id) %>"><%= account.id %></td>
+          <td class="js-filter-this"><%= account.name %></td>
+          <td class="js-filter-this"><%= account.email %></td>
+          <td class="js-filter-this"><%= account.roles.pluck(:name).join(", ") %></td>
+          <td class="js-filter-this"><%= account.created_at.strftime("%b %-d, %Y at %l:%M%P") %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

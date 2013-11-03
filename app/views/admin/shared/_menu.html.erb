@@ -1,0 +1,18 @@
+<header class="site-subheader">
+  <div class="gut">
+    <ul class="list--layout group">
+      <li class="<%= active_controller("admin/accounts") %>">
+        <a href="<%= admin_accounts_path %>">Accounts</a>
+      </li>
+      <li class="<%= active_controller("admin/schools") %>">
+        <a href="<%= admin_schools_path %>">Schools</a>
+      </li>
+      <li class="<%= active_controller("admin/invitations") %>">
+        <a href="<%= admin_invitations_path %>">Invitations</a>
+      </li>
+      <li class="<%= active_controller("admin/questions") %>">
+        <a href="<%= admin_questions_path %>">Questions</a>
+      </li>
+    </ul>
+  </div>
+</header>

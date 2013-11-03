@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131029011651) do
+ActiveRecord::Schema.define(version: 20131103020923) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20131029011651) do
     t.string   "password_hash"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "auth_token"
   end
 
   create_table "accounts_roles", force: true do |t|
@@ -51,11 +52,12 @@ ActiveRecord::Schema.define(version: 20131029011651) do
   create_table "questions", force: true do |t|
     t.string   "name"
     t.text     "label"
-    t.string   "filter"
+    t.string   "group"
     t.string   "question_type"
-    t.text     "extra"
+    t.text     "helper"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_optional",   default: false
   end
 
   create_table "questions_school_applications", force: true do |t|
@@ -99,20 +101,13 @@ ActiveRecord::Schema.define(version: 20131029011651) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.string   "duration"
-    t.string   "stack"
     t.string   "website"
     t.string   "email"
     t.string   "twitter"
     t.string   "facebook"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "price"
     t.string   "video"
-    t.string   "zip"
-    t.text     "content"
     t.text     "logo"
+    t.string   "video_source"
   end
 
 end

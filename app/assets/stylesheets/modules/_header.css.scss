@@ -2,10 +2,11 @@
   background-color: white;
   height: rem($header-height);
 
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .06);
+  border-bottom: 1px solid rgba(0, 0, 0, .075);
 
   .site-logo {
     float: left;
+    margin-top: rem(($header-height - $logo-height) / 2);
   }
 
   .site-nav {

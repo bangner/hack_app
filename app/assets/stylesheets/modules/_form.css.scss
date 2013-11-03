@@ -1,0 +1,60 @@
+.form-wrap {
+  max-width: rem(400px);
+  @include block-center;
+
+  h1 {
+    margin-bottom: golden-factor(2);
+
+    font-size: rem(20px);
+    letter-spacing: -2px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}
+
+.form-field {
+  margin-top: golden-factor(2);
+  em {
+    display: block;
+    margin-top: golden-factor(.5);
+  }
+}
+
+.form-field-group .form-field {
+  float: left;
+}
+
+.form-field-group--double {
+  @extend .form-field-group;
+  .form-field {
+    width: 50%;
+    &:nth-child(1) {
+      padding-right: golden-factor(2);
+    }
+    &:nth-child(2) {
+      padding-left: golden-factor(2);
+    }
+  }
+}
+
+/* Nested field adjustments */
+.form-field {
+  .form-field {
+    margin-top: 0;
+  }
+  .form-field-group--double .form-field {
+    &:first-child {
+      padding-right: golden-factor(1);
+    }
+    &:nth-child(2) {
+      padding-left: golden-factor(1);
+    }
+  }
+}
+
+.form-error {
+  padding: golden-factor(1) golden-factor(2);
+
+  background-color: #f5b7ab;
+  border-radius: $border-radius;
+}

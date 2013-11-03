@@ -36,7 +36,6 @@
   h1 {
     margin: 0;
 
-    font-family: 'Gotham SSm A', 'Gotham SSm B', sans-serif;
     font-weight: 700;
     font-size: 38px;
     letter-spacing: -1px;
@@ -56,32 +55,11 @@
 
   button {
     margin-top: golden-factor(4);
-    padding: golden-factor(1) golden-factor(2);
-
-    font-size: 14px;
-    font-weight: bold;
-
-    border: 2px solid rgba(white, .5);
-    border-radius: 4px;
-    background: transparent;
-    color: white;
-    outline: none;
-    -webkit-appearance: none;
-
-    @include transition(border-color $speed-transition ease-in-out);
-
-    &:hover {
-      border-color: rgba(white, 1);
-    }
-
     &.apply {
       margin-left: golden-factor(2);
-
       border: 2px solid $color-alpha;
-      background-color: $color-alpha;
-
       &:hover {
-        background-color: $color-alpha-dark;
+        border-color: $color-alpha-dark;
       }
     }
   }

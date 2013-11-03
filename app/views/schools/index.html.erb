@@ -2,7 +2,7 @@
   <ul class="schools">
     <% @schools.each do |school| %>
     <li class="school">
-      
+      <a href="<%= school_seo_path(school.id, school.name.parameterize) %>"><%= school.name %></a>
     </li>
     <% end %>
   </ul>

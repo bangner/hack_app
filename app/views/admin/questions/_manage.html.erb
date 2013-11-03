@@ -1,0 +1,94 @@
+<header class="admin-header">
+  <div class="gut group">
+    <h1><%= action %> Question</h1>
+    <a href="<%= admin_questions_path %>" class="add btn--green">Listing</a>
+  </div>
+</header>
+<section class="admin-subheader">
+  <div class="gut group">
+    <div class="info--primary">
+      <%= instructions %>
+    </div>
+  </div>
+</section>
+<section class="admin-manage">
+  <div class="gut">
+    <%= form_for question, url: { action: action_complete.downcase } do |question_form| %>
+
+      <div class="form-field-group--double group">
+        <div class="form-field">
+          <%= question_form.label :name, 'Name' %>
+          <%= question_form.text_field :name %>
+        </div>
+        <div class="form-field">
+          <%= question_form.label :group, 'Group' %>
+          <div class="select-wrap">
+            <%= question_form.select :group, [['Primary', 'primary'], ['Secondary', 'secondary']] %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <%= question_form.label :label, 'Label' %>
+        <%= question_form.text_field :label %>
+        <em>Actual question that will be displayed to the user.</em>
+      </div>
+
+      <div class="form-field-group--double group">
+        <div class="form-field">
+          <%= question_form.label :is_optional, 'Optional?' %>
+          <div class="select-wrap">
+            <%= question_form.select :is_optional, [['No', false], ['Yes', true]] %>
+          </div>
+        </div>
+        <div class="form-field">
+          <%= question_form.label :question_type, 'Type' %>
+          <div class="select-wrap">
+            <%= question_form.select :question_type, @existing_types %>
+          </div>
+        </div>
+        <div class="form-field" style="display: none;">
+          <%= label_tag :question_type_other, 'New Type' %>
+          <%= text_field_tag :question_type_other %>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <%= question_form.label :helper, 'Helper' %>
+        <%= question_form.text_area :helper, :class => "code" %>
+        <em>
+          Additional information that this question might need (e.g. multiple-choice options).
+          <br />
+          <strong>Helper information will be parsed as a JSON object.</strong>
+        </em>
+      </div>
+
+      <div class="form-field">
+        <%= button_tag action_complete, :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+
+    <% end %>
+  </div>
+</section>
+
+<% content_for :scripts do %>
+<script>
+var $questionType = $('[name="question[question_type]"]'),
+    $fieldsToWrap = $questionType.closest('.form-field');
+    $fieldsToWrap = $fieldsToWrap.add($fieldsToWrap.next());
+
+$questionType.on('change', handleChange);
+handleChange();
+
+function handleChange() {
+  if ($questionType.val() == "Other") {
+    $fieldsToWrap.wrapAll('<div class="form-field"><div class="form-field-group--double group"></div></div>');
+    $fieldsToWrap.last().show();
+  } else if (!$fieldsToWrap.is(':hidden')) {
+    $fieldsToWrap.last().hide();
+    $fieldsToWrap.unwrap();
+    $fieldsToWrap.unwrap();
+  }
+}
+</script>
+<% end %>

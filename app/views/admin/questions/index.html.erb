@@ -1,31 +1,41 @@
-<h1>Questions</h1>
+<header class="admin-header">
+  <div class="gut group">
+    <h1>Questions</h1>
+    <a href="<%= new_admin_question_path %>" class="add btn--green">New</a>
+  </div>
+</header>
 
-<ul>
-  <li>
-    <a href="<%= new_admin_question_path %>">New</a>
-  </li>
-</ul>
+<%= render partial: "admin/shared/subheader", locals: { result_count: @questions.size } %>
 
-<table>
-
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Label</th>
-    <th>Filter</th>
-    <th>Question Type</th>
-    <th>Extra</th>
-  </tr>
- 
-  <% @questions.each do |question| %>
-  <tr>
-    <td><%= question.id %></td>
-    <td><%= question.name %></td>
-    <td><%= question.label %></td>
-    <td><%= question.filter %></td>
-    <td><%= question.question_type %></td>
-    <td><%= question.extra %></td>
-  </tr>
-  <% end %>
-
-</table>
+<section class="admin-listing">
+  <div class="gut">
+    <table class="editable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Label</th>
+          <th>Group</th>
+          <th>Question Type</th>
+          <th>Is Optional?</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @questions.each do |question| %>
+        <tr>
+          <td class="id" data-edit-path="<%= edit_admin_question_path(question.id) %>"><%= question.id %></td>
+          <td class="js-filter-this"><%= question.name %></td>
+          <td class="js-filter-this"><%= question.label %></td>
+          <td class="js-filter-this"><%= question.group %></td>
+          <td class="js-filter-this"><%= question.question_type %></td>
+          <td class="js-filter-this"><%= question.is_optional %></td>
+          <td class="remove">
+            <a href="<%= admin_question_path(question.id, :format => :json) %>">Remove</a>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

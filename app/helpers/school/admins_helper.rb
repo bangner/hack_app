@@ -1,2 +1,0 @@
-module School::AdminsHelper
-end

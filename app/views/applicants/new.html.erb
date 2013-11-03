@@ -1,0 +1,21 @@
+<div class="gut">
+  <div class="form-wrap">
+    <%= form_for @applicant, url: {action: "create"} do |applicant_form| %>
+      <div class="form-field">
+        <%= applicant_form.label :name, 'Name' %>
+        <%= applicant_form.text_field :name %>
+      </div>
+      <div class="form-field">
+        <%= applicant_form.label :email, 'Email' %>
+        <%= applicant_form.email_field :email %>
+      </div>
+      <div class="form-field">
+        <%= applicant_form.label :password_hash, 'Password' %>
+        <%= applicant_form.password_field :password_hash %>
+      </div>
+      <div class="form-field">
+        <%= button_tag "Register", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+    <% end %>
+  </div>
+</div>

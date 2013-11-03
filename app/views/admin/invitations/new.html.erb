@@ -1,24 +1,38 @@
-<h1>School Invitations (New)</h1>
-
-<%= form_for @invitation, url: {action: "create"} do |invitation_form| %>
-
-  <div>
-    <%= invitation_form.label :school_id, 'School' %>
-    <%= invitation_form.collection_select :school_id, School.all, :id, :name %>
+<header class="admin-header">
+  <div class="gut group">
+    <h1>New Invitation</h1>
+    <a href="<%= admin_invitations_path %>" class="add btn--green">Listing</a>
   </div>
-
-  <div>
-    <%= invitation_form.label :email, 'School Administrator Email' %>
-    <%= invitation_form.email_field :email %>
+</header>
+<section class="admin-subheader">
+  <div class="gut group">
+    <div class="info--primary">
+      Use this form to create a new invitation for a school administrator. It is important for the school to be first created before an administrator can register for that school.
+    </div>
   </div>
-
-  <div>
-    <%= invitation_form.label :code, 'Invitation Code' %>
-    <%= invitation_form.text_field :code, :readonly => "readonly", :value => @code %>
+</section>
+<section class="admin-manage">
+  <div class="gut">
+    <%= form_for @invitation, url: { action: "create" } do |invitation_form| %>
+      <div class="form-field-group--double group">
+        <div class="form-field">
+          <%= invitation_form.label :email, 'Email of School Administrator' %>
+          <%= invitation_form.email_field :email %>
+        </div>
+        <div class="form-field">
+          <%= invitation_form.label :school_id, 'School' %>
+          <div class="select-wrap">
+            <%= invitation_form.collection_select :school_id, School.all, :id, :name %>
+          </div>
+        </div>
+      </div>
+      <div class="form-field">
+        <%= invitation_form.label :code, 'Invitation Code' %>
+        <%= invitation_form.text_field :code, :readonly => "readonly", :value => @code %>
+      </div>
+      <div class="form-field">
+        <%= button_tag "Create", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+    <% end %>
   </div>
-
-  <div>
-    <%= button_tag "Create", :name => "commit", :type => "submit" %>
-  </div>
-
-<% end %>
+</section>

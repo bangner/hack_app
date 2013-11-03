@@ -19,18 +19,19 @@ class AdminsController < ApplicationController
     #   :card  => params[:stripe_card_token]
     # )
 
-    @school_administrator = Account.new(school_administrator_permitted)
-    @school_administrator.roles << Role.find_by_name(Role::SCHOOL_ADMIN)
+    admin = Account.new(school_administrator_permitted)
+    admin.roles << Role.find_by_name(Role::SCHOOL_ADMIN)
 
-    @invitation = SchoolInvitation.find_by_code params[:code]
+    invitation = SchoolInvitation.find_by_code params[:code]
 
-    if @school_administrator.save
-      school = School.find_by_id @invitation.school_id
-      school.accounts << @school_administrator
+    if admin.save
+      school = School.find_by_id invitation.school_id
+      school.admins << admin
+      school.save
 
-      @invitation.expire!
+      invitation.expire!
 
-      session[:account_id] = @school_administrator.id
+      cookies[:h_a] = admin.auth_token
 
       redirect_to school
     else

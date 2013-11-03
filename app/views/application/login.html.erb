@@ -1,14 +1,28 @@
-<h1>Login</h1>
-
-<%= form_tag do %>
-  <p><%= @error %></p>
-  <div>
-    <%= label_tag :email, "Email" %>
-    <%= email_field_tag :email %>
+<div class="gut">
+  <div class="form-wrap">
+    <%= form_tag do %>
+      <% if @error %>
+      <div class="form-error">
+        <%= @error %>
+      </div>
+      <% end %>
+      <fieldset>
+        <div class="form-field">
+          <%= label_tag :email, "Email" %>
+          <%= email_field_tag :email %>
+        </div>
+        <div class="form-field">
+          <%= label_tag :password, "Password" %>
+          <%= password_field_tag :password %>
+        </div>
+        <div class="form-field">
+          <%= label_tag :remember_me, "Stay logged in" %>
+          <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+        </div>
+      </fieldset>
+      <div class="form-field">
+        <%= button_tag "Log In", :type => "submit", :class => "btn--green" %>
+      </div>
+    <% end %>
   </div>
-  <div>
-    <%= label_tag :password, "Password" %>
-    <%= password_field_tag :password %>
-  </div>
-  <%= button_tag "Login", :type => "submit" %>
-<% end %>
+</div>

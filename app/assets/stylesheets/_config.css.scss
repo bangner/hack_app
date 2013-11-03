@@ -1,3 +1,9 @@
+/* Logo */
+
+$logo-ratio: 132px / 29px;
+$logo-width: 118px;
+$logo-height: $logo-width / $logo-ratio;
+
 /* Colors */
 
 $color-alpha: #3abc80;
@@ -10,9 +16,11 @@ $color-beta-dark: darken($color-beta, 10%);
 
 $color-bg-warm: #f7f5f2;
 
+$color-text: #666;
+
 /* Typography */
 
-$font-size-base: 16;
+$font-size-base: 15;
 
 /* Layout */
 
@@ -21,11 +29,13 @@ $gut-max-width: 1140px;
 
 $header-height: $golden-factor * 6.5;
 
-$feature-btn-height: $golden-factor * 3;
+/* Buttons */
+
+$btn-height: $golden-factor * 3;
 
 /* Decoration */
 
-$border-radius-alpha: 4px;
+$border-radius: 4px;
 
 /* Effects */
 
