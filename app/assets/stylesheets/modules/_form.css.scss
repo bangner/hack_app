@@ -47,6 +47,17 @@
   }
 }
 
+.form-wrap-intro {
+  padding: golden-factor(2) golden-factor(8);
+  margin-left: golden-factor(-3.5);
+  margin-right: golden-factor(-3.5);
+  margin-bottom: golden-factor(4);
+
+  text-align: center;
+
+  background-color: $color-gamma;
+}
+
 .form-wrap--big {
   @extend .form-wrap;
   max-width: rem(720px);
@@ -77,6 +88,12 @@
     &:nth-child(2) {
       padding-left: golden-factor(2);
     }
+  }
+}
+
+.form-field--questions {
+  li {
+    margin: golden-factor(1) 0;
   }
 }
 

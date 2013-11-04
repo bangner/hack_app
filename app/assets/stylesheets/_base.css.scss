@@ -216,6 +216,56 @@ input[type="checkbox"] {
   width: auto;
 }
 
+.checkbox-wrap {
+  $checkbox-size: 28px;
+
+  input[type="checkbox"] {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+    width: rem($checkbox-size);
+    height: rem($checkbox-size);
+
+    border: 0;
+    box-shadow: none;
+    background-image: image-url('checkbox@2x.png');
+    background-size: auto $checkbox-size;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    -webkit-appearance: none;
+
+    opacity: .75;
+  }
+
+  input[type="checkbox"]:hover {
+    background-position: -($checkbox-size * 1) 0;
+  }
+
+  input[type="checkbox"]:checked {
+    background-position: -($checkbox-size * 2) 0;
+  }
+
+  label {
+    display: inline-block;
+    margin-bottom: 0;
+    position: relative;
+    top: golden-factor(-.5);
+    margin-left: golden-factor(.5);
+
+    font-family: 'Whitney SSm A', 'Whitney SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: rem(18px);
+    font-weight: 500;
+    color: black;
+
+    height: rem($checkbox-size);
+    line-height: rem($checkbox-size);
+    text-transform: none;
+  }
+}
+
 /* Sticky footer */
 
 .site-wrap {

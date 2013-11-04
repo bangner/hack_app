@@ -35,6 +35,39 @@
               <%= school_form.email_field :email %>
             </div>
           </div>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= school_form.label :twitter, "Twitter Handle" %>
+              <%= school_form.text_field :twitter %>
+            </div>
+            <div class="form-field">
+              <%= school_form.label :facebook, "Facebook Handle" %>
+              <%= school_form.text_field :facebook %>
+            </div>
+          </div>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= school_form.label :logo, 'Logo' %>
+              <% unless school_form.object.new_record? %>
+              <img src="<%= school_form.object.logo %>" class="dynamic" />
+              <% end %>
+              <%= school_form.file_field :logo %>
+            </div>
+            <div class="form-field">
+              <div class="form-field-group--double group">
+                <div class="form-field">
+                  <%= school_form.label :video_source, 'Video Source' %>
+                  <div class="select-wrap">
+                    <%= school_form.select :video_source, [['Vimeo', 'vimeo'], ['YouTube', 'youtube'], ['Wistia', 'wistia']] %>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <%= school_form.label :video, 'Video ID' %>
+                  <%= school_form.text_field :video %>
+                </div>
+              </div>
+            </div>
+          </div>
         </fieldset>
       </div>
 
@@ -42,11 +75,26 @@
       <div class="form-wrap--big">
         <fieldset>
           <legend><%= application_set.titlecase %> Application Questions</legend>
-          <ul>
+          <div class="form-wrap-intro">
+            Which questions from the <strong><%= application_set %></strong> application are you interested in knowing from the applicants? Select all relevant ones below.
+          </div>
+          <ul class="form-field--questions list--layout trim">
             <% questions.each do |question| %>
             <li>
-              <input type="checkbox" name="questions[<%= question.id %>]" value="yes" />
-              <%= question.label %>
+              <div class="checkbox-wrap">
+                <%
+                if @applications[application_set]
+                  question_check = @applications[application_set].questions.find_by_id(question.id)
+                  is_checked = question_check ? true : false
+                elsif application_set.eql? "primary"
+                  is_checked = true
+                else
+                  is_checked = false
+                end
+                %>
+                <%= check_box_tag("questions[#{application_set}][#{question.id}]", "1", is_checked) %>
+                <%= label_tag("questions[#{application_set}][#{question.id}]", question.label) %>
+              </div>
             </li>
             <% end %>
           </ul>
@@ -57,24 +105,46 @@
       <div class="form-wrap--big">
         <fieldset>
           <legend>Credit Card Information</legend>
+          <div class="form-wrap-intro">
+            In order to receive applications, we need to have a valid credit card on file. This way we can receive a conversion fee for when applicants from hack_app enroll in your school.
+          </div>
           <div class="form-field-group--double group">
             <div class="form-field first">
-              <%= label_tag :card_number, "Card Number" %>
-              <%= text_field_tag :card_number, nil, :size => 20, 'data-stripe' => 'number' %>
+              <% number_value = @stripe_customer_card ? @stripe_customer_card.last4.rjust(16, '*') : "" %>
+              <label for="stripe_card_number">Card Number</label>
+              <input id="stripe_card_number" type="text" size="20" data-stripe="number" value="<%= number_value %>" />
             </div>
             <div class="form-field first">
-              <%= label_tag :cvc, "CVC" %>
-              <%= text_field_tag :cvc, nil, :size => 4, 'data-stripe' => 'cvc' %>
+              <label for="stripe_cvc">CVC</label>
+              <input id="stripe_cvc" type="text" size="4" data-stripe="cvc" />
             </div>
           </div>
           <div class="form-field-group--double group">
             <div class="form-field">
-              <%= label_tag :card_exp_month, "Expiration (MM)" %>
-              <%= text_field_tag :card_exp_month, nil, :size => 2, 'data-stripe' => 'exp-month' %>
+              <%
+              @months = [['-', '']]
+              (1..12).each {|m| @months << [Date::MONTHNAMES[m] + " (#{m})", m]}
+              exp_month_value = @stripe_customer_card ? @stripe_customer_card.exp_month : ""
+              %>
+              <label for="stripe_exp_month">Expiration (Month)</label>
+              <div class="select-wrap">
+                <select id="stripe_exp_month" data-stripe="exp-month">
+                  <%= options_for_select(@months, exp_month_value) %>
+                </select>
+              </div>
             </div>
             <div class="form-field">
-              <%= label_tag :card_exp_year, "Expiration (YYYY)" %>
-              <%= text_field_tag :card_exp_year, nil, :size => 4, 'data-stripe' => 'exp-year' %>
+              <%
+              @years = [['-', '']]
+              (Time.now.year.to_i).upto(2023).to_a.each {|y| @years << [y, y]}
+              exp_year_value = @stripe_customer_card ? @stripe_customer_card.exp_year : ""
+              %>
+              <label for="stripe_exp_year">Expiration (Year)</label>
+              <div class="select-wrap">
+                <select id="stripe_exp_year" data-stripe="exp-year">
+                  <%= options_for_select(@years, exp_year_value) %>
+                </select>
+              </div>
             </div>
           </div>
         </fieldset>
@@ -93,22 +163,30 @@
   <%= javascript_include_tag "https://js.stripe.com/v2/" %>
   <script>
     Stripe.setPublishableKey("<%= Rails.configuration.stripe_pk %>");
-    jQuery(function($) {
-      $('#new_school_administrator').submit(function(event) {
-        var $form = $(this);
-        $form.find('button').prop('disabled', true);
-        Stripe.card.createToken($form, function(status, response) {
-          if (response.error) {
-            $form.find('.payment-errors').text(response.error.message);
-            $form.find('button').prop('disabled', false);
-          } else {
-            var token = response.id;
-            $form.append($('<input type="hidden" name="stripe_card_token" />').val(token));
-            $form.get(0).submit();
-          }
-        });
-        return false;
+    $('form.edit_school').submit(function(event) {
+      var $form = $(this),
+          cardNumber = $.trim($form.find('[data-stripe="number"]').val()),
+          cvc = $.trim($form.find('[data-stripe="cvc"]').val()),
+          expMonth = $.trim($form.find('[data-stripe="exp-month"]').val()),
+          expYear = $.trim($form.find('[data-stripe="exp-year"]').val()),
+          newCard = cardNumber.length && cvc.length && expMonth.length && expYear.length && (cardNumber.indexOf("*") === -1);
+
+      if (!newCard) {
+        return true;
+      }
+
+      $form.find('button').prop('disabled', true);
+      Stripe.card.createToken($form, function(status, response) {
+        if (response.error) {
+          $form.find('.form-error').text(response.error.message);
+          $form.find('button').prop('disabled', false);
+        } else {
+          var token = response.id;
+          $form.append($('<input type="hidden" name="stripe_card_token" />').val(token));
+          $form.get(0).submit();
+        }
       });
+      return false;
     });
   </script>
 <% end %>
