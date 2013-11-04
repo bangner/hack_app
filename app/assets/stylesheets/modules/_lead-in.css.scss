@@ -32,3 +32,57 @@
     color: darken($color-delta, 30%);
   }
 }
+
+.lead-in--delta {
+  @extend .lead-in;
+  background-color: $color-delta;
+  h1 {
+    color: $color-beta;
+  }
+  h2 {
+    color: darken($color-delta, 40%);
+  }
+}
+
+.lead-in--gamma {
+  @extend .lead-in;
+  background-color: $color-gamma;
+  h1 {
+    color: $color-beta;
+  }
+  h2 {
+    color: darken($color-gamma, 30%);
+  }
+}
+
+.lead-in--white {
+  @extend .lead-in;
+  background-color: white;
+  h1 {
+    color: $color-beta;
+  }
+  h2 {
+    color: darken(white, 40%);
+  }
+}
+
+.lead-in--clear {
+  @extend .lead-in;
+  background-color: transparent;
+  h1 {
+    color: $color-beta;
+  }
+  h2 {
+    color: darken($color-bg-alpha, 40%);
+  }
+}
+
+.lead-in--home {
+  @extend .lead-in;
+  h2 {
+    margin-top: 0;
+    font-size: rem(22px);
+    line-height: 1.5;
+    color: darken($color-delta, 50%);
+  }
+}

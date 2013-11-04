@@ -1,6 +1,14 @@
 class ApplicationController < HackappController
   before_filter :guest_access_only, :only => [:login_get, :login_post]
 
+  def index
+    @latest_schools = School.order(:created_at).limit(4)
+  end
+
+  def about
+    render "application/about"
+  end
+
   def login_get
     render "application/login"
   end

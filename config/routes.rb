@@ -30,6 +30,9 @@ HackappNew::Application.routes.draw do
   post 'login', to: 'application#login_post', as: 'login_post'
   get 'logout', to: 'application#logout', as: 'logout'
 
+  # About
+  get 'about', to: 'application#about', as: 'about'
+
   # Home
   root 'application#index', as: 'home'
 

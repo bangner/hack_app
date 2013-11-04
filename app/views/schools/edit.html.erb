@@ -49,7 +49,7 @@
             <div class="form-field">
               <%= school_form.label :logo, 'Logo' %>
               <% unless school_form.object.new_record? %>
-              <img src="<%= school_form.object.logo %>" class="dynamic" />
+              <img src="<%= school_form.object.logo %>?v=<%= Time.now.to_i %>" class="dynamic" />
               <% end %>
               <%= school_form.file_field :logo %>
             </div>
@@ -79,12 +79,13 @@
             Which questions from the <strong><%= application_set %></strong> application are you interested in knowing from the applicants? Select all relevant ones below.
           </div>
           <ul class="form-field--questions list--layout trim">
+            <% app_questions = @applications[application_set].questions.load if @applications[application_set] %>
             <% questions.each do |question| %>
             <li>
               <div class="checkbox-wrap">
                 <%
                 if @applications[application_set]
-                  question_check = @applications[application_set].questions.find_by_id(question.id)
+                  question_check = app_questions.find { |q| q['id'] == question.id }
                   is_checked = question_check ? true : false
                 elsif application_set.eql? "primary"
                   is_checked = true

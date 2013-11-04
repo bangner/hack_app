@@ -1,9 +1,18 @@
-<div class="gut">
-  <ul class="schools">
-    <% @schools.each do |school| %>
-    <li class="school">
-      <a href="<%= school_seo_path(school.id, school.name.parameterize) %>"><%= school.name %></a>
-    </li>
-    <% end %>
-  </ul>
-</div>
+<section class="content-piece--margin lead-in--clear">
+  <div class="gut">
+    <h1>Find the right bootcamp</h1>
+    <h2>Check out our growing list of bootcamps. Use the filter to narrow your search.</h2>
+  </div>
+</section>
+<section class="content-piece--margin">
+  <div class="gut">
+    <div class="school-directory-list">
+      <ul class="school-card-list school-card-list--three list--layout group">
+        <%= render partial: "schools/card", collection: @schools %>
+      </ul>
+    </div>
+    <div class="school-directory-filter">
+
+    </div>
+  </div>
+</section>

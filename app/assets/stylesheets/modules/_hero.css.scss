@@ -95,11 +95,14 @@
 
 .hero--home {
   height: rem(600px);
+  margin-bottom: 0;
 
   background-image: image-url("hero-2.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+
+  text-align: center;
 
   &:before {
     content: '';
@@ -115,7 +118,7 @@
 
   h1,
   h2 {
-    text-align: left;
+    text-align: center;
   }
 
   h2 {

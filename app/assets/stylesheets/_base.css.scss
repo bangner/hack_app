@@ -288,6 +288,16 @@ input[type="checkbox"] {
   padding-bottom: golden-factor(5);
 }
 
+.content-piece--margin {
+  margin-top: golden-factor(5);
+  margin-bottom: golden-factor(5);
+}
+
+.content-piece--white {
+  @extend .content-piece;
+  background-color: white;
+}
+
 .site-content {
   @include transition(margin-top $speed-transition ease-in-out);
 }
