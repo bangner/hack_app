@@ -9,21 +9,31 @@
     <%= yield :styles %>
   </head>
   <body class="<%= "admin " if admin_namespace? %><%= controller_name %> <%= action_name %>">
-    <header class="site-header">
-      <div class="gut group">
-        <%= link_to image_tag("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"), home_path, class: "site-logo" %>
-        <div class="site-nav group">
-          <%= render "shared/nav/main" %>
-          <%= render "shared/nav/membership" %>
+    <% flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, class: "flash #{name}" %>
+    <% end -%>
+    <div class="site-wrap">
+      <header class="site-header <%= yield :header_class %>">
+        <div class="gut group">
+          <%= link_to image_tag("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"), home_path, class: "site-logo" %>
+          <div class="site-nav--primary">
+            <%= render "shared/nav/main" %>
+          </div>
+          <div class="site-nav--secondary group">
+            <%= render "shared/nav/membership" %>
+          </div>
         </div>
-      </div>
-    </header>
-    <% if admin_namespace? %>
-    <%= render "admin/shared/menu" %>
+      </header>
+      <% if admin_namespace? %>
+      <%= render "admin/shared/menu" %>
+      <% end %>
+      <section class="site-content">
+        <%= yield %>
+      </section>
+    </div>
+    <% unless admin_namespace? %>
+    <%= render "shared/footer" %>
     <% end %>
-    <section class="site-content">
-      <%= yield %>
-    </section>
     <%= javascript_include_tag "main" %>
     <%= javascript_include_tag "admin" if admin_namespace? %>
     <%= yield :scripts %>

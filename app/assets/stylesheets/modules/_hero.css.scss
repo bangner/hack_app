@@ -1,0 +1,136 @@
+.hero {
+  position: relative;
+  height: rem(360px);
+  margin-bottom: rem(44px);
+
+  .gut {
+    position: relative;
+    padding-bottom: rem(44px);
+    padding-top: rem(78px);
+  }
+
+  h1,
+  h2 {
+    margin: 0;
+
+    text-align: center;
+    line-height: 1.2;
+    -webkit-text-rendering: optimizeLegibility;
+  }
+
+  h1 {
+    margin: 0;
+
+    font-size: rem(38px);
+    font-weight: 700;
+    letter-spacing: -1px;
+  }
+
+  h2 {
+    margin-top: golden-factor(1);
+
+    font-family: 'Whitney SSm A', 'Whitney SSm B', sans-serif;
+    font-size: rem(22px);
+    font-weight: 300;
+  }
+
+  .symbol {
+    $size: 80px + 8px;
+
+    position: absolute;
+    left: 50%;
+    margin-left: rem(-$size / 2);
+    bottom: rem(-$size / 2);
+
+    width: rem($size);
+    height: rem($size);
+
+    background-color: $color-alpha;
+    background-image: image-url('graphic-logo-blank@2x.png');
+    background-size: 48px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border: 4px solid $color-beta;
+    border-radius: 100%;
+  }
+
+}
+
+.hero--light {
+  background-color: white;
+  h1 {
+    color: $color-beta;
+  }
+  h2 {
+    color: darken($color-delta, 20%);
+  }
+  .symbol {
+    border-color: white;
+  }
+}
+
+.hero--gray {
+  background-color: $color-delta;
+  h1 {
+    color: $color-beta;
+  }
+  h2 {
+    color: darken($color-delta, 40%);
+  }
+  .symbol {
+    border-color: $color-delta;
+  }
+}
+
+.hero--dark {
+  background-color: $color-beta;
+  h1 {
+    color: white;
+  }
+  h2 {
+    color: lighten($color-beta, 30%);
+  }
+}
+
+.hero--home {
+  height: rem(600px);
+
+  background-image: image-url("hero-2.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &:before {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background-color: rgba(0, 0, 0, .6);
+  }
+
+  h1,
+  h2 {
+    text-align: left;
+  }
+
+  h2 {
+    color: desaturate(lighten($color-beta, 30%), 100%);
+  }
+
+  a {
+    display: inline-block;
+    margin-top: golden-factor(4);
+    &.apply {
+      margin-left: golden-factor(2);
+      border: 2px solid $color-alpha;
+      &:hover {
+        border-color: $color-alpha-dark;
+      }
+    }
+  }
+}

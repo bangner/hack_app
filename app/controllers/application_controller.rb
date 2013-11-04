@@ -33,4 +33,8 @@ class ApplicationController < HackappController
     redirect_to home_path
   end
 
+  def apply_get
+    render "application/apply"
+  end
+
 end

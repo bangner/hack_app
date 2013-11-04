@@ -13,8 +13,17 @@ textarea {
   color: $color-text;
 }
 
+html,
 body {
-  background-color: white;
+  height: 100%;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  background-color: $color-bg-alpha;
   position: relative;
 }
 
@@ -36,8 +45,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Gotham SSm A', 'Gotham SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-weight: 700;
   line-height: 1.2;
-
-  color: #333;
 }
 
 /* Buttons */
@@ -95,6 +102,21 @@ fieldset {
   border: 0;
 }
 
+legend {
+  display: block;
+  min-width: 60%;
+  padding-bottom: golden-factor(1);
+  margin-bottom: golden-factor(4);
+  @include block-center;
+
+  font-size: rem(18px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+
+  border-bottom: 1px solid rgba(0, 0, 0, .15);
+}
+
 label,
 input,
 select,
@@ -107,6 +129,13 @@ label {
   display: block;
   margin-bottom: golden-factor(.5);
 
+  font-family: 'Gotham SSm A', 'Gotham SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: rem(12px);
+  font-weight: 700;
+  line-height: 1;
+  text-transform: uppercase;
+
+  color: $color-beta;
   cursor: pointer;
 }
 
@@ -116,10 +145,15 @@ textarea {
   display: block;
   width: 100%;
   margin: 0;
-  padding: golden-factor(.75);
+  padding: golden-factor(1);
 
-  border: 2px solid rgba(0, 0, 0, .2);
-  border-radius: $border-radius;
+  font-size: rem(18px);
+  font-weight: 500;
+  color: black;
+
+  border: 1px solid rgba(0, 0, 0, .25);
+  border-radius: $border-radius / 2;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .15);
   outline: none;
 
   &:hover {
@@ -131,8 +165,9 @@ textarea {
   &[readonly],
   &[readonly]:hover,
   &[readonly]:focus {
-    background-color: rgba(0, 0, 0, .05);
-    border-color: rgba(0, 0, 0, .2);
+    background-color: rgba(0, 0, 0, .075);
+    border-color: rgba(0, 0, 0, .05);
+    box-shadow: none;
   }
 }
 
@@ -156,7 +191,7 @@ textarea {
 
     position: absolute;
     top: 50%;
-    right: rem(($golden-factor * .75) + 2px + 2px);
+    right: rem(($golden-factor * 1) + 2px + 2px);
     margin-top: -3px;
     pointer-events: none;
     width: rem(11px);
@@ -174,4 +209,34 @@ input[type="radio"],
 input[type="checkbox"] {
   display: inline-block;
   width: auto;
+}
+
+/* Sticky footer */
+
+.site-wrap {
+  min-height: 100%;
+}
+
+.site-content {
+  overflow: auto;
+}
+
+.site-footer {
+  position: relative;
+  clear: both;
+}
+
+/* Content Piece */
+
+.content-piece {
+  padding-top: golden-factor(5);
+  padding-bottom: golden-factor(5);
+}
+
+.site-content {
+  @include transition(margin-top $speed-transition ease-in-out);
+}
+
+body.has-flash .site-content {
+  margin-top: rem(($golden-factor * 4) - 1px);
 }

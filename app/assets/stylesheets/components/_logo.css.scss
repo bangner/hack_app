@@ -9,3 +9,7 @@
     display: block;
   }
 }
+
+.site-header.on-dark .site-logo {
+  background-image: image-url("logo@2x.white.png");
+}

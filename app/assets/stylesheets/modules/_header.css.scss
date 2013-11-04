@@ -1,4 +1,6 @@
 .site-header {
+  @include box-sizing(content-box);
+
   background-color: white;
   height: rem($header-height);
 
@@ -9,7 +11,64 @@
     margin-top: rem(($header-height - $logo-height) / 2);
   }
 
-  .site-nav {
+  .site-nav--primary {
+    float: left;
+    border-left: 1px solid rgba(0, 0, 0, .075);
+    padding-left: golden-factor(2);
+    margin-left: golden-factor(4);
+  }
+
+  .site-nav--secondary {
     float: right;
   }
+
+  &.see-through {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    background-color: transparent;
+  }
+
+  &.on-dark {
+    &,
+    .site-nav--primary,
+    .site-nav li.dropdown-wrap .dropdown li {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+    .site-nav li {
+      a:not(.btn--green) {
+        color: white;
+      }
+      > a:not(.btn--green):hover {
+        background-color: rgba(0, 0, 0, .1);
+        color: $color-alpha;
+      }
+      &.active > a {
+        color: $color-alpha;
+      }
+      &.dropdown-wrap {
+        & > a:after {
+          border-top-color: rgba(255, 255, 255, .4);
+        }
+        &.active > a:after {
+          border-bottom-color: rgba(255, 255, 255, .4);
+        }
+        &.active > a:not(.btn--green),
+        .dropdown {
+          background-color: rgba(0, 0, 0, .5);
+        }
+        .dropdown {
+          border: 0;
+          box-shadow: none;
+          a.active,
+          a:hover {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+  }
+
 }

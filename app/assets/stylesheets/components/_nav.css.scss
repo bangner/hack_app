@@ -1,15 +1,8 @@
 .site-nav {
-  nav {
-    float: left;
-    &[role="membership"] {
-      border-left: 1px solid rgba(0, 0, 0, .075);
-      padding-left: golden-factor(1);
-      margin-left: golden-factor(1);
-    }
-  }
   li {
     float: left;
     margin-left: golden-factor(0);
+    position: relative;
     &:first-child {
       margin-left: 0;
     }
@@ -18,7 +11,8 @@
     }
     a:not(.btn--green) {
       height: rem($header-height);
-      padding: 0 golden-factor(1);
+      padding: 0 golden-factor(2);
+      position: relative;
 
       font-size: rem(14px);
       font-weight: 600;
@@ -26,16 +20,55 @@
       text-decoration: none;
       
       color: #333;
+      border-bottom: 1px solid transparent;
 
-      @include transition(color $speed-transition ease-in-out);
+      @include transition(
+        background-color $speed-transition ease-in-out,
+        color $speed-transition ease-in-out);
 
-      &.active,
-      &:hover {
-        color: $color-alpha;
-      }
+      -webkit-backface-visibility: hidden;
+    }
+    > a:not(.btn--green):hover {
+      background-color: $color-bg-alpha;
+      color: $color-alpha;
+    }
+    &.active > a {
+      color: $color-alpha;
     }
     &.featured {
-      margin: rem(($header-height - $btn-height) / 2) golden-factor(1) 0 golden-factor(1);
+      margin: rem(($header-height - $btn-height) / 2) golden-factor(2);
+    }
+  }
+  .gravatar {
+    display: block;
+    float: left;
+    width: rem(30px);
+    height: rem(30px);
+    margin-top: rem(($header-height - 30px) / 2);
+    margin-right: golden-factor(1);
+
+    border-radius: 100%;
+  }
+}
+
+.site-nav--primary,
+.site-nav--secondary {
+  @extend .site-nav;
+}
+
+/* Reduce the padding for the secondary menu (right side menu) */
+.site-nav--secondary li {
+  a:not(.btn--green) {
+    padding: 0 golden-factor(1);
+  }
+  &.featured {
+    margin-left: golden-factor(1);
+    margin-right: golden-factor(1);
+  }
+  &.dropdown-wrap > a {
+    padding-right: rem(($golden-factor * .5) + 8px + ($golden-factor * 1));
+    &:after {
+      right: golden-factor(1);
     }
   }
 }

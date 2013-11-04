@@ -1,27 +1,47 @@
 <nav role="membership">
   <ul class="list--layout group">
-    <% if role_signed_in? Role::SCHOOL_ADMIN %>
-    <li>
-      <a href="/">Profile</a>
+    <% if guest? %>
+    <li class="featured">
+      <a href="<%= new_applicant_path %>" class="btn--green">Apply</a>
+    </li>
+    <li class="<%= active_page(login_path) %>">
+      <a href="<%= login_path %>">Log In</a>
     </li>
     <% elsif role_signed_in? Role::APPLICANT %>
     <li class="featured">
-      <a href="/" class="btn--green">Your Application</a>
-    </li>
-    <li>
-      <a href="<%= logout_path %>">Log Out</a>
-    </li>
-    <% elsif guest? %>
-    <li class="featured">
-      <a href="<%= new_applicant_path %>" class="btn--green">Apply Now</a>
-    </li>
-    <li>
-      <a href="<%= login_path %>">Log In</a>
+      <a href="<%= apply_path %>" class="btn--green">Apply</a>
     </li>
     <% end %>
-    <% if role_signed_in? Role::SUPER_ADMIN %>
-    <li>
-      <a href="<%= admin_root_path %>" class="<%= active_admin %>">Admin</a>
+    <% if account_signed_in? %>
+    <li class="me dropdown-wrap js-dropdown-wrap">
+      <a href="/" class="js-me">
+        <img src="<%= avatar_url(current_account, 30) %>" class="gravatar" />
+        Me
+      </a>
+      <ul class="dropdown list--layout">
+        <li>
+          <a href="<%= edit_account_path(current_account) %>">Account</a>
+        </li>
+        <% if role_signed_in? Role::APPLICANT %>
+        <li>
+          <a href="<%= edit_applicant_path(current_account) %>">Profile</a>
+        </li>
+        <% end %>
+        <% if role_signed_in? Role::SCHOOL_ADMIN %>
+        <li>
+          <% school = School.joins(:admins).where(:accounts_schools => { :account_id => current_account.id }).first %>
+          <a href="<%= edit_school_path(school) %>">Manage School</a>
+        </li>
+        <% end %>
+        <% if role_signed_in? Role::SUPER_ADMIN %>
+        <li class="<%= active_admin %>">
+          <a href="<%= admin_root_path %>">Administration</a>
+        </li>
+        <% end %>
+        <li>
+          <a href="<%= logout_path %>">Log Out</a>
+        </li>
+      </ul>
     </li>
     <% end %>
   </ul>

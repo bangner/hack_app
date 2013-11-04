@@ -9,15 +9,16 @@ HackappNew::Application.routes.draw do
     root :to => redirect('/admin/accounts')
   end
 
-  # Applicants
-  resources :applicants, :except => [:index, :show, :destroy], :path_names => { :new => 'register' }
-  get 'applicants/:id/:slug' => 'applicants#show', as: 'applicant_seo'
+  # Accounts
+  resources :accounts, :only => [:edit, :update]
 
-  # Schools and School Admins
-  resources :schools, :only => [:index, :show] do
-    resources :admins, :only => [:index, :new, :create], :path_names => { :new => 'register' }
+  # Applicants
+  resources :applicants, :only => [:new, :create, :edit, :update], :path_names => { :new => 'register' }
+
+  # Schools and nested School Admins
+  resources :schools, :only => [:index, :show, :edit, :update] do
+    resources :admins, :only => [:new, :create], :path_names => { :new => 'register' }
   end
-  resources :admins, :only => [:edit, :update]
   get 'schools/:id/:slug' => 'schools#show', as: 'school_seo'
 
   # Apply

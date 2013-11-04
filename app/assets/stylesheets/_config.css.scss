@@ -6,15 +6,23 @@ $logo-height: $logo-width / $logo-ratio;
 
 /* Colors */
 
-$color-alpha: #3abc80;
+$color-alpha: #4fc18c;
 $color-alpha-light: lighten($color-alpha, 10%);
 $color-alpha-dark: darken($color-alpha, 3%);
 
-$color-beta: #6497cb;
+$color-beta: #495e70;
 $color-beta-light: lighten($color-beta, 10%);
 $color-beta-dark: darken($color-beta, 10%);
 
-$color-bg-warm: #f7f5f2;
+$color-gamma: #f5f5f5;
+$color-gamma-light: lighten($color-gamma, 10%);
+$color-gamma-dark: darken($color-gamma, 10%);
+
+$color-delta: #ced8e0;
+$color-delta-light: lighten($color-delta, 10%);
+$color-delta-dark: darken($color-delta, 10%);
+
+$color-bg-alpha: $color-gamma;
 
 $color-text: #666;
 

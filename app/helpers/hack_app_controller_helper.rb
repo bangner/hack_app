@@ -11,4 +11,8 @@ module HackAppControllerHelper
   def admin_namespace?
     controller.class.name.split("::").first == "Admin"
   end
+  def avatar_url(account, size)
+    gravatar_id = Digest::MD5.hexdigest(account.email.downcase)
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=mm"
+  end
 end

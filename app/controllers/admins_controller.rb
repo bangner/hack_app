@@ -10,30 +10,33 @@ class AdminsController < ApplicationController
 
     # TODO: Validation
 
-    # See if school admin already exists by email (maybe tried to be an applicant?)
-    # If he does exist, add SchoolAdmin role to account
+    invitation = SchoolInvitation.find_by_code params[:code]
+    @school = School.find_by_id invitation.school_id
 
-    # Stripe.api_key = Rails.configuration.stripe_sk
-    # customer = Stripe::Customer.create(
-    #   :description => params[:school_administrator][:name],
-    #   :card  => params[:stripe_card_token]
-    # )
+    account = Account.find_by_email(params[:account][:email])
+    if account
+      unless account.roles.pluck(:name).include? Role::SCHOOL_ADMIN
+        account.roles << Role.find_by_name(Role::SCHOOL_ADMIN)
+        account.save
+      end
+      unless @school.admins.pluck(:id).include? account.id
+        @school.admins << account
+        @school.save
+      end
+      invitation.expire!
+      cookies[:h_a] = account.auth_token
+      return redirect_to edit_school_path(@school)
+    end
 
     admin = Account.new(school_administrator_permitted)
     admin.roles << Role.find_by_name(Role::SCHOOL_ADMIN)
-
-    invitation = SchoolInvitation.find_by_code params[:code]
-
     if admin.save
-      school = School.find_by_id invitation.school_id
-      school.admins << admin
-      school.save
+      @school.admins << admin
+      @school.save
 
       invitation.expire!
-
       cookies[:h_a] = admin.auth_token
-
-      redirect_to school
+      redirect_to edit_school_path(@school)
     else
       render "admins/new"
     end

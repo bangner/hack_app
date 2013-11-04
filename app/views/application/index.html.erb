@@ -1,10 +1,12 @@
-<section class="hero hero--home">
+<% content_for :header_class do %>see-through on-dark<% end %>
+
+<section class="hero hero--home hero--dark">
   <div class="gut middle--outer">
     <div class="middle--inner">
       <h1>A better way to bootcamp</h1>
       <h2>Research coding bootcamps. Apply with one profile.</h2>
-      <button class="schools btn--clear">View Schools</button>
-      <button class="apply btn--green">Start Application</button>
+      <a href="<%= schools_path %>" class="schools btn--clear">View Schools</a>
+      <a href="<%= new_applicant_path %>" class="apply btn--green">Start Application</a>
     </div>
   </div>
 </section>

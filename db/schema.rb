@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103020923) do
+ActiveRecord::Schema.define(version: 20131104013401) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -32,10 +32,22 @@ ActiveRecord::Schema.define(version: 20131103020923) do
     t.integer "school_id"
   end
 
+  create_table "applicant_profile_answers", force: true do |t|
+    t.text     "answer"
+    t.integer  "question_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "applicant_profiles", force: true do |t|
     t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "applicant_profiles_applicant_profile_answers", force: true do |t|
+    t.integer "applicant_profile_id"
+    t.integer "applicant_profile_answer_id"
   end
 
   create_table "applicant_profiles_questions", force: true do |t|
@@ -52,12 +64,13 @@ ActiveRecord::Schema.define(version: 20131103020923) do
   create_table "questions", force: true do |t|
     t.string   "name"
     t.text     "label"
-    t.string   "group"
+    t.string   "field_set"
     t.string   "question_type"
     t.text     "helper"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_optional",   default: false
+    t.boolean  "is_optional",     default: false
+    t.string   "application_set"
   end
 
   create_table "questions_school_applications", force: true do |t|

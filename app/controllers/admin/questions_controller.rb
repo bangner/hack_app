@@ -50,7 +50,8 @@ class Admin::QuestionsController < Admin::ApplicationController
         :name,
         :label,
         :is_optional,
-        :group,
+        :application_set,
+        :field_set,
         :question_type,
         :helper
       )

@@ -13,9 +13,10 @@
       <thead>
         <tr>
           <th>ID</th>
+          <th>App Set</th>
+          <th>Field Set</th>
           <th>Name</th>
           <th>Label</th>
-          <th>Group</th>
           <th>Question Type</th>
           <th>Is Optional?</th>
           <th>Remove</th>
@@ -25,9 +26,10 @@
         <% @questions.each do |question| %>
         <tr>
           <td class="id" data-edit-path="<%= edit_admin_question_path(question.id) %>"><%= question.id %></td>
+          <td class="js-filter-this"><%= question.application_set %></td>
+          <td class="js-filter-this"><%= question.field_set %></td>
           <td class="js-filter-this"><%= question.name %></td>
           <td class="js-filter-this"><%= question.label %></td>
-          <td class="js-filter-this"><%= question.group %></td>
           <td class="js-filter-this"><%= question.question_type %></td>
           <td class="js-filter-this"><%= question.is_optional %></td>
           <td class="remove">

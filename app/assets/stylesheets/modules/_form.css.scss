@@ -1,6 +1,36 @@
-.form-wrap {
-  max-width: rem(400px);
+.form-error {
+  padding: golden-factor(2);
+  margin-bottom: golden-factor(2);
+  max-width: rem(440px);
   @include block-center;
+
+  background-color: #f5b7ab;
+  border-radius: $border-radius;
+}
+
+.form-wrap-set {
+  .form-wrap,
+  .form-wrap--big {
+    margin-top: golden-factor(4);
+    &.first {
+      margin-top: 0;
+    }
+  }
+  button[type="submit"] {
+    display: block;
+    margin-top: golden-factor(4);
+    @include block-center;
+  }
+}
+
+.form-wrap {
+  background-color: white;
+  max-width: rem(440px);
+  padding: golden-factor(3.5);
+  @include block-center;
+
+  border-radius: $border-radius;
+  border: 1px solid rgba(0, 0, 0, .125);
 
   h1 {
     margin-bottom: golden-factor(2);
@@ -10,10 +40,23 @@
     text-align: center;
     text-transform: uppercase;
   }
+
+  .btn--green {
+    height: rem(47px);
+    padding: 0 golden-factor(2);
+  }
+}
+
+.form-wrap--big {
+  @extend .form-wrap;
+  max-width: rem(720px);
 }
 
 .form-field {
   margin-top: golden-factor(2);
+  &.first {
+    margin-top: 0;
+  }
   em {
     display: block;
     margin-top: golden-factor(.5);
@@ -37,6 +80,21 @@
   }
 }
 
+.remember-me-wrap {
+  float: right;
+  padding: golden-factor(1) golden-factor(1.5);
+
+  background-color: rgba(0, 0, 0, .05);
+  border-radius: $border-radius;
+  label {
+    display: inline-block;
+    margin-left: golden-factor(.75);
+    margin-bottom: 0;
+    position: relative;
+    top: -2px;
+  }
+}
+
 /* Nested field adjustments */
 .form-field {
   .form-field {
@@ -50,11 +108,4 @@
       padding-left: golden-factor(1);
     }
   }
-}
-
-.form-error {
-  padding: golden-factor(1) golden-factor(2);
-
-  background-color: #f5b7ab;
-  border-radius: $border-radius;
 }

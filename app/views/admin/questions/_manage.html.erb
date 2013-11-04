@@ -1,7 +1,7 @@
 <header class="admin-header">
   <div class="gut group">
     <h1><%= action %> Question</h1>
-    <a href="<%= admin_questions_path %>" class="add btn--green">Listing</a>
+    <a href="<%= admin_questions_path %>" class="listing">Listing</a>
   </div>
 </header>
 <section class="admin-subheader">
@@ -21,9 +21,19 @@
           <%= question_form.text_field :name %>
         </div>
         <div class="form-field">
-          <%= question_form.label :group, 'Group' %>
-          <div class="select-wrap">
-            <%= question_form.select :group, [['Primary', 'primary'], ['Secondary', 'secondary']] %>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= question_form.label :application_set, 'Application Set' %>
+              <div class="select-wrap">
+                <%= question_form.select :application_set, [['Primary', 'primary'], ['Secondary', 'secondary']] %>
+              </div>
+            </div>
+            <div class="form-field">
+              <%= question_form.label :field_set, 'Field Set' %>
+              <div class="select-wrap">
+                <%= question_form.select :field_set, [['Profile', 'Profile'], ['Experience', 'Experience'], ['Goals', 'Goals']] %>
+              </div>
+            </div>
           </div>
         </div>
       </div>

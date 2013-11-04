@@ -1,6 +1,6 @@
 class Account < ActiveRecord::Base
   before_validation :lowercase_email
-  before_create :generate_auth_token, :hash_password
+  before_create :generate_auth_token, :hash_password!
 
   validates_presence_of :name, :email, :password_hash
   validates :email, :uniqueness => true
@@ -26,7 +26,7 @@ class Account < ActiveRecord::Base
     self.save
   end
 
-  def hash_password
+  def hash_password!
     self.password_hash = BCrypt::Password.create(self.password_hash)
   end
 

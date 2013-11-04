@@ -1,0 +1,29 @@
+<div class="site-footer">
+  <div class="gut group">
+    <nav role="main">
+      <ul class="list--layout group trim">
+        <li>
+          <a href="<%= home_path %>">Home</a>
+        </li>
+        <li>
+          <a href="<%= schools_path %>">Schools</a>
+        </li>
+        <li>
+          <a href="/">About</a>
+        </li>
+        <li>
+          <a href="http://blog.hackapp.co">Blog</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="info trim--p">
+      <%= link_to image_tag("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"), home_path, class: "site-logo--footer" %>
+      <p>
+        We're on a mission to elevate the bootcamp scene. Research bootcamps, apply with a common app.
+      </p>
+      <p>
+        &copy; <%= DateTime.now.strftime("%Y") %> hack_app. All rights reserved.
+      </p>
+    </div>
+  </div>
+</div>

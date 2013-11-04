@@ -1,0 +1,24 @@
+.flash {
+  position: absolute;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  z-index: 1200;
+  height: 0;
+  line-height: golden-factor(4);
+  overflow: hidden;
+  opacity: 0;
+  
+  text-align: center;
+  background-color: rgba(0, 0, 0, .75);
+  color: white;
+
+  @include transition(
+    height $speed-transition ease-in-out,
+    opacity $speed-transition ease-in-out);
+  
+  &.enabled {
+    height: golden-factor(4);
+    opacity: 1;
+  }
+}
