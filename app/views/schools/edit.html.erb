@@ -1,53 +1,93 @@
-<h1>School Edit</h1>
-
-<%= form_for @school, url: {action: "create"} do |school| %>
-
-<div>
-    <label>
-      <span>Card Number</span>
-      <input type="text" size="20" data-stripe="number"/>
-    </label>
+<section class="content-piece lead-in">
+  <div class="gut">
+    <h1>Manage <%= @school.name %></h1>
+    <h2>You'll want this information to be accurate and up-to-date. Applicants garner interest based off what's represented here.</h2>
   </div>
+</section>
+<section class="content-piece">
+  <div class="gut">
+    <% if @error %>
+    <div class="form-error">
+      <%=raw @error %>
+    </div>
+    <% end %>
+    <div class="form-wrap-set">
+      <%= form_for @school, url: { action: "update" } do |school_form| %>
 
-  <div>
-    <label>
-      <span>CVC</span>
-      <input type="text" size="4" data-stripe="cvc"/>
-    </label>
+      <div class="form-wrap--big first">
+        <fieldset>
+          <legend>School Profile</legend>
+          <div class="form-field first">
+            <%= school_form.label :name, "School Name" %>
+            <%= school_form.text_field :name, :readonly => "readonly" %>
+          </div>
+          <div class="form-field">
+            <%= school_form.label :description, "School Description" %>
+            <%= school_form.text_area :description, :class => "for-content" %>
+          </div>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= school_form.label :website, "Website" %>
+              <%= school_form.url_field :website %>
+            </div>
+            <div class="form-field">
+              <%= school_form.label :email, "Contact Email" %>
+              <%= school_form.email_field :email %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <% @questions.each do |application_set, questions| %>
+      <div class="form-wrap--big">
+        <fieldset>
+          <legend><%= application_set.titlecase %> Application Questions</legend>
+          <ul>
+            <% questions.each do |question| %>
+            <li>
+              <input type="checkbox" name="questions[<%= question.id %>]" value="yes" />
+              <%= question.label %>
+            </li>
+            <% end %>
+          </ul>
+        </fieldset>
+      </div>
+      <% end %>
+
+      <div class="form-wrap--big">
+        <fieldset>
+          <legend>Credit Card Information</legend>
+          <div class="form-field-group--double group">
+            <div class="form-field first">
+              <%= label_tag :card_number, "Card Number" %>
+              <%= text_field_tag :card_number, nil, :size => 20, 'data-stripe' => 'number' %>
+            </div>
+            <div class="form-field first">
+              <%= label_tag :cvc, "CVC" %>
+              <%= text_field_tag :cvc, nil, :size => 4, 'data-stripe' => 'cvc' %>
+            </div>
+          </div>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= label_tag :card_exp_month, "Expiration (MM)" %>
+              <%= text_field_tag :card_exp_month, nil, :size => 2, 'data-stripe' => 'exp-month' %>
+            </div>
+            <div class="form-field">
+              <%= label_tag :card_exp_year, "Expiration (YYYY)" %>
+              <%= text_field_tag :card_exp_year, nil, :size => 4, 'data-stripe' => 'exp-year' %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+        
+      <div>
+        <%= button_tag "Update School", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+
+      <% end %>
+    </div>
   </div>
-
-  <div>
-    <label>
-      <span>Expiration (MM/YYYY)</span>
-      <input type="text" size="2" data-stripe="exp-month"/>
-    </label>
-    <span> / </span>
-    <input type="text" size="4" data-stripe="exp-year"/>
-  </div>
-
-  <ul>
-  <% @primary_questions.each do |question| %>
-    <li>
-      <input type="checkbox" name="questions[primary][<%= question.id %>]" value="yes" />
-      <%= question.label %>
-    </li>
-  <% end %>
-  </ul>
-
-  <ul>
-  <% @secondary_questions.each do |question| %>
-    <li>
-      <input type="checkbox" name="questions[secondary][<%= question.id %>]" value="yes" />
-      <%= question.label %>
-    </li>
-  <% end %>
-  </ul>
-
-  <div>
-    <%= button_tag "Register", :name => "commit", :type => "submit" %>
-  </div>
-
-<% end %>
+</section>
 
 <% content_for :scripts do %>
   <%= javascript_include_tag "https://js.stripe.com/v2/" %>

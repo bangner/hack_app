@@ -178,8 +178,13 @@ select {
 
 textarea {
   height: rem(100px);
+  line-height: 1.4;
   &.code {
     font-family: monospace;
+    font-size: rem(16px);
+  }
+  &.for-content {
+    height: rem(240px);
     font-size: rem(16px);
   }
 }

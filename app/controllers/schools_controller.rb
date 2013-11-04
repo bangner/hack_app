@@ -9,7 +9,8 @@ class SchoolsController < ApplicationController
   end
 
   def edit
-
+    @school = School.find(params[:id])
+    @questions = Question.all.group_by { |question| question[:application_set] }
   end
 
   def update
