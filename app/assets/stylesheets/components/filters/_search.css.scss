@@ -1,6 +1,5 @@
 .filter--search {
   width: 100%;
-  border-bottom: 1px solid rgba(0, 0, 0, .1);
   input {
     padding: golden-factor(1.125) golden-factor(1.25);
 
@@ -10,8 +9,6 @@
     border: 0;
     background-color: rgba(0, 0, 0, .05);
     box-shadow: none;
-    border-radius: 0;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
+    border-radius: $border-radius;
   }
 }
