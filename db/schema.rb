@@ -89,20 +89,6 @@ ActiveRecord::Schema.define(version: 20131105031638) do
     t.datetime "updated_at"
   end
 
-  create_table "school_courses", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "duration"
-    t.string   "focus"
-    t.string   "stack"
-    t.string   "email"
-    t.string   "video"
-    t.string   "price"
-    t.integer  "location_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "school_invitations", force: true do |t|
     t.integer  "school_id"
     t.string   "email"

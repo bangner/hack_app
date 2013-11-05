@@ -12,35 +12,7 @@
 
 <section class="content-piece">
   <div class="gut">
-    <% if @error %>
-    <div class="form-error">
-      <%=raw @error %>
-    </div>
-    <% end %>
-    <div class="form-wrap--big first">
-      <%= form_for account, url: {action: "create"} do |account_form| %>
-        <fieldset>
-          <legend>Account Information</legend>
-          <div class="form-field-group--double group">
-            <div class="form-field first">
-              <%= account_form.label :name, 'Name' %>
-              <%= account_form.text_field :name %>
-            </div>
-            <div class="form-field first">
-              <%= account_form.label :email, 'Email' %>
-              <%= account_form.email_field :email %>
-            </div>
-          </div>
-          <div class="form-field">
-            <%= account_form.label :password_hash, 'Password' %>
-            <%= account_form.password_field :password_hash %>
-          </div>
-        </fieldset>
-        <div class="form-field">
-          <%= button_tag "Create Account", :name => "commit", :type => "submit", :class => "btn--green" %>
-        </div>
-      <% end %>
-    </div>
+    <%= yield %>
   </div>
 </section>
 
