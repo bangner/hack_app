@@ -19,7 +19,9 @@
         </fieldset>
         <div class="form-field">
           <div class="remember-me-wrap">
-            <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+            <div class="checkbox-wrap">
+              <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+            </div>
             <%= label_tag :remember_me, "Stay logged in" %>
           </div>
           <%= button_tag "Log In", :type => "submit", :class => "btn--green" %>

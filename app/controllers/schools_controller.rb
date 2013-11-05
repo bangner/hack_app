@@ -10,54 +10,22 @@ class SchoolsController < ApplicationController
 
   def edit
     @school = School.find_by_id(params[:id])
-    
+
     # Grab card info
     Stripe.api_key = Rails.configuration.stripe_sk
     if @school.stripe_customer_id
       @stripe_customer = Stripe::Customer.retrieve(@school.stripe_customer_id)
       @stripe_customer_card = @stripe_customer.cards.data.first if @stripe_customer.cards.count
     end
-
-    # Grab application question selection
-    @applications = {}
-    @applications["primary"] = @school.primary_application
-    @applications["secondary"] = @school.secondary_application
-
-    # Grab questions
-    @questions = Question.all.group_by { |question| question[:application_set] }
   end
 
   def update
     @school = School.find_by_id(params[:id])
-    @account = current_account
 
     # Update school information based on edit form
     params[:school][:logo] = upload_logo if params[:school][:logo]
+    params[:school][:price] = params[:school][:price].to_money.format(:symbol => false, :thousands_separator => false).to_f
     @school.assign_attributes(school_permitted)
-
-    # Update school applications
-    @primary_application = @school.primary_application
-    unless @primary_application
-      @primary_application = SchoolApplication.new
-      @school.primary_application = @primary_application
-    end
-
-    @secondary_application = @school.secondary_application
-    unless @secondary_application
-      @secondary_application = SchoolApplication.new
-      @school.secondary_application = @secondary_application
-    end
-    
-    if params[:questions]
-      @primary_application.question_ids = params[:questions][:primary] ? params[:questions][:primary].keys : []
-      @secondary_application.question_ids = params[:questions][:secondary] ? params[:questions][:secondary].keys : []
-    else
-      @primary_application.question_ids = []
-      @secondary_application.question_ids = []
-    end
-
-    @primary_application.save
-    @secondary_application.save
 
     # Save school to Stripe if card change
     if params[:stripe_card_token]
@@ -82,7 +50,6 @@ class SchoolsController < ApplicationController
     end
 
     # TODO Uh oh error, return
-    @questions = Question.all.group_by { |question| question[:application_set] }
     render "schools/edit"
   end
 
@@ -112,6 +79,9 @@ class SchoolsController < ApplicationController
         :email,
         :twitter,
         :facebook,
+        :focus,
+        :price,
+        :stack,
         :video,
         :video_source,
         :logo

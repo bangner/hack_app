@@ -17,9 +17,20 @@
     }
   }
   button[type="submit"] {
-    display: block;
-    margin-top: golden-factor(4);
-    @include block-center;
+  }
+}
+
+.form-tray {
+  margin-top: golden-factor(4);
+  text-align: center;
+  button {
+    height: 47px;
+    line-height: 47px;
+    padding: 0 golden-factor(3);
+    margin-left: golden-factor(2);
+    &:first-of-type {
+      margin-left: 0;
+    }
   }
 }
 
@@ -91,24 +102,46 @@
   }
 }
 
-.form-field--questions {
-  li {
-    margin: golden-factor(1) 0;
-  }
+.form-field--questions li {
+  margin: golden-factor(1) 0;
 }
 
 .remember-me-wrap {
   float: right;
-  padding: golden-factor(1) golden-factor(1.5);
+  padding: 0 golden-factor(1.5);
+  height: 47px;
+  line-height: 47px;
 
   background-color: rgba(0, 0, 0, .05);
   border-radius: $border-radius;
+
+  .checkbox-wrap,
+  label {
+    position: relative;
+    top: 2px;
+  }
+
+  .checkbox-wrap {
+    float: left;
+    $checkbox-size: 16px;
+    input[type="checkbox"] {
+      width: rem($checkbox-size);
+      height: rem($checkbox-size);
+      background-size: auto $checkbox-size;
+    }
+    input[type="checkbox"]:hover {
+      background-position: -($checkbox-size * 1) 0;
+    }
+    input[type="checkbox"]:checked {
+      background-position: -($checkbox-size * 2) 0;
+    }
+  }
+
   label {
     display: inline-block;
     margin-left: golden-factor(.75);
     margin-bottom: 0;
-    position: relative;
-    top: -2px;
+    top: 0;
   }
 }
 

@@ -1,0 +1,25 @@
+.filter--tag {
+  h2 {
+    padding: golden-factor(1);
+
+    font-size: rem(14px);
+
+    background-color: white;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  }
+  ul li {
+    a {
+      display: block;
+      padding: golden-factor(.75) golden-factor(1);
+
+      font-size: rem(14px);
+
+      background-color: rgba(white, .5);
+      border-top: 1px solid rgba(black, .025);
+      text-decoration: none;
+    }
+    &:first-child a {
+      border-top: 0;
+    }
+  }
+}

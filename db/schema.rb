@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131104013401) do
+ActiveRecord::Schema.define(version: 20131105031638) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -89,11 +89,35 @@ ActiveRecord::Schema.define(version: 20131104013401) do
     t.datetime "updated_at"
   end
 
+  create_table "school_courses", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "duration"
+    t.string   "focus"
+    t.string   "stack"
+    t.string   "email"
+    t.string   "video"
+    t.string   "price"
+    t.integer  "location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "school_invitations", force: true do |t|
     t.integer  "school_id"
     t.string   "email"
     t.string   "code"
     t.boolean  "is_expired", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "school_locations", force: true do |t|
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.integer  "school_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -121,6 +145,9 @@ ActiveRecord::Schema.define(version: 20131104013401) do
     t.string   "video"
     t.text     "logo"
     t.string   "video_source"
+    t.string   "focus"
+    t.decimal  "price"
+    t.string   "stack"
   end
 
 end

@@ -1,8 +1,10 @@
 <li>
   <a href="<%= school_seo_path(card.id, card.name.parameterize) %>" class="school-card">
-    <div class="focus <%= ["green", "red", "blue"][rand(0..2)] %>">
-      <span><%= ["Ruby", "PHP", "NodeJS", "Java"][rand(0..3)] %></span>
+    <% if card.focus %>
+    <div class="focus">
+      <span><%= card.focus %></span>
     </div>
+    <% end %>
     <div class="logo-wrap">
       <div class="logo" style="background-image: url('<%= card.logo %>');">
         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
@@ -14,21 +16,29 @@
       <% end %>
       <%= card.name %>
     </h2>
+    <% unless card.locations.empty? and card.price.nil? and card.stack.nil? %>
     <div class="tray">
       <ul class="list--layout">
+        <% unless card.locations.empty? %>
         <li class="group">
-          <span class="value">San Francisco, CA</span>
+          <span class="value"><%= card.locations.first.city %>, <%= card.locations.first.state %></span>
           <span class="label">Location</span>
         </li>
+        <% end %>
+        <% unless card.price.blank? %>
         <li class="group">
-          <span class="value">$10,000</span>
+          <span class="value"><%= Money.new((card.price * 100), "USD").format(:no_cents_if_whole => true) %></span>
           <span class="label">Price</span>
         </li>
+        <% end %>
+        <% unless card.stack.blank? %>
         <li class="group">
-          <span class="value">Ruby, JS, Git</span>
+          <span class="value"><%= card.stack %></span>
           <span class="label">Stack</span>
         </li>
+        <% end %>
       </ul>
     </div>
+    <% end %>
   </a>
 </li>

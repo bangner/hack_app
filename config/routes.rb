@@ -18,16 +18,20 @@ HackappNew::Application.routes.draw do
   # Schools and nested School Admins
   resources :schools, :only => [:index, :show, :edit, :update] do
     resources :admins, :only => [:new, :create], :path_names => { :new => 'register' }
+    scope module: 'schools' do
+      resource :locations, :only => [:edit, :update]
+      resource :applications, :only => [:edit, :update]
+    end
   end
   get 'schools/:id/:slug' => 'schools#show', as: 'school_seo'
 
   # Apply
   get 'apply', to: 'application#apply_get', as: 'apply'
-  post 'apply', to: 'application#apply_post', as: 'apply_post'
+  post 'apply', to: 'application#apply_post'
 
   # Login/Logout
   get 'login', to: 'application#login_get', as: 'login'
-  post 'login', to: 'application#login_post', as: 'login_post'
+  post 'login', to: 'application#login_post'
   get 'logout', to: 'application#logout', as: 'logout'
 
   # About

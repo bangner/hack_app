@@ -6,13 +6,63 @@
 </section>
 <section class="content-piece--margin">
   <div class="gut">
+    <div class="school-directory-filter">
+      <div class="filter--search">
+        <input type="text" placeholder="Search" />
+      </div>
+      <div class="filter--tag">
+        <h2>Focus</h2>
+        <ul class="list--layout">
+          <li>
+            <a href="/">Ruby</a>
+          </li>
+          <li>
+            <a href="/">PHP</a>
+          </li>
+          <li>
+            <a href="/">Node.JS</a>
+          </li>
+        </ul>
+      </div>
+      <div class="filter--tag">
+        <h2>Location</h2>
+        <ul class="list--layout">
+          <li>
+            <a href="/">San Francisco, CA</a>
+          </li>
+          <li>
+            <a href="/">Austin, TX</a>
+          </li>
+          <li>
+            <a href="/">Boulder, CO</a>
+          </li>
+          <li>
+            <a href="/">Colombus, OH</a>
+          </li>
+        </ul>
+      </div>
+      <div class="filter--tag">
+        <h2>Price</h2>
+        <ul class="list--layout">
+          <li>
+            <a href="/">Free</a>
+          </li>
+          <li>
+            <a href="/">Free - $5k</a>
+          </li>
+          <li>
+            <a href="/">$5k - $10k</a>
+          </li>
+          <li>
+            <a href="/">$10k - $20k</a>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div class="school-directory-list">
       <ul class="school-card-list school-card-list--three list--layout group">
         <%= render partial: "schools/card", collection: @schools %>
       </ul>
-    </div>
-    <div class="school-directory-filter">
-
     </div>
   </div>
 </section>

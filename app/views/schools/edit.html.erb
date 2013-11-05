@@ -1,9 +1,4 @@
-<section class="content-piece lead-in">
-  <div class="gut">
-    <h1>Manage <%= @school.name %></h1>
-    <h2>You'll want this information to be accurate and up-to-date. Applicants garner interest based off what's represented here.</h2>
-  </div>
-</section>
+<%= render 'schools/edit_hero' %>
 <section class="content-piece">
   <div class="gut">
     <% if @error %>
@@ -16,7 +11,7 @@
 
       <div class="form-wrap--big first">
         <fieldset>
-          <legend>School Profile</legend>
+          <legend>Basic Information</legend>
           <div class="form-field first">
             <%= school_form.label :name, "School Name" %>
             <%= school_form.text_field :name, :readonly => "readonly" %>
@@ -25,12 +20,32 @@
             <%= school_form.label :description, "School Description" %>
             <%= school_form.text_area :description, :class => "for-content" %>
           </div>
+          <div class="form-field">
+            <%= school_form.label :price, "Tuition Cost" %>
+            <%= school_form.text_field :price  %>
+            <em>Please enter a valid number or currency (e.g. $5,000 or 5000).</em>
+          </div>
           <div class="form-field-group--double group">
             <div class="form-field">
+              <%= school_form.label :logo, 'Logo' %>
+              <%= school_form.file_field :logo %>
+            </div>
+            <div class="form-field">
+              <img src="<%= school_form.object.logo %>?v=<%= Time.now.to_i %>" class="dynamic" />
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="form-wrap--big">
+        <fieldset>
+          <legend>Contact Information</legend>
+          <div class="form-field-group--double group">
+            <div class="form-field first">
               <%= school_form.label :website, "Website" %>
               <%= school_form.url_field :website %>
             </div>
-            <div class="form-field">
+            <div class="form-field first">
               <%= school_form.label :email, "Contact Email" %>
               <%= school_form.email_field :email %>
             </div>
@@ -45,63 +60,25 @@
               <%= school_form.text_field :facebook %>
             </div>
           </div>
-          <div class="form-field-group--double group">
-            <div class="form-field">
-              <%= school_form.label :logo, 'Logo' %>
-              <% unless school_form.object.new_record? %>
-              <img src="<%= school_form.object.logo %>?v=<%= Time.now.to_i %>" class="dynamic" />
-              <% end %>
-              <%= school_form.file_field :logo %>
-            </div>
-            <div class="form-field">
-              <div class="form-field-group--double group">
-                <div class="form-field">
-                  <%= school_form.label :video_source, 'Video Source' %>
-                  <div class="select-wrap">
-                    <%= school_form.select :video_source, [['Vimeo', 'vimeo'], ['YouTube', 'youtube'], ['Wistia', 'wistia']] %>
-                  </div>
-                </div>
-                <div class="form-field">
-                  <%= school_form.label :video, 'Video ID' %>
-                  <%= school_form.text_field :video %>
-                </div>
-              </div>
-            </div>
-          </div>
         </fieldset>
       </div>
 
-      <% @questions.each do |application_set, questions| %>
       <div class="form-wrap--big">
         <fieldset>
-          <legend><%= application_set.titlecase %> Application Questions</legend>
-          <div class="form-wrap-intro">
-            Which questions from the <strong><%= application_set %></strong> application are you interested in knowing from the applicants? Select all relevant ones below.
+          <legend>Technology</legend>
+          <div class="form-field first">
+            <%= school_form.label :focus, "Tech Focus" %>
+            <div class="select-wrap">
+              <%= school_form.select :focus, options_for_select(tech_focuses, school_form.object.focus) %>
+            </div>
           </div>
-          <ul class="form-field--questions list--layout trim">
-            <% app_questions = @applications[application_set].questions.load if @applications[application_set] %>
-            <% questions.each do |question| %>
-            <li>
-              <div class="checkbox-wrap">
-                <%
-                if @applications[application_set]
-                  question_check = app_questions.find { |q| q['id'] == question.id }
-                  is_checked = question_check ? true : false
-                elsif application_set.eql? "primary"
-                  is_checked = true
-                else
-                  is_checked = false
-                end
-                %>
-                <%= check_box_tag("questions[#{application_set}][#{question.id}]", "1", is_checked) %>
-                <%= label_tag("questions[#{application_set}][#{question.id}]", question.label) %>
-              </div>
-            </li>
-            <% end %>
-          </ul>
+          <div class="form-field">
+            <%= school_form.label :stack, "Tech Stack" %>
+            <%= school_form.text_field :stack %>
+            <em>Separate each technology by a comma. Use idiomatic terminology.</em>
+          </div>
         </fieldset>
       </div>
-      <% end %>
 
       <div class="form-wrap--big">
         <fieldset>
@@ -151,8 +128,8 @@
         </fieldset>
       </div>
         
-      <div>
-        <%= button_tag "Update School", :name => "commit", :type => "submit", :class => "btn--green" %>
+      <div class="form-tray">
+        <%= button_tag "Update School Profile", :name => "commit", :type => "submit", :class => "btn--green" %>
       </div>
 
       <% end %>

@@ -1,0 +1,27 @@
+<div class="form-wrap--big first">
+  <fieldset>
+    <legend>Location #<%= location_form.index + 1 %></legend>
+    <div class="form-field-group--double group">
+      <div class="form-field first">
+        <%= location_form.label :street %>
+        <%= location_form.text_field :street %>
+      </div>
+      <div class="form-field first">
+        <%= location_form.label :city %>
+        <%= location_form.text_field :city %>
+      </div>
+    </div>
+    <div class="form-field-group--double group">
+      <div class="form-field">
+        <%= location_form.label :state %>
+        <div class="select-wrap">
+          <%= location_form.select :state, options_for_select(us_states) %>
+        </div>
+      </div>
+      <div class="form-field">
+        <%= location_form.label :zip %>
+        <%= location_form.text_field :zip %>
+      </div>
+    </div>
+  </fieldset>
+</div>

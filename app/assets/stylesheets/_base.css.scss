@@ -78,6 +78,18 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.btn--gray {
+  @extend .btn;
+
+  background-color: transparent;
+  border: 2px solid $color-delta-dark;
+  color: darken($color-delta-dark, 10%);
+  @include transition(border-color $speed-transition ease-in-out);
+  &:hover {
+    border-color: darken($color-delta-dark, 10%);
+  }
+}
+
 .btn--clear {
   @extend .btn;
 
