@@ -1,12 +1,16 @@
 class Applicants::ApplicationsController < ApplicationController
 
   def show
-    @application = current_application
-    return render :json => @application, :include => :school_selections
+    unless @application = current_application
+      return render :json => { :error => "We need you to create an applicant profile first." }
+    end
+    render :json => @application, :include => :school_selections
   end
 
   def update
-    @application = current_application
+    unless @application = current_application
+      return render :json => { :error => "We need you to create an applicant profile first." }
+    end
 
     @application.school_selections = []
     if params[:school_selections]
@@ -32,9 +36,7 @@ class Applicants::ApplicationsController < ApplicationController
       @applicant = current_account
 
       @applicant_profile = ApplicantProfile.find_by_account_id(@applicant.id)
-      unless @applicant_profile
-        return render :json => { :error => "We need you to create an applicant profile first." }
-      end
+      return nil unless @applicant_profile
 
       @application = Application.where(submitted_at: nil, applicant_profile_id: @applicant_profile.id).first
       unless @application
@@ -44,7 +46,7 @@ class Applicants::ApplicationsController < ApplicationController
         @application.save
       end
 
-      return @application
+      @application
     end
 
 end

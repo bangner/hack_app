@@ -47,20 +47,20 @@ class ApplicationController < HackappController
 
     @applicant_profile = ApplicantProfile.find_by_account_id(@applicant.id)
     unless @applicant_profile
-      @error = "We need you to create an applicant profile first."
-      return render "application/apply"
+      flash[:notice] = "We need you to build your applicant profile first."
+      return redirect_to edit_applicant_path(@account)
     end
 
     @application = Application.find_by_applicant_profile_id(@applicant_profile.id)
     unless @application
-      @error = "We need you to create an application first."
-      return render "application/apply"
+      flash[:notice] = "Looks like you don't have any schools selected."
+      return redirect_to schools_path
     end
 
     @school_selections = @application.school_selections.order(:priority)
     unless @school_selections.any?
-      @error = "Whoa looks like you don't have any schools selected. We've got a number to choose from."
-      return render "application/apply"
+      flash[:notice] = "Looks like you don't have any schools selected."
+      return redirect_to schools_path
     end
 
     render "application/apply"

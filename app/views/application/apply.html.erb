@@ -14,7 +14,7 @@
   <div class="gut">
     <% if @error %>
     <p><%= @error %></p>
-    <% end %>
+    <% else %>
     <div class="school-priority-wrap">
       <ul class="school-priority list--layout">
         <% @school_selections.each_with_index do |school_selection, index| %>
@@ -26,6 +26,7 @@
       </ul>
       <a href="/" class="btn--apply btn--green">Apply to Bootcamps</a>
     </div>
+    <% end %>
   </div>
 </section>
 
