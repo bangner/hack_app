@@ -16,4 +16,29 @@ class School < ActiveRecord::Base
     dependent: :destroy
 
   accepts_nested_attributes_for :admins, :locations
+
+  scope :search, ->(query) {
+    where([%Q{
+      lower(name) LIKE :q 
+      or lower(stack) LIKE :q
+      or lower(focus) LIKE :q
+      }, { :q => "%#{query}%" }
+    ])
+  }
+
+  scope :by_focus, ->(focus) {
+    where("lower(focus) = ?", focus)
+  }
+
+  scope :by_price, ->(price) {
+    where(price: price)
+  }
+
+  scope :by_price_range, ->(min, max) {
+    where(price: min..max)
+  }
+
+  scope :by_location, ->(location) {
+    joins(:locations).where("lower(school_locations.city || \", \" || school_locations.state) = ?", location)
+  }
 end

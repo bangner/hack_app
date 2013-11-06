@@ -28,12 +28,21 @@
         </li>
         <% end %>
         <% if role_signed_in? Role::SCHOOL_ADMIN %>
-          <% schools = School.joins(:admins).where(:accounts_schools => { :account_id => current_account.id }).all %>
-          <% schools.each do |school| %>
-          <li>
-            <a href="<%= edit_school_path(school) %>">Manage School (<%= school.name %>)</a>
+          <% schools = School.joins(:admins).where(:accounts_schools => { :account_id => current_account.id }).load %>
+          <li class="nav-school-list">
+            <% if schools.size > 1 %>
+            <a class="heading">Manage Schools</a>
+            <ul class="list--layout">
+              <% schools.each do |school| %>
+              <li>
+                <a href="<%= edit_school_path(school) %>"><%= school.name %></a>
+              </li>
+              <% end %>
+            </ul>
+            <% else %>
+            <a href="<%= edit_school_path(schools.first) %>">Manage <%= schools.first.name %></a>
+            <% end %>
           </li>
-          <% end %>
         <% end %>
         <% if role_signed_in? Role::SUPER_ADMIN %>
         <li class="<%= active_admin %>">

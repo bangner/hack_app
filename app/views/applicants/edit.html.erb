@@ -12,8 +12,8 @@
       <%=raw @error %>
     </div>
     <% end %>
-    <div class="form-wrap-set">
-      <%= form_for @applicant, url: {action: "update"} do |applicant_form| %>
+    <%= form_for @applicant, url: {action: "update"} do |applicant_form| %>
+      <div class="form-wrap-set">
         <% @questions.each_with_index do |(field_set, questions), qs_index| %>
         <div class="form-wrap--big<%= " first" if qs_index == 0 %>">
           <fieldset>
@@ -42,11 +42,11 @@
           </fieldset>
         </div>
         <% end %>
-        <div class="form-field">
-          <%= button_tag "Update Profile", :name => "commit", :type => "submit", :class => "btn--green" %>
-        </div>
-      <% end %>
-    </div>
+      </div>
+      <div class="form-tray">
+        <%= button_tag "Update Profile", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+    <% end %>
   </div>
 </section>
 

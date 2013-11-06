@@ -1,7 +1,7 @@
 .filter--search {
   width: 100%;
   input {
-    padding: golden-factor(1.125) golden-factor(1.25);
+    padding: golden-factor(1);
 
     font-size: rem(14px);
     font-weight: normal;
@@ -10,5 +10,15 @@
     background-color: rgba(0, 0, 0, .05);
     box-shadow: none;
     border-radius: $border-radius;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .0625);
+    }
+    &:focus {
+      background-color: rgba(0, 0, 0, .075);
+    }
+  }
+  &.active input {
+    background-color: rgba(0, 0, 0, .075);
   }
 }

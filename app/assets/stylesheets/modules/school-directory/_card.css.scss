@@ -91,7 +91,7 @@
       float: right;
       position: relative;
       top: -2px;
-      width: 56px;
+      width: 50px;
       height: 22px;
       line-height: 22px;
       padding: 0;
@@ -111,6 +111,13 @@
       &:hover {
         color: darken($color-gamma, 75%);
         border-color: darken($color-gamma, 30%);
+      }
+
+      &.applied {
+        border-color: darken($color-gamma, 30%);
+        background-color: darken($color-gamma, 30%);
+        color: white;
+        width: 54px;
       }
     }
   }

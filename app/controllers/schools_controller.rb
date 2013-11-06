@@ -1,7 +1,41 @@
 class SchoolsController < ApplicationController
 
   def index
-    @schools = School.all
+
+    # Figure out which schools to show based on parameters
+
+    school_scope = School.all
+
+    if params.key? :q
+      query = params[:q].strip.split(/[\s,]+/).join("%").downcase
+      school_scope = school_scope.search(query)
+    end
+
+    if params.key? :focus
+      school_scope = school_scope.by_focus(params[:focus])
+    end
+
+    if params.key? :price
+      if params[:price].include? "-"
+        min = params[:price].split('-')[0]
+        max = params[:price].split('-')[1]
+        school_scope = school_scope.by_price_range(min, max)
+      else
+        school_scope = school_scope.by_price(params[:price])
+      end
+    end
+
+    if params.key? :location
+      school_scope = school_scope.by_location(params[:location])
+    end
+
+    @schools = school_scope.load
+
+    # Figure out filters
+
+    @locations = SchoolLocation.select(:city, :state).map { |l| l.city + ", " + l.state }.uniq
+    @focuses = School.pluck(:focus).compact.uniq
+
   end
 
   def show

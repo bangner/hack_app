@@ -51,6 +51,25 @@
       &:first-child {
         border-top: 0;
       }
+      &.nav-school-list {
+        .heading {
+          &:hover {
+            color: inherit;
+          }
+        }
+        ul {
+          padding-bottom: golden-factor(.75);
+          li {
+            border-top: 0 solid rgba(0, 0, 0, .05);
+            a {
+              padding: golden-factor(.75);
+              padding-right: 0;
+
+              font-weight: 400;
+            }
+          }
+        }
+      }
     }
     a {
       height: auto;
