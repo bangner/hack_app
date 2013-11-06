@@ -12,7 +12,7 @@
     </div>
     <h2 class="name<%= " apply" if role_signed_in? Role::APPLICANT %>">
       <% if role_signed_in? Role::APPLICANT %>
-      <span class="btn--apply btn--clear">Apply</span>
+      <span class="btn--apply btn--clear" data-school="<%= card.id %>">Apply</span>
       <% end %>
       <%= card.name %>
     </h2>
@@ -26,8 +26,9 @@
         </li>
         <% end %>
         <% unless card.price.blank? %>
+        <%= price = (card.price > 0) ? Money.new((card.price * 100), "USD").format(:no_cents_if_whole => true) : "Free" %>
         <li class="group">
-          <span class="value"><%= Money.new((card.price * 100), "USD").format(:no_cents_if_whole => true) %></span>
+          <span class="value"><%= price %></span>
           <span class="label">Price</span>
         </li>
         <% end %>

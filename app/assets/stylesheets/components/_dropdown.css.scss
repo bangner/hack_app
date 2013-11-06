@@ -52,10 +52,8 @@
         border-top: 0;
       }
       &.nav-school-list {
-        .heading {
-          &:hover {
-            color: inherit;
-          }
+        .heading:hover {
+          color: #333;
         }
         ul {
           padding-bottom: golden-factor(.75);

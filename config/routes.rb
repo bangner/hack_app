@@ -13,7 +13,11 @@ HackappNew::Application.routes.draw do
   resources :accounts, :only => [:edit, :update]
 
   # Applicants
-  resources :applicants, :only => [:new, :create, :edit, :update], :path_names => { :new => 'register' }
+  resources :applicants, :only => [:new, :create, :edit, :update], :path_names => { :new => 'register' } do
+    scope module: 'applicants' do
+      resource :application, :only => [:show, :update]
+    end
+  end
 
   # Schools and nested School Admins
   resources :schools, :only => [:index, :show, :edit, :update] do

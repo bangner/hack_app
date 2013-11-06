@@ -1,0 +1,41 @@
+.school-priority-wrap {
+  text-align: center;
+  .btn--apply {
+    display: block;
+    margin-top: golden-factor(4);
+    height: 52px;
+    line-height: 52px;
+    width: rem(260px);
+    @include block-center;
+
+    font-size: rem(18px);
+  }
+}
+
+.school-priority {
+  display: inline-block;
+  text-align: left;
+  min-width: rem(380px);
+  li {
+    padding: golden-factor(1.25) golden-factor(2);
+    margin-top: golden-factor(1);
+
+    background-color: $color-delta;
+    border-radius: $border-radius;
+    cursor: move;
+    color: $color-beta;
+
+    .name {
+      font-size: rem(18px);
+    }
+
+    .index {
+      float: right;
+      font-weight: 700;
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}

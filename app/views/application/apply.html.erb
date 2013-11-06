@@ -4,7 +4,7 @@
   <div class="gut middle--outer">
     <div class="middle--inner">
       <h1>You're at the doorstep</h1>
-      <h2>Order the schools by preference and hit Apply. You're done.</h2>
+      <h2>Make sure the schools are in order of preference and hit apply. You're done.</h2>
     </div>
   </div>
   <span class="symbol"></span>
@@ -12,5 +12,27 @@
 
 <section class="content-piece">
   <div class="gut">
+    <% if @error %>
+    <p><%= @error %></p>
+    <% end %>
+    <div class="school-priority-wrap">
+      <ul class="school-priority list--layout">
+        <% @school_selections.each_with_index do |school_selection, index| %>
+        <li draggable="true">
+          <span class="index">#<%= index + 1 %></span>
+          <span class="name"><%= school_selection.school.name %></span>
+        </li>
+        <% end %>
+      </ul>
+      <a href="/" class="btn--apply btn--green">Apply to Bootcamps</a>
+    </div>
   </div>
 </section>
+
+<% content_for :scripts do %>
+<script>
+$('.school-priority li').on('dragstart', function(e) {
+  $(this).css('border', '2px dashed red');
+});
+</script>
+<% end %>

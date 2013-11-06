@@ -69,3 +69,10 @@
     </div>
   </div>
 </section>
+
+<% content_for :scripts do %>
+<script>
+var cardUpdatePath = "<%= applicant_application_path(current_account) %>";
+</script>
+<%= javascript_include_tag "card" if role_signed_in? Role::APPLICANT %>
+<% end %>
