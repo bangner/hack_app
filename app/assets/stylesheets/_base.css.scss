@@ -2,6 +2,16 @@
   @include box-sizing(border-box);
 }
 
+[draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
 html,
 input,
 select,
@@ -65,6 +75,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: $border-radius;
   outline: none;
   -webkit-appearance: none;
+  &.disabled {
+    opacity: .5;
+  }
 }
 
 .btn--green {

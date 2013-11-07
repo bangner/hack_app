@@ -11,6 +11,15 @@ class Admin::SchoolsController < Admin::ApplicationController
   def create
     @school = School.new(school_permitted)
     @school.logo = upload_logo
+
+    # Update school applications
+    @primary_application = SchoolApplication.new
+    @primary_application.question_ids = Question.where(:application_set => "primary").pluck(:id)
+    @school.primary_application = @primary_application
+
+    @secondary_application = SchoolApplication.new
+    @school.secondary_application = @secondary_application
+
     @school.save
 
     redirect_to admin_schools_path

@@ -32,6 +32,7 @@ HackappNew::Application.routes.draw do
   # Apply
   get 'apply', to: 'application#apply_get', as: 'apply'
   post 'apply', to: 'application#apply_post'
+  get 'apply/done', to: 'application#apply_done', as: 'apply_done'
 
   # Login/Logout
   get 'login', to: 'application#login_get', as: 'login'

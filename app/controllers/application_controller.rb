@@ -51,15 +51,15 @@ class ApplicationController < HackappController
       return redirect_to edit_applicant_path(@account)
     end
 
-    @application = Application.find_by_applicant_profile_id(@applicant_profile.id)
+    @application = Application.where(submitted_at: nil, applicant_profile_id: @applicant_profile.id).first
     unless @application
-      flash[:notice] = "Looks like you don't have any schools selected."
+      flash[:notice] = "Looks like you don't have any schools selected. There are plenty to choose from."
       return redirect_to schools_path
     end
 
     @school_selections = @application.school_selections.order(:priority)
     unless @school_selections.any?
-      flash[:notice] = "Looks like you don't have any schools selected."
+      flash[:notice] = "Looks like you don't have any schools selected. There are plenty to choose from."
       return redirect_to schools_path
     end
 
@@ -68,10 +68,36 @@ class ApplicationController < HackappController
 
   def apply_post
 
+    @applicant = current_account
+    @applicant_profile = ApplicantProfile.find_by_account_id(@applicant.id)
+    @application = Application.where(submitted_at: nil, applicant_profile_id: @applicant_profile.id).first
+    @school_selections = @application.school_selections.order(:priority)
+
     # Email schools and cc school admins
+    @answers = @applicant_profile.answers
+    @school_selections.each do |school_selection|
+      answers = []
+      primary_application = school_selection.school.primary_application
+      next unless primary_application
+      question_ids = primary_application.questions.pluck(:id)
+      @answers.each do |answer|
+        answers << answer if question_ids.include? answer.question_id
+      end
+      ApplicationMailer.send_answers_to_school(school_selection.school.admins, @applicant, school_selection, answers).deliver
+    end
 
+    @application.submitted_at = DateTime.now
+    @application.save
 
+    return redirect_to apply_done_path
 
+  end
+
+  def apply_done
+    @applicant = current_account
+    @applicant_profile = ApplicantProfile.find_by_account_id(@applicant.id)
+    @application = Application.where(:applicant_profile_id => @applicant_profile.id).order(submitted_at: :desc).first
+    @school_selections = @application.school_selections.order(:priority)
   end
 
 end

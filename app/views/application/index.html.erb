@@ -6,7 +6,11 @@
       <h1>A better way to bootcamp</h1>
       <h2>Research coding bootcamps. Apply with one profile.</h2>
       <a href="<%= schools_path %>" class="schools btn--clear">View Schools</a>
+      <% if guest? %>
       <a href="<%= new_applicant_path %>" class="apply btn--green">Start Application</a>
+      <% elsif role_signed_in? Role::APPLICANT %>
+      <a href="<%= apply_path %>" class="apply btn--green">Start Application</a>
+      <% end %>
     </div>
   </div>
 </section>

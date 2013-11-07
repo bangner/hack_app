@@ -1,13 +1,8 @@
-<% content_for :header_class do %>see-through<% end %>
-
-<section class="hero hero--light">
-  <div class="gut middle--outer">
-    <div class="middle--inner">
-      <h1>You're at the doorstep</h1>
-      <h2>Make sure the schools are in order of preference and hit apply. You're done.</h2>
-    </div>
+<section class="content-piece lead-in--white">
+  <div class="gut">
+    <h1>You're at their doorstep</h1>
+    <h2>Drag the boxes below to order the schools by preference.</h2>
   </div>
-  <span class="symbol"></span>
 </section>
 
 <section class="content-piece">
@@ -18,13 +13,19 @@
     <div class="school-priority-wrap">
       <ul class="school-priority list--layout">
         <% @school_selections.each_with_index do |school_selection, index| %>
-        <li draggable="true">
-          <span class="index">#<%= index + 1 %></span>
+        <li draggable="true" data-school="<%= school_selection.school_id %>" data-priority="<%= school_selection.priority %>">
+          <div class="logo" style="background-image: url('<%= school_selection.school.logo %>');"></div>
+          <span class="priority">#<%= school_selection.priority %></span>
           <span class="name"><%= school_selection.school.name %></span>
         </li>
         <% end %>
       </ul>
-      <a href="/" class="btn--apply btn--green">Apply to Bootcamps</a>
+      <div class="select-more">
+        <a href="<%= schools_path %>">Select more schools</a>
+      </div>
+      <form action="<%= apply_path %>" method="post">
+        <button type="submit" class="btn--apply btn--green">Apply to Bootcamps</a>
+      </form>
     </div>
     <% end %>
   </div>
@@ -32,8 +33,81 @@
 
 <% content_for :scripts do %>
 <script>
-$('.school-priority li').on('dragstart', function(e) {
-  $(this).css('border', '2px dashed red');
+var $schoolPriorityBoxes = $('.school-priority li'),
+    $applyBtn = $('.btn--apply'),
+    $dragSrcEl = null,
+    noChange = true,
+    dropped = false,
+    $origList = null;
+
+$schoolPriorityBoxes.on('dragstart', function(e) {
+  $dragSrcEl = $(this);
+  $(this).addClass('dragging');
+  noChange = false;
+  dropped = false;
+  $origList = $('.school-priority').clone(true);
+});
+
+$schoolPriorityBoxes.on('dragend', function(e) {
+  $(this).removeClass('dragging');
+  noChange = !dropped;
+  dropped = false;
+  if (noChange) {
+    $('.school-priority').replaceWith($origList);
+    $('.school-priority li').removeClass('dragging');
+  }
+  $origList = null;
+  noChange = true;
+});
+
+$schoolPriorityBoxes.on('dragenter', function(e) {
+  $(this).addClass('dragover');
+
+  var $this = $(this),
+      sourcePriority = $dragSrcEl.data('priority'),
+      targetPriority = $this.data('priority');
+
+  $this.data('priority', sourcePriority).find('.priority').text('#' + sourcePriority);
+  $dragSrcEl.data('priority', targetPriority).find('.priority').text('#' + targetPriority).end();
+
+  swapNodes($dragSrcEl[0], $this[0]);
+});
+
+$schoolPriorityBoxes.on('dragleave', function(e) {
+  $(this).removeClass('dragover');
+});
+
+$schoolPriorityBoxes.on('dragover', function(e) {
+  e.preventDefault();
+});
+
+$schoolPriorityBoxes.on('drop', function(e) {
+  e.stopPropagation();
+  dropped = true;
+
+  $('.school-priority li').removeClass('dragover');
+
+  var selections = [];
+  $('.school-priority li').each(function() {
+    selections.push({
+      priority: $(this).data('priority'),
+      school_id: $(this).data('school')
+    });
+  });
+
+  $applyBtn.prop('disabled', true).addClass('disabled');
+
+  $.ajax({
+    url: "<%= applicant_application_path(current_account) %>",
+    type: 'PATCH',
+    data: {
+      'school_selections': selections
+    }
+  }).done(function(result) {
+    $applyBtn.prop('disabled', false).removeClass('disabled');
+  });
+
+  return false;
 });
 </script>
 <% end %>

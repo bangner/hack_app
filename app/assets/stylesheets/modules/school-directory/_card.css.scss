@@ -84,43 +84,87 @@
 
     color: darken($color-gamma, 60%);
 
-    &.apply {
+    &.applyable {
       text-align: left;
     }
-    .btn--apply {
-      float: right;
-      position: relative;
-      top: -2px;
-      width: 50px;
-      height: 22px;
-      line-height: 22px;
-      padding: 0;
+  }
 
-      font-size: rem(10px);
-      text-transform: uppercase;
-      text-align: center;
-      letter-spacing: 0;
+  .btn--apply {
+    display: inline-block;
 
-      color: darken($color-gamma, 50%);
+    float: right;
+    position: relative;
+    top: -2px;
+    width: 50px;
+    height: 22px;
+    line-height: 22px;
+    padding: 0;
+
+    font-size: rem(10px);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0;
+
+    border: 2px solid transparent;
+    color: darken($color-gamma, 50%);
+
+    @include transition(none);
+
+    span {
+      display: none;
+    }
+
+    &.apply ._apply,
+    &.applying ._applying,
+    &.removing ._removing,
+    &.applied ._applied {
+      display: block;
+    }
+
+    &:hover {
+      color: darken($color-gamma, 75%);
+      border-color: darken($color-gamma, 30%);
+    }
+
+    &.apply {
       border-color: darken($color-gamma, 10%);
+    }
 
-      @include transition(
-        border-color $speed-transition ease-in-out,
-        color $speed-transition ease-in-out);
+    &.applying,
+    &.removing,
+    &.applied {
+      color: white;
+      width: 56px;
+    }
 
+    &.applying,
+    &.removing {
+      border-color: darken($color-gamma, 15%);
+      background-color: darken($color-gamma, 15%);
+      font-style: italic;
+      cursor: default;
+    }
+
+    &.removing {
+      width: 64px;
+    }
+
+    &.applied {
+      border-color: darken($color-gamma, 30%);
+      background-color: darken($color-gamma, 30%);
       &:hover {
-        color: darken($color-gamma, 75%);
-        border-color: darken($color-gamma, 30%);
-      }
-
-      &.applied {
-        border-color: darken($color-gamma, 30%);
-        background-color: darken($color-gamma, 30%);
-        color: white;
-        cursor: default;
-        width: 54px;
+        border-color: desaturate(darken(red, 10%), 10%);
+        color: desaturate(darken(red, 10%), 10%);
+        background-color: transparent;
+        span {
+          display: none;
+        }
+        ._remove {
+          display: block;
+        }
       }
     }
+
   }
 
   .tray {

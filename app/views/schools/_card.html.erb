@@ -10,9 +10,15 @@
         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
       </div>
     </div>
-    <h2 class="name<%= " apply" if role_signed_in? Role::APPLICANT %>">
+    <h2 class="name<%= " applyable" if role_signed_in? Role::APPLICANT %>">
       <% if role_signed_in? Role::APPLICANT %>
-      <span class="btn--apply btn--clear" data-school="<%= card.id %>">Apply</span>
+      <div class="btn--apply btn--clear apply" data-school="<%= card.id %>">
+        <span class="_apply">Add</span>
+        <span class="_applying">Adding</span>
+        <span class="_remove">Remove</span>
+        <span class="_removing">Removing</span>
+        <span class="_applied">Added</span>
+      </div>
       <% end %>
       <%= card.name %>
     </h2>

@@ -36,8 +36,12 @@
       color: $color-alpha;
     }
     &.featured {
-      margin: rem(($header-height - $btn-height) / 2) golden-factor(2);
+      margin: rem(($header-height - ($golden-factor * 3)) / 2) golden-factor(2);
     }
+  }
+  .btn--green {
+    height: golden-factor(3);
+    line-height: golden-factor(3);
   }
   .gravatar {
     display: block;

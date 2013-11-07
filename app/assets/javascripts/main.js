@@ -41,4 +41,15 @@ jQuery(document).ready(function($) {
     }, 5000);
   }
 
+  window.setFlash = function(type, content) {
+    
+  }
+
+  window.swapNodes = function(a, b) {
+    var aparent= a.parentNode;
+    var asibling= a.nextSibling===b? a : a.nextSibling;
+    b.parentNode.insertBefore(a, b);
+    aparent.insertBefore(b, asibling);
+  }
+  
 });

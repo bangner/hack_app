@@ -83,7 +83,7 @@
 /* Layout */
 
 .gut {
-  max-width: rem($gut-max-width);
+  width: rem($gut-max-width);
 
   padding-left: golden-factor(1.5);
   padding-right: golden-factor(1.5);
