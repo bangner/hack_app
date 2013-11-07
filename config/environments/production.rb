@@ -88,7 +88,7 @@ HackappNew::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :domain               => 'hackapp.co',
-    :user_name            => 'johnreagan@hackapp.co',
+    :user_name            => 'stephen@hackapp.co',
     :password             => 'wafWajdl0tea',
     :authentication       => 'plain',
     :enable_starttls_auto => true  }

@@ -69,7 +69,7 @@
           <div class="form-field first">
             <%= school_form.label :focus, "Tech Focus" %>
             <div class="select-wrap">
-              <%= school_form.select :focus, options_for_select(tech_focuses, school_form.object.focus) %>
+              <%= school_form.select :focus, options_for_select(tech_focuses.unshift(""), school_form.object.focus) %>
             </div>
           </div>
           <div class="form-field">
