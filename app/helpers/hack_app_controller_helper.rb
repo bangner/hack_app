@@ -16,7 +16,7 @@ module HackAppControllerHelper
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=mm"
   end
   def tech_focuses
-    ['Ruby', 'JavaScript', 'PHP', '.NET', 'Python', 'Data Science', 'UX Design']
+    ['Ruby', 'JavaScript', 'Java', 'iOS', 'Android', 'PHP', '.NET', 'Python', 'Data Science', 'UX Design']
   end
   def us_states
     [

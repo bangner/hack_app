@@ -51,6 +51,7 @@ class ApplicationController < HackappController
       return redirect_to edit_applicant_path(@applicant)
     end
 
+    # TODO: Look for answers to required questions
     @application = Application.where(submitted_at: nil, applicant_profile_id: @applicant_profile.id).first
     unless @application
       flash[:notice] = "Looks like you don't have any schools selected. There are plenty to choose from."
