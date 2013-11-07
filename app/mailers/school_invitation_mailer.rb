@@ -1,5 +1,5 @@
 class SchoolInvitationMailer < ActionMailer::Base
-  default from: '"Stephen Watkins" <stephen@hackapp.co>'
+  default from: '"John Reagan Moore" <johnreagan@hackapp.co>'
   def invite_school_admin(email, school_id, code)
     mail(
       to: email,

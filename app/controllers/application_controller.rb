@@ -48,7 +48,7 @@ class ApplicationController < HackappController
     @applicant_profile = ApplicantProfile.find_by_account_id(@applicant.id)
     unless @applicant_profile
       flash[:notice] = "We need you to build your applicant profile first."
-      return redirect_to edit_applicant_path(@account)
+      return redirect_to edit_applicant_path(@applicant)
     end
 
     @application = Application.where(submitted_at: nil, applicant_profile_id: @applicant_profile.id).first
