@@ -35,6 +35,15 @@ $.getJSON(cardUpdatePath, function(application) {
       selections = _.filter(selections, function(s) {
         return s.school_id != schoolId;
       });
+      selections = _.sortBy(selections, function(s) {
+        return s.priority;
+      });
+      var i = 1;
+      selections = _.map(selections, function(s) {
+        s.priority = i;
+        i++;
+        return s;
+      });
     }
     // Add school
     else {
