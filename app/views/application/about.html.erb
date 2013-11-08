@@ -1,10 +1,159 @@
-<section class="content-piece--margin lead-in--clear">
+<section class="content-piece lead-in--white">
   <div class="gut">
     <h1>What is hack_app?</h1>
-    <h2>We know you're curious. Read about our mission.</h2>
+  </div>
+</section>
+<section class="site-subheader">
+  <div class="gut">
+    <ul class="list--layout group">
+      <li>
+        <a href="#mission">Our Mission</a>
+      </li>
+      <li>
+        <a href="#applicants">For Applicants</a>
+      </li>
+      <li>
+        <a href="#schools">For Schools</a>
+      </li>
+      <li>
+        <a href="#price">Price</a>
+      </li>
+      <li>
+        <a href="#next">What's Next?</a>
+      </li>
+    </ul>
   </div>
 </section>
 <section class="content-piece">
   <div class="gut">
+    <div class="form-wrap-set form-wrap-set--about">
+      <div class="form-wrap--big first">
+        <a name="mission"></a>
+        <fieldset>
+          <legend>Our Mission</legend>
+          <p>
+            hack_app is dedicated to developing, promoting, and improving the coding bootcamp industry.  We serve students with the best possible information on where to apply. We serve bootcamps with the best possible information on which applicants to accept.
+          </p>
+        </fieldset>
+      </div>
+      <div class="form-wrap--big">
+        <a name="applicants"></a>
+        <fieldset>
+          <legend>For Applicants</legend>
+          <h2>Research coding bootcamps</h2>
+          <p>
+            Research schools using the best tools available. The hack_app school directory and blog are the best resources out there for learning about coding bootcamps.  If you have a question about bootcamps, hack_app has the answer.  We work closely with the schools and conduct our own independent research to consistently bring you the best possible data.
+          </p>
+          <h2>Apply with ease</h2>
+          <p>
+            Simplify your application process by using your hack_app profile to apply to several schools with just one click.  It will take you just minutes to fill out, save you loads of time, and get your application in front of schools fast.  Start your application now.
+          </p>
+          <h2>Get Admitted</h2>
+          <p>
+            With hack_app, you get your application in front of schools as quickly as possible.  They will checkout your initial application, and if they like what they see, they will get back to you to either schedule an interview, or ask additional questions.  hack_app makes this process easy with none of the hassle of emails back and forth.  With hack_app, students only need to complete the tougher questions once the bootcamp has decided they are interested, and schools can quickly notify you when they have made a decision.
+          </p>
+        </fieldset>
+      </div>
+      <div class="form-wrap--big">
+        <a name="schools"></a>
+        <fieldset>
+          <legend>For Schools</legend>
+          <h2>Reach Your Audience</h2>
+          <p>
+            Marketing can be both expensive and a real pain.  hack_app is here to help by providing a place to get your message in front of the right audience, and doing it for free.  You can create, and actively manage your school profile, making sure that students get the information that you want them to receive.  In addition to a school profile, hack_app also offers great marketing opportunities through our blog with features on schools, students, alumni, and employers in the industry.  If you would like to be featured on our blog, contact us.
+          </p>
+          <h2>Get more applicants</h2>
+          <p>
+            Attract more applicants by getting your school in front of more potential customers. By lowering the barrier to students completing an application and exposing applicants who otherwise may not know about or consider your school we are going to get more applications headed your way.  Right now you will receive applications in your inbox, much like you would if you were taking applications through a form services such as Wufoo or Google forms.
+          </p>
+          <h2>Better Information</h2>
+          <p>
+            hack_app puts your applications into context.  We can tell you where else an applicant is applying, and also where you rank in their preferences.  This can save you tons of time in prioritizing your interviews and offers.  Also have some more cool features coming soon, see what’s next?
+          </p>
+        </fieldset>
+      </div>
+      <div class="form-wrap--big">
+        <a name="price"></a>
+        <fieldset>
+          <legend>Price</legend>
+          <h2>For Applicants</h2>
+          <p>
+            Applicants apply to the first five bootcamps for free, and then it is $10 per school after that.  The price increases to prevent applicants from shotgunning applications and bogging down the inboxes of schools in which they aren’t genuinely interested.
+          </p>
+          <h2>For Schools</h2>
+          <p>
+            We charge 10% of tuition per conversion.  You only pay when a student who applied through hack_app enrolls.  When you are having a great admissions period and packing your classes with quality candidates all on your own, fantastic! Keep it up. But when you may be struggling a little bit to find candidates who are high quality and the right fit for your program, candidates coming in from hack_app will be there, ready to bring tuition and talent to your bootcamp.
+          </p>
+        </fieldset>
+      </div>
+      <div class="form-wrap--big">
+        <a name="next"></a>
+        <fieldset>
+          <legend>What’s next?</legend>
+          <h2>hack_app API</h2>
+          <p>
+            Coming up next from hack_app is an API for schools to easily integrate the hack_app application into their current systems.  This should make hack_app even more of a joy to use  as schools can seamlessly use our applications and data in their own unique systems.
+          </p>
+          <h2>Text Analysis</h2>
+          <p>
+            We will soon be incorporating text analysis into our application process.  Text analysis of an applicant’s application and online presence will allow us to provide quantified information on variables such as Cultural Fit, Motivation, Intelligence, and Answer Honesty.  This will allow us to even further streamline school admissions process, saving time and money.
+          </p>
+          <h2>Student Recruiting</h2>
+          <p>
+            We are also working on a service to help students and schools get matched up properly.  This will allow schools to reach out to hack_app users who they think would be a particularly good fit, rather than just waiting for that student to apply.
+          </p>
+          <h2>Industry Analysis and Trends</h2>
+          <p>
+            We are working on formatting our data and leveraging our relationships with both students and schools to create great industry trends and analysis reports to help schools operate at a higher level and constantly improve and to bring students better information about which school is right for them.
+          </p>
+        </fieldset>
+      </div>
+    </div>
   </div>
 </section>
+
+<% content_for :scripts do %>
+<script>
+var $subheader = $('.site-subheader'),
+    $leadIn = $('.lead-in--white'),
+    $window = $(window);
+$('.site-subheader a').on('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  var $this = $(this),
+      hash = $this.attr('href').substr(1),
+      $node = $('a[name="' + hash + '"]');
+
+  $("html, body").animate({
+    scrollTop: ($node.offset().top - $subheader.outerHeight() - 48)
+  }, 'slow', function() {
+    window.location.hash = hash;
+    $('.site-subheader li').removeClass('active');
+    $this.parent().addClass('active');
+  });
+
+});
+
+$window.on('scroll', function(e) {
+  if ($window.scrollTop() > ($leadIn.outerHeight() + $leadIn.offset().top)) {
+    $subheader.css({
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0
+    });
+    $('a[name]').each(function() {
+      if ($window.scrollTop() >= ($(this).offset().top - $subheader.outerHeight() - 48)) {
+        $('.site-subheader li').removeClass('active');
+        $('.site-subheader a[href="#' + $(this).attr('name') + '"]').parent().addClass('active');
+      }
+    });
+  } else {
+    $subheader.css({
+      position: 'relative'
+    });
+  }
+});
+</script>
+<% end %>

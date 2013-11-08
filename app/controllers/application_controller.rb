@@ -3,7 +3,7 @@ class ApplicationController < HackappController
   before_filter :applicant_access_only, :only => [:apply_get, :apply_post]
 
   def index
-    @latest_schools = School.order(:created_at).limit(4)
+    @latest_schools = School.order(created_at: :desc).limit(4)
   end
 
   def about
@@ -52,6 +52,11 @@ class ApplicationController < HackappController
     end
 
     # TODO: Look for answers to required questions
+    unless @applicant_profile.answers.any?
+      flash[:notice] = "We need you to answer some questions."
+      return redirect_to edit_applicant_path(@applicant)
+    end
+
     @application = Application.where(submitted_at: nil, applicant_profile_id: @applicant_profile.id).first
     unless @application
       flash[:notice] = "Looks like you don't have any schools selected. There are plenty to choose from."

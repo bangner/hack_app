@@ -43,8 +43,9 @@ class Admin::InvitationsController < Admin::ApplicationController
       invitation.update_attributes(:is_expired => true)
     end
 
-    SchoolInvitation.create(school_invitation_permitted)
-    SchoolInvitationMailer.invite_school_admin(params[:school_invitation][:email], params[:school_invitation][:school_id], params[:school_invitation][:code]).deliver
+    @invitation = SchoolInvitation.create(school_invitation_permitted)
+    SchoolInvitationMailer.invite_school_admin(@invitation).deliver
+    
     redirect_to admin_invitations_path
   end
 

@@ -58,6 +58,27 @@
   }
 }
 
+.form-wrap-set--about {
+  h2 {
+    margin: golden-factor(4) 0;
+
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: rem(14px);
+    font-weight: 700;
+
+    color: $color-beta;
+    text-transform: uppercase;
+    text-align: center;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+  .form-wrap {
+    border: 0;
+  }
+}
+
 .form-wrap-intro {
   padding: golden-factor(2) golden-factor(8);
   margin-left: golden-factor(-3.5);

@@ -11,11 +11,28 @@ class ApplicantsController < ApplicationController
     if @applicant
       # Add role to account if doesn't have it
       if @applicant.roles.pluck(:name).include? Role::APPLICANT
+        @applicant_profile = ApplicantProfile.find_by_account_id(@applicant.id)
+        unless @applicant_profile
+          @applicant_profile = ApplicantProfile.new 
+          @applicant_profile.account = @applicant
+          @applicant_profile.save
+        end
+      
         @error = "We found an account with that email. Perhaps you want to <a href='" + login_path + "'>log in</a>?"
         return render "applicants/new"
       else
         @applicant.roles << Role.find_by_name(Role::APPLICANT)
         @applicant.save
+
+        @applicant_profile = ApplicantProfile.find_by_account_id(@applicant.id)
+        unless @applicant_profile
+          @applicant_profile = ApplicantProfile.new 
+          @applicant_profile.account = @applicant
+          @applicant_profile.save
+        end
+
+        @applicant_profile = ApplicantProfile.find_by_account_id(params[:id])
+        @applicant_profile = ApplicantProfile.new unless @applicant_profile
 
         cookies[:h_a] = @applicant.auth_token
         return redirect_to edit_applicant_path(@applicant)
@@ -27,6 +44,10 @@ class ApplicantsController < ApplicationController
     @applicant.roles << Role.find_by_name(Role::APPLICANT)
 
     if @applicant.save
+      @applicant_profile = ApplicantProfile.new 
+      @applicant_profile.account = @applicant
+      @applicant_profile.save
+
       cookies[:h_a] = @applicant.auth_token
       return redirect_to edit_applicant_path(@applicant)
     end

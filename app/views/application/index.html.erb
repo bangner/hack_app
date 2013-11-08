@@ -9,7 +9,7 @@
       <% if guest? %>
       <a href="<%= new_applicant_path %>" class="apply btn--green">Start Application</a>
       <% elsif role_signed_in? Role::APPLICANT %>
-      <a href="<%= apply_path %>" class="apply btn--green">Start Application</a>
+      <a href="<%= apply_path %>" class="apply btn--green">Continue Application</a>
       <% end %>
     </div>
   </div>
@@ -17,16 +17,14 @@
 <section class="content-piece lead-in--delta lead-in--home">
   <div class="gut">
     <h2>
-      We are on a mission to elevate the bootcamp scene.
-      <br />
-      Some other longish text that says something really awesome.
+      Our mission is to elevate the bootcamp scene by<br />informing, streamlining, and connecting students and schools.
     </h2>
   </div>
 </section>
 <section class="content-piece--margin lead-in--clear">
   <div class="gut">
-    <h1>Latest Bootcamps</h1>
-    <h2>We have an ever-growing list of coding bootcamps. <a href="<%= schools_path %>">See all</a>.</h2>
+    <h1>Newest Bootcamps</h1>
+    <h2>We are constantly expanding our list of bootcamps. <a href="<%= schools_path %>">View all</a>.</h2>
   </div>
 </section>
 <section class="content-piece--margin">

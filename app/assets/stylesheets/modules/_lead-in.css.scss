@@ -28,6 +28,7 @@
     font-family: 'Whitney SSm A', 'Whitney SSm B', sans-serif;
     font-size: rem(18px);
     font-weight: 300;
+    line-height: 1.4;
 
     color: darken($color-delta, 30%);
   }
@@ -84,5 +85,6 @@
     font-size: rem(22px);
     line-height: 1.5;
     color: darken($color-delta, 50%);
+    max-width: 65%;
   }
 }

@@ -73,6 +73,7 @@
     margin-bottom: 0;
 
     padding: golden-factor(1) golden-factor(2);
+    position: relative;
 
     background-color: $color-gamma;
 
@@ -86,15 +87,17 @@
 
     &.applyable {
       text-align: left;
+      padding-right: rem(90px);
     }
   }
 
   .btn--apply {
     display: inline-block;
+    position: absolute;
+    top: 50%;
+    margin-top: rem(-13px);
+    right: rem(24px);
 
-    float: right;
-    position: relative;
-    top: -2px;
     width: 50px;
     height: 22px;
     line-height: 22px;

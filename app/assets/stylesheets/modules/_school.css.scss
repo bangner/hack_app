@@ -1,0 +1,156 @@
+.content-piece--school {
+
+  $sidebar-width: 280px;
+
+  .school-about {
+    float: left;
+    width: rem($sidebar-width);
+    padding: golden-factor(2);
+
+    background-color: white;
+    border-radius: $border-radius;
+
+    .logo {
+      $size: $sidebar-width - ($golden-factor * 4);
+
+      width: $size;
+      height: $size;
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .name {
+      margin: golden-factor(2) golden-factor(-2);
+      margin-bottom: 0;
+      padding: golden-factor(.75) golden-factor(2);
+
+      font-size: rem(18px);
+      font-weight: 500;
+
+      background-color: $color-beta;
+
+      color: white;
+      text-align: center;
+    }
+
+    .location {
+      padding: golden-factor(1) 0;
+      text-align: center;
+    }
+
+    .btn--apply {
+      display: block;
+      cursor: pointer;
+      height: golden-factor(3);
+      line-height: golden-factor(3);
+      padding: 0;
+      width: 200px;
+      @include block-center;
+
+      border-color: $color-alpha;
+      color: $color-alpha;
+      text-align: center;
+      opacity: .8;
+
+      @include transition(opacity $speed-transition ease-in-out);
+
+      span {
+        display: none;
+      }
+      &.apply ._apply,
+      &.applying ._applying,
+      &.removing ._removing,
+      &.applied ._applied {
+        display: block;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.applying,
+      &.removing,
+      &.applied {
+        color: white;
+      }
+
+      &.applying,
+      &.removing {
+        border-color: darken($color-gamma, 15%);
+        background-color: darken($color-gamma, 15%);
+        font-style: italic;
+        cursor: default;
+      }
+
+      &.applied {
+        border-color: darken($color-gamma, 30%);
+        background-color: darken($color-gamma, 30%);
+        &:hover {
+          border-color: desaturate(darken(red, 10%), 10%);
+          color: desaturate(darken(red, 10%), 10%);
+          background-color: transparent;
+          span {
+            display: none;
+          }
+          ._remove {
+            display: block;
+          }
+        }
+      }
+    }
+
+    .connect {
+      margin: 0;
+      margin-top: golden-factor(4);
+      h2 {
+        margin: 0;
+        margin-bottom: golden-factor(2);
+
+        font-family: 'Gotham SSm A', 'Gotham SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        font-size: rem(14px);
+        font-weight: 700;
+
+        color: black;
+        text-transform: uppercase;
+      }
+      li {
+        border-top: 1px solid rgba(0, 0, 0, .075);
+        text-align: left;
+      }
+      a {
+        display: block;
+        padding: golden-factor(.75) 0;
+        
+        font-size: rem(16px);
+        text-decoration: none;
+
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+      li:first-child {
+        border-top: 0;
+        a {
+          padding-top: 0;
+        }
+      }
+      li:last-child a {
+        padding-bottom: 0;
+      }
+    }
+
+  }
+
+  .school-content {
+    margin-left: rem($sidebar-width + ($golden-factor * 4));
+    padding-top: golden-factor(4);
+
+    font-size: rem(16px);
+    line-height: 1.6;
+    color: darken($color-delta, 30%);
+
+    text-align: center;
+  }
+}
