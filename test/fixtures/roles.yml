@@ -1,8 +1,0 @@
-applicant:
-  name: 'Applicant'
-
-schooladmin:
-  name: 'SchoolAdmin'
-
-superadmin:
-  name: 'SuperAdmin'

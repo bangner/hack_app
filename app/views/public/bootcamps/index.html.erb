@@ -1,0 +1,32 @@
+<% title "Coding Bootcamps" %>
+
+<section class="sector--space">
+  <div class="gut group">
+
+    <div class="bootcamp-filters">
+      <%= render partial: "filters" %>
+    </div>
+
+    <div class="bootcamp-results">
+      <% if @bootcamps.any? %>
+      <ul class="bootcamp-list--3 list--layout group">
+        <%= render partial: "card", collection: @bootcamps, as: :bootcamp %>
+      </ul>
+      <% else %>
+      <div class="none-found">
+        <strong>No bootcamps found.</strong><br />
+        You can try broadening the search by resetting the filters.
+        <div>
+          <a href="<%= bootcamps_path %>" class="btn--green">Reset Filters</a>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+  </div>
+</section>
+
+<% content_for :scripts do %>
+<%= javascript_tag "var cardUpdatePath = \"#{applicant_application_path(current_account, format: :json)}\"" %>
+<%= javascript_include_tag "public/bootcamps/card" %>
+<% end if role_signed_in? Role::APPLICANT %>

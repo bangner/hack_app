@@ -1,0 +1,41 @@
+<% title "The common application for coding bootcamps" %>
+<% header_class "see-through on-dark" %>
+
+<%= render layout: "shared/hero", locals: { classes: ["dark", "home"] } do %>
+  <h1>A better way to bootcamp</h1>
+  <h2>Research coding bootcamps. Apply with one profile.</h2>
+  <a href="<%= bootcamps_path %>" class="schools btn btn--clear">View Bootcamps</a>
+  <% if guest? %>
+  <a href="<%= new_applicant_path %>" class="apply btn btn--green">Start Application</a>
+  <% elsif role_signed_in? Role::APPLICANT %>
+  <a href="<%= new_applicant_application_path(current_account) %>" class="apply btn--green">Continue Application</a>
+  <% end %>
+<% end %>
+
+<%=
+render partial: "shared/lead", locals: {
+  classes: ["delta", "narrative"],
+  subline: "Our mission is to elevate the bootcamp scene by<br />informing, streamlining, and connecting students and bootcamps."
+}
+%>
+
+<%=
+render partial: "shared/lead", locals: {
+  classes: ["clear"],
+  headline: "Newest Bootcamps",
+  subline: "We are constantly expanding our list of bootcamps. <a href=\"#{bootcamps_path}\">View all</a>."
+}
+%>
+
+<section class="sector--space">
+  <div class="gut">
+    <ul class="bootcamp-list--4 list--layout group">
+      <%= render partial: "public/bootcamps/card", collection: @newest_bootcamps, :as => :bootcamp %>
+    </ul>
+  </div>
+</section>
+
+<% content_for :scripts do %>
+<%= javascript_tag "var cardUpdatePath = \"#{applicant_application_path(current_account, format: :json)}\"" %>
+<%= javascript_include_tag "public/bootcamps/card" %>
+<% end if role_signed_in? Role::APPLICANT %>

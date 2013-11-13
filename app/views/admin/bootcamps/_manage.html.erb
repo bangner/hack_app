@@ -1,0 +1,80 @@
+<header class="admin-header">
+  <div class="gut group">
+    <h1><%= action %> Bootcamp</h1>
+    <a href="<%= admin_bootcamps_path %>" class="listing">Listing</a>
+  </div>
+</header>
+<section class="admin-subheader">
+  <div class="gut group">
+    <div class="info--primary">
+      <%= instructions %>
+    </div>
+  </div>
+</section>
+<section class="admin-manage">
+  <div class="gut">
+    <%= form_for bootcamp, url: { action: action_complete.downcase } do |bootcamp_form| %>
+
+      <div class="form-field">
+        <%= bootcamp_form.label :name, 'Name' %>
+        <%= bootcamp_form.text_field :name %>
+      </div>
+
+      <div class="form-field">
+        <%= bootcamp_form.label :description, 'Description' %>
+        <%= bootcamp_form.text_area :description %>
+      </div>
+
+      <div class="form-field-group--double group">
+        <div class="form-field">
+          <%= bootcamp_form.label :website, 'Website' %>
+          <%= bootcamp_form.url_field :website, :placeholder => 'http://' %>
+        </div>
+        <div class="form-field">
+          <%= bootcamp_form.label :email, 'Email' %>
+          <%= bootcamp_form.email_field :email %>
+        </div>
+      </div>
+
+      <div class="form-field-group--double group">
+        <div class="form-field">
+          <%= bootcamp_form.label :twitter, 'Twitter Handle' %>
+          <%= bootcamp_form.text_field :twitter %>
+        </div>
+        <div class="form-field">
+          <%= bootcamp_form.label :facebook, 'Facebook Handle' %>
+          <%= bootcamp_form.text_field :facebook %>
+        </div>
+      </div>
+
+      <div class="form-field-group--double group">
+        <div class="form-field">
+          <%= bootcamp_form.label :logo, 'Logo' %>
+          <% unless bootcamp_form.object.new_record? %>
+          <img src="<%= bootcamp_form.object.logo %>" class="dynamic" />
+          <% end %>
+          <%= bootcamp_form.file_field :logo %>
+        </div>
+        <div class="form-field">
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= bootcamp_form.label :video_source, 'Video Source' %>
+              <div class="select-wrap">
+                <%= bootcamp_form.select :video_source, [['Vimeo', 'vimeo'], ['YouTube', 'youtube'], ['Wistia', 'wistia']] %>
+              </div>
+            </div>
+            <div class="form-field">
+              <%= bootcamp_form.label :video, 'Video ID' %>
+              <%= bootcamp_form.text_field :video %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-field">
+        <%= button_tag action_complete, :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+
+    <% end %>
+  </div>
+</section>

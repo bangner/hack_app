@@ -1,0 +1,23 @@
+.bootcamp-filter--search {
+  input {
+    padding: gf(1);
+
+    font-size: rem(13px);
+    font-weight: normal;
+
+    border: 0;
+    background-color: rgba(0, 0, 0, .05);
+    box-shadow: none;
+    border-radius: $border-radius;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .0625);
+    }
+    &:focus {
+      background-color: rgba(0, 0, 0, .075);
+    }
+  }
+  &.active input {
+    background-color: rgba(0, 0, 0, .075);
+  }
+}

@@ -1,59 +1,45 @@
-<nav role="membership">
-  <ul class="list--layout group">
-    <% if guest? %>
-    <li class="featured">
-      <a href="<%= new_applicant_path %>" class="btn--green">Apply</a>
+<li class="me dropdown-wrap js-dropdown-wrap">
+  <a href="/" class="js-me">
+    <img src="<%= avatar_url(current_account, 60) %>" class="gravatar" />
+    Me
+  </a>
+  <ul class="dropdown list--layout">
+    <li>
+      <a href="<%= edit_account_path(current_account) %>">Account</a>
     </li>
-    <li class="<%= active_page(login_path) %>">
-      <a href="<%= login_path %>">Log In</a>
-    </li>
-    <% elsif role_signed_in? Role::APPLICANT %>
-    <li class="featured">
-      <a href="<%= apply_path %>" class="btn--green">Apply</a>
+    <% if role_signed_in? Role::APPLICANT %>
+    <li>
+      <a href="<%= edit_applicant_settings_profile_path(current_account) %>">Profile</a>
     </li>
     <% end %>
-    <% if account_signed_in? %>
-    <li class="me dropdown-wrap js-dropdown-wrap">
-      <a href="/" class="js-me">
-        <img src="<%= avatar_url(current_account, 60) %>" class="gravatar" />
-        Me
-      </a>
-      <ul class="dropdown list--layout">
-        <li>
-          <a href="<%= edit_account_path(current_account) %>">Account</a>
-        </li>
-        <% if role_signed_in? Role::APPLICANT %>
-        <li>
-          <a href="<%= edit_applicant_path(current_account) %>">Profile</a>
-        </li>
-        <% end %>
-        <% if role_signed_in? Role::SCHOOL_ADMIN %>
-          <% schools = School.joins(:admins).where(:accounts_schools => { :account_id => current_account.id }).load %>
-          <li class="nav-school-list">
-            <% if schools.size > 1 %>
-            <a class="heading">Manage Schools</a>
-            <ul class="list--layout">
-              <% schools.each do |school| %>
-              <li>
-                <a href="<%= edit_school_path(school) %>"><%= school.name %></a>
-              </li>
-              <% end %>
-            </ul>
-            <% else %>
-            <a href="<%= edit_school_path(schools.first) %>">Manage <%= schools.first.name %></a>
-            <% end %>
+    <% if role_signed_in? Role::BOOTCAMP_ADMIN %>
+      <%
+      schools = ::Bootcamp.joins(:admins).where(:accounts_bootcamps => { :account_id => current_account.id }).load
+      if schools.any?
+      %>
+      <li class="nav-school-list">
+        <% if schools.size > 1 %>
+        <a class="heading">Manage Schools</a>
+        <ul class="list--layout">
+          <% schools.each do |school| %>
+          <li>
+            <a href="<%= edit_bootcamp_settings_profile_path(school) %>"><%= school.name %></a>
           </li>
+          <% end %>
+        </ul>
+        <% else %>
+        <a href="<%= edit_bootcamp_settings_profile_path(schools.first) %>">Manage <%= schools.first.name %></a>
         <% end %>
-        <% if role_signed_in? Role::SUPER_ADMIN %>
-        <li class="<%= active_admin %>">
-          <a href="<%= admin_root_path %>">Administration</a>
-        </li>
-        <% end %>
-        <li>
-          <a href="<%= logout_path %>">Log Out</a>
-        </li>
-      </ul>
+      </li>
+      <% end %>
+    <% end %>
+    <% if role_signed_in? Role::SUPER_ADMIN %>
+    <li class="<%= active_admin %>">
+      <a href="<%= admin_root_path %>">Administration</a>
     </li>
     <% end %>
+    <li>
+      <a href="<%= account_logout_path(current_account) %>">Log Out</a>
+    </li>
   </ul>
-</nav>
+</li>

@@ -1,0 +1,42 @@
+<% title "Login" %>
+
+<section class="sector--space">
+  <div class="gut">
+
+    <div class="form-wrap">
+      <%= form_tag do %>
+        <% if @error %>
+        <div class="form-error">
+          <%= @error %>
+        </div>
+        <% end %>
+        <fieldset>
+          <div class="form-field first">
+            <%= label_tag :email, "Email" %>
+            <%= email_field_tag :email %>
+          </div>
+          <div class="form-field">
+            <%= label_tag :password, "Password" %>
+            <%= password_field_tag :password %>
+          </div>
+        </fieldset>
+        <div class="form-field">
+          <div class="remember-me-wrap">
+            <div class="checkbox-wrap">
+              <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+            </div>
+            <%= label_tag :remember_me, "Stay logged in" %>
+          </div>
+          <%= button_tag "Log In", :type => "submit", :class => "btn--green" %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</section>
+
+<% content_for :scripts do %>
+<script>
+$('[name="email"]').focus();
+</script>
+<% end %>

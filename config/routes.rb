@@ -1,48 +1,65 @@
 HackappNew::Application.routes.draw do
 
-  # Super Administration
+  # Admin console
   namespace :admin do
     resources :accounts, :except => [:new, :create]
-    resources :schools
+    resources :bootcamps
     resources :questions
     resources :invitations, :except => [:edit]
     root :to => redirect('/admin/accounts')
   end
 
-  # Accounts
-  resources :accounts, :only => [:edit, :update]
+  # Public facing site
+  scope module: 'public' do
 
-  # Applicants
-  resources :applicants, :only => [:new, :create, :edit, :update], :path_names => { :new => 'register' } do
-    scope module: 'applicants' do
-      resource :application, :only => [:show, :update]
+    # Accounts
+    resources :accounts, only: [:edit, :update], path_names: { edit: 'settings' } do
+      get 'logout'
+      collection do
+        scope module: 'accounts' do
+          resource :login, only: [:new, :create], path_names: { new: '' }, to: 'login'
+        end
+      end
     end
-  end
 
-  # Schools and nested School Admins
-  resources :schools, :only => [:index, :show, :edit, :update] do
-    resources :admins, :only => [:new, :create], :path_names => { :new => 'register' }
-    scope module: 'schools' do
-      resource :locations, :only => [:edit, :update]
-      resource :applications, :only => [:edit, :update]
+    # Applicants
+    resources :applicants, only: [:new, :create], path_names: { new: 'register' } do
+      scope module: 'applicants' do
+        resource :application, :only => [:show, :update], to: 'application'
+        resource :application, :only => [:new, :create], :path => 'apply', path_names: { new: '' }, to: 'application'
+        get 'applied', to: 'application'
+        scope module: 'settings' do
+          resource :settings, only: [] do
+            resource :profile, only: [:edit, :update], path_names: { edit: '' }, to: 'profile'
+          end
+        end
+      end
     end
+
+    # Bootcamps
+    resources :bootcamps, only: [:index, :show] do
+      get ':slug' => 'bootcamps#show', as: 'seo'
+      scope module: 'bootcamps' do
+        resources :admins, only: [:new, :create], path_names: { new: 'register' }
+        scope module: 'settings' do
+          resource :settings, only: [] do
+            resource :profile, :only => [:edit, :update], path_names: { edit: '' }, to: 'profile'
+            resource :locations, :only => [:edit, :update], path_names: { edit: '' }
+            resource :applications, :only => [:edit, :update], path_names: { edit: '' }
+          end
+        end
+      end
+    end
+
+    # Entry routes
+    scope module: 'front' do
+      get 'about'
+      get 'blog', :to => redirect('http://blog.hackapp.co')
+    end
+
+    # Root
+    root 'front#index'
+
   end
-  get 'schools/:id/:slug' => 'schools#show', as: 'school_seo'
-
-  # Apply
-  get 'apply', to: 'application#apply_get', as: 'apply'
-  post 'apply', to: 'application#apply_post'
-  get 'apply/done', to: 'application#apply_done', as: 'apply_done'
-
-  # Login/Logout
-  get 'login', to: 'application#login_get', as: 'login'
-  post 'login', to: 'application#login_post'
-  get 'logout', to: 'application#logout', as: 'logout'
-
-  # About
-  get 'about', to: 'application#about', as: 'about'
-
-  # Home
-  root 'application#index', as: 'home'
 
 end

@@ -1,0 +1,51 @@
+<li>
+  <a href="<%= bootcamp_seo_path(bootcamp.id, bootcamp.name.parameterize) %>" class="bootcamp-card">
+    <% if bootcamp.focus %>
+    <div class="focus">
+      <span><%= bootcamp.focus %></span>
+    </div>
+    <% end %>
+    <div class="logo-wrap">
+      <div class="logo" style="background-image: url('<%= bootcamp.logo %>');">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+      </div>
+    </div>
+    <h2 class="name<%= " applyable" if role_signed_in? Role::APPLICANT %>">
+      <% if role_signed_in? Role::APPLICANT %>
+      <div class="btn--apply btn--clear apply" data-bootcamp="<%= bootcamp.id %>">
+        <span class="_apply">Add</span>
+        <span class="_applying">Adding</span>
+        <span class="_remove">Remove</span>
+        <span class="_removing">Removing</span>
+        <span class="_applied">Added</span>
+      </div>
+      <% end %>
+      <%= bootcamp.name %>
+    </h2>
+    <% unless bootcamp.locations.empty? and bootcamp.price.nil? and bootcamp.stack.nil? %>
+    <div class="tray">
+      <ul class="list--layout">
+        <% unless bootcamp.locations.empty? %>
+        <li class="group">
+          <span class="value"><%= bootcamp.locations.first.city %>, <%= bootcamp.locations.first.state %></span>
+          <span class="label">Location</span>
+        </li>
+        <% end %>
+        <% unless bootcamp.price.blank? %>
+        <%= price = (bootcamp.price > 0) ? Money.new((bootcamp.price * 100), "USD").format(:no_cents_if_whole => true) : "Free" %>
+        <li class="group">
+          <span class="value"><%= price %></span>
+          <span class="label">Price</span>
+        </li>
+        <% end %>
+        <% unless bootcamp.stack.blank? %>
+        <li class="group">
+          <span class="value"><%= bootcamp.stack %></span>
+          <span class="label">Stack</span>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+  </a>
+</li>

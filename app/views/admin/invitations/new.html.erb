@@ -7,7 +7,7 @@
 <section class="admin-subheader">
   <div class="gut group">
     <div class="info--primary">
-      Use this form to create a new invitation for a school administrator. It is important for the school to be first created before an administrator can register for that school.
+      Use this form to create a new invitation for a bootcamp administrator. It is important for the bootcamp to be first created before an administrator can register for that bootcamp.
     </div>
   </div>
 </section>
@@ -16,13 +16,13 @@
     <%= form_for @invitation, url: { action: "create" } do |invitation_form| %>
       <div class="form-field-group--double group">
         <div class="form-field">
-          <%= invitation_form.label :email, 'Email of School Administrator' %>
+          <%= invitation_form.label :email, 'Email of Bootcamp Administrator' %>
           <%= invitation_form.email_field :email %>
         </div>
         <div class="form-field">
-          <%= invitation_form.label :school_id, 'School' %>
+          <%= invitation_form.label :bootcamp_id, 'Bootcamp' %>
           <div class="select-wrap">
-            <%= invitation_form.collection_select :school_id, School.all, :id, :name %>
+            <%= invitation_form.collection_select :bootcamp_id, Bootcamp.all, :id, :name %>
           </div>
         </div>
       </div>

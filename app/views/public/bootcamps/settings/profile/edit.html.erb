@@ -1,0 +1,165 @@
+<% title "Manage #{@bootcamp.name} Profile" %>
+
+<%= render 'public/bootcamps/settings/hero' %>
+
+<section class="sector--space">
+  <div class="gut">
+    <% if @error %>
+    <div class="form-error">
+      <%=raw @error %>
+    </div>
+    <% end %>
+    <div class="form-wrap-set">
+      <%= form_for @bootcamp, url: { action: "update" } do |bootcamp_form| %>
+
+      <div class="form-wrap--big first">
+        <fieldset>
+          <legend>Basic Information</legend>
+          <div class="form-field first">
+            <%= bootcamp_form.label :name, "Bootcamp Name" %>
+            <%= bootcamp_form.text_field :name, :readonly => "readonly" %>
+          </div>
+          <div class="form-field">
+            <%= bootcamp_form.label :description, "Bootcamp Description" %>
+            <%= bootcamp_form.text_area :description, :class => "for-content" %>
+          </div>
+          <div class="form-field">
+            <%= bootcamp_form.label :price, "Tuition Cost" %>
+            <%= bootcamp_form.text_field :price  %>
+            <em>Please enter a valid number or currency (e.g. $5,000 or 5000).</em>
+          </div>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= bootcamp_form.label :logo, 'Logo' %>
+              <%= bootcamp_form.file_field :logo %>
+            </div>
+            <div class="form-field">
+              <img src="<%= bootcamp_form.object.logo %>?v=<%= Time.now.to_i %>" class="dynamic" />
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="form-wrap--big">
+        <fieldset>
+          <legend>Contact Information</legend>
+          <div class="form-field-group--double group">
+            <div class="form-field first">
+              <%= bootcamp_form.label :website, "Website" %>
+              <%= bootcamp_form.url_field :website %>
+            </div>
+            <div class="form-field first">
+              <%= bootcamp_form.label :email, "Contact Email" %>
+              <%= bootcamp_form.email_field :email %>
+            </div>
+          </div>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= bootcamp_form.label :twitter, "Twitter Handle" %>
+              <%= bootcamp_form.text_field :twitter %>
+            </div>
+            <div class="form-field">
+              <%= bootcamp_form.label :facebook, "Facebook Handle" %>
+              <%= bootcamp_form.text_field :facebook %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="form-wrap--big">
+        <fieldset>
+          <legend>Technology</legend>
+          <div class="form-field first">
+            <%= bootcamp_form.label :focus, "Tech Focus" %>
+            <div class="select-wrap">
+              <%= bootcamp_form.select :focus, options_for_select(tech_focuses, bootcamp_form.object.focus), :include_blank => true %>
+            </div>
+          </div>
+          <div class="form-field">
+            <%= bootcamp_form.label :stack, "Tech Stack" %>
+            <%= bootcamp_form.text_field :stack %>
+            <em>Separate each technology by a comma. Use idiomatic terminology.</em>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="form-wrap--big">
+        <fieldset>
+          <legend>Credit Card Information</legend>
+          <div class="form-wrap-intro">
+            In order to receive applications, we need to have a valid credit card on file. This way we can receive a conversion fee for when applicants from hack_app enroll in your bootcamp.
+          </div>
+          <div class="form-field-group--double group">
+            <div class="form-field first">
+              <% number_value = @credit_card ? @credit_card.last4.rjust(16, '*') : "" %>
+              <label for="stripe_card_number">Card Number</label>
+              <input id="stripe_card_number" type="text" size="20" data-stripe="number" value="<%= number_value %>" />
+            </div>
+            <div class="form-field first">
+              <label for="stripe_cvc">CVC</label>
+              <input id="stripe_cvc" type="text" size="4" data-stripe="cvc" />
+            </div>
+          </div>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <% exp_month_value = @credit_card ? @credit_card.exp_month : "" %>
+              <label for="stripe_exp_month">Expiration (Month)</label>
+              <div class="select-wrap">
+                <select id="stripe_exp_month" data-stripe="exp-month">
+                  <%= options_for_select(month_options, exp_month_value) %>
+                </select>
+              </div>
+            </div>
+            <div class="form-field">
+              <% exp_year_value = @credit_card ? @credit_card.exp_year : "" %>
+              <label for="stripe_exp_year">Expiration (Year)</label>
+              <div class="select-wrap">
+                <select id="stripe_exp_year" data-stripe="exp-year">
+                  <%= options_for_select(year_options, exp_year_value) %>
+                </select>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+        
+      <div class="form-tray">
+        <%= button_tag "Update Bootcamp Profile", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<% content_for :scripts do %>
+  <%= javascript_include_tag "https://js.stripe.com/v2/" %>
+  <script>
+    Stripe.setPublishableKey("<%= Rails.configuration.stripe_pk %>");
+    $('form.edit_bootcamp').submit(function(event) {
+      var $form = $(this),
+          cardNumber = $.trim($form.find('[data-stripe="number"]').val()),
+          cvc = $.trim($form.find('[data-stripe="cvc"]').val()),
+          expMonth = $.trim($form.find('[data-stripe="exp-month"]').val()),
+          expYear = $.trim($form.find('[data-stripe="exp-year"]').val()),
+          newCard = cardNumber.length && cvc.length && expMonth.length && expYear.length && (cardNumber.indexOf("*") === -1);
+
+      if (!newCard) {
+        return true;
+      }
+
+      $form.find('button').prop('disabled', true);
+      Stripe.card.createToken($form, function(status, response) {
+        if (response.error) {
+          $form.find('.form-error').text(response.error.message);
+          $form.find('button').prop('disabled', false);
+        } else {
+          var token = response.id;
+          $form.append($('<input type="hidden" name="stripe_card_token" />').val(token));
+          $form.get(0).submit();
+        }
+      });
+      return false;
+    });
+  </script>
+<% end %>

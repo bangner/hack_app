@@ -1,0 +1,51 @@
+<% title "Build Your Applicant Profile" %>
+
+<%=
+render partial: "shared/lead", locals: {
+  classes: ["delta"],
+  headline: "Build Your Applicant Profile",
+  subline: "This information should be accurate and current.<br />We send this profile to the bootcamps when you apply."
+}
+%>
+
+<section class="sector--space">
+  <div class="gut">
+
+    <% if @error %>
+    <div class="form-error">
+      <%=raw @error %>
+    </div>
+    <% end %>
+
+    <%= form_for @applicant, url: { action: "update" } do |applicant_form| %>
+      <div class="form-wrap-set">
+        <% @questions.each_with_index do |(field_set, questions), qs_index| %>
+        <div class="form-wrap--big<%= " first" if qs_index == 0 %>">
+          <fieldset>
+            <legend><%= field_set %></legend>
+            <%
+            questions.each_with_index do |question, q_index|
+              answer = @applicant_profile.detect_answer(question.id)
+              answer = answer.nil? ? "" : answer.answer
+            %>
+            <div class="form-field<%= " first" if q_index == 0 %>">
+              <%=
+              render partial: "public/questions/" + question.question_type.to_s.downcase, locals: {
+                name: "question[#{question.id.to_s}]",
+                question: question,
+                answer: answer
+              }
+              %>
+            </div>
+            <% end %>
+          </fieldset>
+        </div>
+        <% end %>
+      </div>
+      <div class="form-tray">
+        <%= button_tag "Update Profile", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+    <% end %>
+
+  </div>
+</section>

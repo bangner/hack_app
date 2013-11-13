@@ -1,0 +1,72 @@
+<section class="site-submenu">
+  <div class="gut">
+    <ul class="list--layout group">
+      <% items.each do |item| %>
+      <li class="<%= active_page(item[:url]) %>">
+        <a href="<%= item[:url] %>"><%= item[:label] %></a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+<% content_for :scripts do %>
+<script>
+var $submenu = $('.site-submenu');
+$(document).on('click', '.site-submenu a', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  var $this = $(this),
+      $li = $this.parent(),
+      hash = $this.attr('href').substr(1),
+      $node = $('a[name="' + hash + '"]');
+
+  $("html, body").animate({
+    scrollTop: ($node.offset().top - $submenu.outerHeight() - 48)
+  }, 'slow', function() {
+    $li.addClass('active').siblings().removeClass('active');
+    window.location.hash = hash;
+  });
+
+});
+</script>
+<% end if nav.eql? "internal" %>
+
+<% content_for :scripts do %>
+<script>
+var $submenu = $('.site-submenu'),
+    $lis = $submenu.find('li'),
+    $window = $(window),
+    nav = "<%= nav %>",
+    triggerOffset = $submenu.offset().top;
+
+$window.on('scroll', function(e) {
+  if ($window.scrollTop() > triggerOffset) {
+    $submenu.css({
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0
+    });
+    if (nav == "internal") {
+      $('a[name]').each(function() {
+        var $this = $(this);
+        if ($window.scrollTop() >= ($this.offset().top - $submenu.outerHeight() - 48)) {
+          $submenu
+            .find('a[href="#' + $this.attr('name') + '"]').parent().addClass('active')
+            .siblings().removeClass('active');
+        }
+      });
+    }
+  } else {
+    $submenu.css({
+      position: 'relative',
+      top: 'auto',
+      left: 'auto',
+      right: 'auto'
+    });
+  }
+});
+</script>
+<% end if stick.eql? true %>

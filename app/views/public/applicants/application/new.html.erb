@@ -1,0 +1,119 @@
+<% title "Apply to Coding Bootcamps" %>
+
+<%=
+render partial: "shared/lead", locals: {
+  classes: ["white"],
+  headline: "Almost there!",
+  subline: "Drag and drop the bootcamps below in order of preference."
+}
+%>
+
+<section class="sector--space">
+  <div class="gut">
+
+    <% if @error %>
+    <p><%= @error %></p>
+    <% else %>
+
+    <div class="bootcamp-priority-wrap">
+      <ul class="bootcamp-priority list--layout">
+        <% @selections.each_with_index do |selection, index| %>
+        <li draggable="true" data-bootcamp="<%= selection.bootcamp.id %>" data-priority="<%= selection.priority %>">
+          <div class="logo" style="background-image: url('<%= selection.bootcamp.logo %>');"></div>
+          <span class="priority">#<%= selection.priority %></span>
+          <span class="name"><%= selection.bootcamp.name %></span>
+        </li>
+        <% end %>
+      </ul>
+      <div class="select-more">
+        <a href="<%= bootcamps_path %>">Select more bootcamps</a>
+      </div>
+      <form action="<%= new_applicant_application_path(current_account) %>" method="post">
+        <button type="submit" class="btn--apply btn--green">Apply to Bootcamps</a>
+      </form>
+    </div>
+
+    <% end %>
+  </div>
+</section>
+
+<% content_for :scripts do %>
+<script>
+var $bootcampPriorityBoxes = $('.bootcamp-priority li'),
+    $applyBtn = $('.btn--apply'),
+    $dragSrcEl = null,
+    noChange = true,
+    dropped = false,
+    $origList = null;
+
+$bootcampPriorityBoxes.on('dragstart', function(e) {
+  $dragSrcEl = $(this);
+  $(this).addClass('dragging');
+  noChange = false;
+  dropped = false;
+  $origList = $('.bootcamp-priority').clone(true);
+});
+
+$bootcampPriorityBoxes.on('dragend', function(e) {
+  $(this).removeClass('dragging');
+  noChange = !dropped;
+  dropped = false;
+  if (noChange) {
+    $('.bootcamp-priority').replaceWith($origList);
+    $('.bootcamp-priority li').removeClass('dragging');
+  }
+  $origList = null;
+  noChange = true;
+});
+
+$bootcampPriorityBoxes.on('dragenter', function(e) {
+  $(this).addClass('dragover');
+
+  var $this = $(this),
+      sourcePriority = $dragSrcEl.data('priority'),
+      targetPriority = $this.data('priority');
+
+  $this.data('priority', sourcePriority).find('.priority').text('#' + sourcePriority);
+  $dragSrcEl.data('priority', targetPriority).find('.priority').text('#' + targetPriority).end();
+
+  swapNodes($dragSrcEl[0], $this[0]);
+});
+
+$bootcampPriorityBoxes.on('dragleave', function(e) {
+  $(this).removeClass('dragover');
+});
+
+$bootcampPriorityBoxes.on('dragover', function(e) {
+  e.preventDefault();
+});
+
+$bootcampPriorityBoxes.on('drop', function(e) {
+  e.stopPropagation();
+  dropped = true;
+
+  $('.bootcamp-priority li').removeClass('dragover');
+
+  var selections = [];
+  $('.bootcamp-priority li').each(function() {
+    selections.push({
+      priority: $(this).data('priority'),
+      bootcamp_id: $(this).data('bootcamp')
+    });
+  });
+
+  $applyBtn.prop('disabled', true).addClass('disabled');
+
+  $.ajax({
+    url: "<%= applicant_application_path(current_account, format: :json) %>",
+    type: 'PATCH',
+    data: {
+      'bootcamp_selections': selections
+    }
+  }).done(function(result) {
+    $applyBtn.prop('disabled', false).removeClass('disabled');
+  });
+
+  return false;
+});
+</script>
+<% end %>

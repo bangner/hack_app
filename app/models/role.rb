@@ -1,6 +1,6 @@
 class Role < ActiveRecord::Base
   SUPER_ADMIN = "SuperAdmin"
-  SCHOOL_ADMIN = "SchoolAdmin"
+  BOOTCAMP_ADMIN = "BootcampAdmin"
   APPLICANT = "Applicant"
 
   has_and_belongs_to_many :accounts

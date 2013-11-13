@@ -1,0 +1,6 @@
+<section class="sector<%= (classes.include?("clear")) ? "--space" : "--pad" %> <%= classes.map { |k| "lead--#{k}" }.join(" ") if defined? classes %> trim">
+  <div class="gut">
+    <%=raw "<h1>#{headline}</h1>" if defined? headline %>
+    <%=raw "<h2>#{subline}</h2>" if defined? subline %>
+  </div>
+</section>

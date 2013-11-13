@@ -1,4 +1,10 @@
 module HackAppControllerHelper
+  def title(title)
+    content_for(:title) { title }
+  end
+  def header_class(header_class)
+    content_for(:header_class) { header_class }
+  end
   def active_page(path)
     "active" if current_page?(path)
   end
@@ -14,6 +20,16 @@ module HackAppControllerHelper
   def avatar_url(account, size)
     gravatar_id = Digest::MD5.hexdigest(account.email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}&d=mm"
+  end
+  def month_options
+    months = [['-', '']]
+    (1..12).each { |m| months << [Date::MONTHNAMES[m] + " (#{m})", m] }
+    months
+  end
+  def year_options
+    years = [['-', '']]
+    (Time.now.year.to_i).upto(2023).to_a.each { |y| years << [y, y] }
+    years
   end
   def tech_focuses
     ['Ruby', 'JavaScript', 'Java', 'iOS', 'Android', 'PHP', '.NET', 'Python', 'Data Science', 'UX Design']

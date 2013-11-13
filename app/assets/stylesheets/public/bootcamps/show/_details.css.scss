@@ -1,0 +1,10 @@
+.bootcamp_show-details {
+  margin-left: rem($bootcamp-overview-width + ($golden-factor * 4));
+  padding-top: golden-factor(4);
+
+  font-size: rem(16px);
+  line-height: 1.6;
+  color: darken($color-delta, 30%);
+
+  text-align: center;
+}

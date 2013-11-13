@@ -1,8 +1,14 @@
 /* Logo */
 
 $logo-ratio: 132px / 29px;
-$logo-width: 118px;
-$logo-height: $logo-width / $logo-ratio;
+
+// Header
+$header-logo-width: 118px;
+$header-logo-height: $header-logo-width / $logo-ratio;
+
+// Footer
+$footer-logo-width: 108px;
+$footer-logo-height: $footer-logo-width / $logo-ratio;
 
 /* Colors */
 
@@ -28,6 +34,9 @@ $color-text: #666;
 
 /* Typography */
 
+$font-stack-primary: 'Whitney SSm A', 'Whitney SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+$font-stack-secondary: 'Gotham SSm A', 'Gotham SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
 $font-size-base: 15;
 
 /* Layout */
@@ -36,6 +45,11 @@ $golden-factor: 12px;
 $gut-max-width: 1140px;
 
 $header-height: $golden-factor * 6.5;
+$hero-height: 360px;
+$hero-home-height: 600px;
+
+$bootcamp-filter-width: 200px;
+$bootcamp-overview-width: 280px;
 
 /* Buttons */
 

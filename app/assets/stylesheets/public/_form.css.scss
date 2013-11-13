@@ -1,0 +1,179 @@
+.form-error {
+  padding: golden-factor(2);
+  margin-bottom: golden-factor(2);
+  max-width: rem(440px);
+  @include block-center;
+
+  background-color: #f5b7ab;
+  border-radius: $border-radius;
+}
+
+.form-wrap-set {
+  .form-wrap,
+  .form-wrap--big {
+    margin-top: golden-factor(4);
+    &.first {
+      margin-top: 0;
+    }
+  }
+  button[type="submit"] {
+  }
+}
+
+.form-tray {
+  margin-top: golden-factor(4);
+  text-align: center;
+  button {
+    height: 47px;
+    line-height: 47px;
+    padding: 0 golden-factor(3);
+    margin-left: golden-factor(2);
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+}
+
+.form-wrap {
+  background-color: white;
+  max-width: rem(440px);
+  padding: golden-factor(3.5);
+  @include block-center;
+
+  border-radius: $border-radius;
+  border: 1px solid rgba(0, 0, 0, .125);
+
+  h1 {
+    margin-bottom: golden-factor(2);
+
+    font-size: rem(20px);
+    letter-spacing: -2px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .btn--green {
+    height: rem(47px);
+    padding: 0 golden-factor(2);
+  }
+}
+
+.form-wrap-set--about {
+  h2 {
+    margin: golden-factor(4) 0;
+
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: rem(14px);
+    font-weight: 700;
+
+    color: $color-beta;
+    text-transform: uppercase;
+    text-align: center;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+  .form-wrap {
+    border: 0;
+  }
+}
+
+.form-wrap-intro {
+  padding: golden-factor(2) golden-factor(8);
+  margin-left: golden-factor(-3.5);
+  margin-right: golden-factor(-3.5);
+  margin-bottom: golden-factor(4);
+
+  text-align: center;
+
+  background-color: $color-gamma;
+}
+
+.form-wrap--big {
+  @extend .form-wrap;
+  max-width: rem(720px);
+}
+
+.form-field {
+  margin-top: golden-factor(2);
+  &.first {
+    margin-top: 0;
+  }
+  em {
+    display: block;
+    margin-top: golden-factor(.5);
+  }
+}
+
+.form-field-group .form-field {
+  float: left;
+}
+
+.form-field-group--double {
+  @extend .form-field-group;
+  .form-field {
+    width: 50%;
+    &:nth-child(1) {
+      padding-right: golden-factor(2);
+    }
+    &:nth-child(2) {
+      padding-left: golden-factor(2);
+    }
+  }
+}
+
+.form-field--questions li {
+  margin: golden-factor(1.5) 0;
+}
+
+.remember-me-wrap {
+  $_height: 48px;
+  float: right;
+  padding: 0 golden-factor(1.5);
+  height: $_height;
+  line-height: $_height;
+  position: relative;
+
+  background-color: rgba(0, 0, 0, .05);
+  border-radius: $border-radius;
+
+  .checkbox-wrap {
+    $checkbox-size: 16px;
+    position: absolute;
+    top: rem(($_height - ($checkbox-size + 1px)) / 2);
+    left: gf(1.5);
+    input[type="checkbox"] {
+      width: rem($checkbox-size);
+      height: rem($checkbox-size);
+      background-size: auto $checkbox-size;
+    }
+    input[type="checkbox"]:hover {
+      background-position: -($checkbox-size * 1) 0;
+    }
+    input[type="checkbox"]:checked {
+      background-position: -($checkbox-size * 2) 0;
+    }
+  }
+
+  label {
+    display: inline-block;
+    margin-bottom: 0;
+    padding-left: gf(2);
+  }
+}
+
+/* Nested field adjustments */
+.form-field {
+  .form-field {
+    margin-top: 0;
+  }
+  .form-field-group--double .form-field {
+    &:first-child {
+      padding-right: golden-factor(1);
+    }
+    &:nth-child(2) {
+      padding-left: golden-factor(1);
+    }
+  }
+}

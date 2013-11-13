@@ -1,7 +1,7 @@
 class ApplicationMailer < ActionMailer::Base
   default from: '"John Reagan Moore" <johnreagan@hackapp.co>'
-  def send_answers_to_school(admins, applicant, school_selection, answers)
-    body = "<p>You were sent an application from <strong>#{applicant.name}</strong> with #{school_selection.school.name} as preference <strong>##{school_selection.priority}</strong>.</p>"
+  def send_profile_to_bootcamp(admins, applicant, selection, answers)
+    body = "<p>You were sent an application from <strong>#{applicant.name}</strong> with #{selection.bootcamp.name} as preference <strong>##{selection.priority}</strong>.</p>"
 
     body += "<p><strong>Applicant Account</strong></p>"
 

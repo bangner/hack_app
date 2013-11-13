@@ -1,0 +1,35 @@
+<header class="admin-header">
+  <div class="gut group">
+    <h1>Bootcamps</h1>
+    <a href="<%= new_admin_bootcamp_path %>" class="add btn--green">New</a>
+  </div>
+</header>
+
+<%= render partial: "admin/shared/subheader", locals: { result_count: @bootcamps.size } %>
+
+<section class="admin-listing">
+  <div class="gut">
+    <table class="editable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Admins</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @bootcamps.each do |bootcamp| %>
+        <tr>
+          <td class="id" data-edit-path="<%= edit_admin_bootcamp_path(bootcamp.id) %>"><%= bootcamp.id %></td>
+          <td class="js-filter-this"><%= bootcamp.name %></td>
+          <td class="js-filter-this"><%= bootcamp.admins.pluck(:name).join(", ") %></td>
+          <td class="remove">
+            <a href="<%= admin_bootcamp_path(bootcamp.id, :format => :json) %>">Remove</a>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</section>

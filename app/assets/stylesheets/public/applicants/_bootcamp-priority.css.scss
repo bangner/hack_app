@@ -1,0 +1,98 @@
+.bootcamp-priority-wrap {
+  text-align: center;
+  .note {
+    display: block;
+    margin-bottom: golden-factor(4);
+    width: 30%;
+    @include block-center;
+
+    font-size: rem(18px);
+    text-align: center;
+  }
+  .btn--apply {
+    display: block;
+    margin-top: golden-factor(4);
+    width: rem(240px);
+    @include block-center;
+
+    font-size: rem(14px);
+  }
+}
+
+.bootcamp-priority {
+  display: inline-block;
+  text-align: left;
+  min-width: rem(360px);
+}
+
+.bootcamp-priority-wrap .select-more,
+.bootcamp-priority li {
+  padding: 0 golden-factor(2);
+  padding-left: 52px + 24px;
+  position: relative;
+  height: 48px;
+  line-height: 48px;
+  overflow: hidden;
+  margin-top: golden-factor(1);
+
+  font-size: rem(16px);
+
+  background-color: $color-delta;
+  border-radius: $border-radius;
+  color: $color-beta;
+}
+
+.bootcamp-priority-wrap .select-more {
+  width: rem(360px);
+  @include block-center;
+  padding: 0;
+
+  background-color: rgba($color-delta, .5);  
+  border: 1px dashed rgba($color-beta, .35);
+  text-align: center;
+  opacity: .8;
+  a {
+    display: block;
+    text-decoration: none;
+    color: rgba($color-beta, .75);
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.bootcamp-priority li {
+  &[draggable] {
+    border: 1px solid transparent;
+    cursor: move;
+  }
+  span {
+    pointer-events: none;
+  }
+  .priority {
+    float: right;
+    font-weight: 700;
+  }
+  .logo {
+    position: absolute;
+    top: -((64px - 48px) / 2);
+    left: -12px;
+    width: 64px;
+    height: 64px;
+
+    background-color: white;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 100%;
+  }
+  &:first-child {
+    margin-top: 0;
+  }
+  &.dragging {
+    opacity: .5;
+  }
+  &.dragover {
+    border: 1px dashed $color-beta;
+  }
+}

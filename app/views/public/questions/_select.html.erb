@@ -1,0 +1,4 @@
+<% q_helper = JSON.parse(question.helper.gsub(/\s+/, "")) %>
+<div class="select-wrap">
+  <%= select_tag(name, options_for_select(q_helper["options"], answer), :include_blank => true) %>
+</div>

@@ -1,0 +1,56 @@
+<% title "Manage #{@bootcamp.name} Applications" %>
+
+<%= render 'public/bootcamps/settings/hero' %>
+
+<section class="sector--space">
+  <div class="gut">
+    <% if @error %>
+    <div class="form-error">
+      <%=raw @error %>
+    </div>
+    <% end %>
+    <div class="form-wrap-set">
+      <%= form_for @bootcamp, url: { action: "update" } do |bootcamp_form| %>
+
+      <% @questions.each_with_index do |(application_set, questions), index| %>
+      <div class="form-wrap--big<%= " first" if index == 0 %>">
+        <fieldset>
+          <legend><%= application_set.titlecase %> Application Questions</legend>
+          <div class="form-wrap-intro">
+            Which questions from the <strong><%= application_set %></strong> application are you interested in knowing from the applicants? Select all relevant ones below.
+          </div>
+          <ul class="form-field--questions list--layout trim">
+            <%
+            app_questions = @applications[application_set].questions.load if @applications[application_set]
+            questions.each do |question|
+            %>
+            <li>
+              <div class="checkbox-wrap">
+                <%
+                if @applications[application_set]
+                  question_check = app_questions.find { |q| q['id'] == question.id }
+                  is_checked = question_check ? true : false
+                elsif application_set.eql? "primary"
+                  is_checked = true
+                else
+                  is_checked = false
+                end
+                %>
+                <%= check_box_tag("questions[#{application_set}][#{question.id}]", "1", is_checked) %>
+                <%= label_tag("questions[#{application_set}][#{question.id}]", question.label) %>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </fieldset>
+      </div>
+      <% end %>
+
+      <div class="form-tray">
+        <%= button_tag "Update Application Settings", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+
+      <% end %>
+    </div>
+  </div>
+</section>

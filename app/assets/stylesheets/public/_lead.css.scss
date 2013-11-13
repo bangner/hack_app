@@ -1,0 +1,71 @@
+.lead {
+  h1,
+  h2 {
+    display: block;
+    margin: 0;
+    max-width: 70%;
+    @include block-center;
+
+    text-align: center;
+  }
+  h1 {
+    margin-bottom: gf(1);
+
+    font-size: rem(30px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.2;
+  }
+  h2 {
+    font-family: $font-stack-primary;
+    font-size: rem(18px);
+    font-weight: 300;
+    line-height: 1.4;
+  }
+}
+
+.lead--narrative h2 {
+  font-size: rem(22px);
+}
+
+.lead--beta {
+  @extend .lead;
+  background-color: $color-beta;
+  h1 {
+    color: white;
+  }
+  h2 {
+    color: lighten($color-beta, 30%);
+  }
+}
+
+.lead--delta {
+  @extend .lead;
+  background-color: $color-delta;
+  h1 {
+    color: darken($color-delta, 50%);
+  }
+  h2 {
+    color: darken($color-delta, 35%);
+  }
+}
+
+.lead--white,
+.lead--clear {
+  h1 {
+    color: $color-beta;
+  }
+  h2 {
+    color: darken($color-gamma, 40%);
+  }
+}
+
+.lead--white {
+  @extend .lead;
+  background-color: white;
+}
+
+.lead--clear {
+  @extend .lead;
+  background-color: transparent;
+}

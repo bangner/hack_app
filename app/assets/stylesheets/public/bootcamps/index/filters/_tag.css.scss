@@ -1,0 +1,44 @@
+.bootcamp-filter--tag {
+  margin-top: gf(1);
+  h2 {
+    padding: gf(1);
+
+    font-size: rem(14px);
+
+    background-color: white;
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+  }
+  li {
+    a {
+      display: block;
+      padding: gf(.75) gf(1);
+      position: relative;
+
+      font-size: rem(13px);
+
+      background-color: rgba(white, .5);
+      border-top: 1px solid rgba(black, .025);
+      border-right: 2px solid transparent;
+      text-decoration: none;
+
+      @include transition(border-right-color, $speed-transition, ease-in-out);
+    }
+    &:first-child a {
+      border-top: 0;
+    }
+    &:last-child {
+      border-bottom-left-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
+    }
+    &:hover a,
+    &.active a {
+      padding-right: $golden-factor - 1px;
+    }
+    &:hover a {
+      border-right-color: rgba($color-beta, .2);
+    }
+    &.active a {
+      border-right-color: $color-beta;
+    }
+  }
+}

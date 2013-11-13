@@ -1,0 +1,32 @@
+.hero--w-logo {
+  $border-size: 4px;
+  $circle-size: 80px;
+  $total-size: 80px + ($border-size * 2);
+  
+  margin-bottom: rem($total-size / 2);
+
+  .gut {
+    padding-bottom: rem($total-size / 2);
+  }
+
+  &:before {
+    content: '';
+    
+    position: absolute;
+    left: 50%;
+    margin-left: rem(-$total-size / 2);
+    bottom: rem(-$total-size / 2);
+
+    width: rem($total-size);
+    height: rem($total-size);
+
+    background-color: $color-alpha;
+    background-image: image-url('graphic-logo-blank@2x.png');
+    background-size: rem($circle-size * (1 / 2));
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border: $border-size solid $color-beta;
+    border-radius: 100%;
+  }
+}

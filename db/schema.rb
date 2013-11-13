@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131106034704) do
+ActiveRecord::Schema.define(version: 20131109205401) do
 
   create_table "accounts", force: true do |t|
     t.string   "name"
@@ -22,14 +22,14 @@ ActiveRecord::Schema.define(version: 20131106034704) do
     t.string   "auth_token"
   end
 
+  create_table "accounts_bootcamps", force: true do |t|
+    t.integer "account_id"
+    t.integer "bootcamp_id"
+  end
+
   create_table "accounts_roles", force: true do |t|
     t.integer "account_id"
     t.integer "role_id"
-  end
-
-  create_table "accounts_schools", force: true do |t|
-    t.integer "account_id"
-    t.integer "school_id"
   end
 
   create_table "applicant_profile_answers", force: true do |t|
@@ -62,62 +62,44 @@ ActiveRecord::Schema.define(version: 20131106034704) do
     t.datetime "submitted_at"
   end
 
-  create_table "questions", force: true do |t|
-    t.string   "name"
-    t.text     "label"
-    t.string   "field_set"
-    t.string   "question_type"
-    t.text     "helper"
+  create_table "bootcamp_applications", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_optional",     default: false
-    t.string   "application_set"
   end
 
-  create_table "questions_school_applications", force: true do |t|
+  create_table "bootcamp_applications_questions", force: true do |t|
     t.integer "question_id"
-    t.integer "school_application_id"
+    t.integer "bootcamp_application_id"
   end
 
-  create_table "roles", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "school_applications", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "school_invitations", force: true do |t|
-    t.integer  "school_id"
+  create_table "bootcamp_invitations", force: true do |t|
+    t.integer  "bootcamp_id"
     t.string   "email"
     t.string   "code"
-    t.boolean  "is_expired", default: false
+    t.boolean  "is_expired",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "school_locations", force: true do |t|
+  create_table "bootcamp_locations", force: true do |t|
     t.string   "street"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.integer  "school_id"
+    t.integer  "bootcamp_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "school_selections", force: true do |t|
+  create_table "bootcamp_selections", force: true do |t|
     t.integer  "priority"
-    t.integer  "school_id"
+    t.integer  "bootcamp_id"
     t.integer  "application_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "schools", force: true do |t|
+  create_table "bootcamps", force: true do |t|
     t.integer  "primary_application_id"
     t.integer  "secondary_application_id"
     t.string   "name"
@@ -135,6 +117,24 @@ ActiveRecord::Schema.define(version: 20131106034704) do
     t.string   "focus"
     t.decimal  "price"
     t.string   "stack"
+  end
+
+  create_table "questions", force: true do |t|
+    t.string   "name"
+    t.text     "label"
+    t.string   "field_set"
+    t.string   "question_type"
+    t.text     "helper"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "is_optional",     default: false
+    t.string   "application_set"
+  end
+
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

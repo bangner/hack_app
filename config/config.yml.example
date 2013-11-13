@@ -1,2 +1,5 @@
 development:
   smtp_password: 'secret'
+
+production:
+  smtp_password: 'secret'

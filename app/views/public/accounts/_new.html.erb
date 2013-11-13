@@ -1,0 +1,21 @@
+<% header_class "see-through on-dark" %>
+
+<%=
+render partial: "shared/hero", locals: {
+  classes: ["dark", "beta", "w-logo"],
+  headline: headline,
+  subline: subline
+}
+%>
+
+<section class="sector--pad">
+  <div class="gut">
+    <%= yield %>
+  </div>
+</section>
+
+<% content_for :scripts do %>
+<script>
+$('[name="account[name]"]').focus();
+</script>
+<% end %>

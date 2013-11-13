@@ -1,0 +1,209 @@
+.bootcamp-card {
+
+  display: block;
+  padding: golden-factor(2);
+  padding-bottom: 0;
+  position: relative;
+  overflow: hidden;
+
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, .075);
+  border-radius: $border-radius;
+  text-decoration: none;
+
+  text-align: center;
+
+  &:hover {
+    box-shadow: 0 0 3px rgba(0, 0, 0, .125);
+  }
+
+  .focus {
+    position: absolute;
+    height: 60px;
+    width: 110px;
+    right: -40px;
+    top: -16px;
+
+    background-color: $color-delta;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: rem(10px);
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $color-beta;
+
+    @include transform(rotate(45deg));
+    -webkit-backface-visibility: hidden;
+
+    span {
+      position: relative;
+      top: 40px;
+    }
+  }
+
+  .logo-wrap {
+    display: inline-block;
+    font-size: 0;
+
+    border-radius: 100%;
+    border: 3px solid $color-delta;
+
+    .logo {
+      $size: 132px;
+
+      width: $size;
+      height: $size;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100%;
+
+      border-radius: 100%;
+      border: 6px solid white;
+
+      img {
+        display: block;
+      }
+    }
+  }
+
+  .name {
+    margin: golden-factor(2) golden-factor(-2);
+    margin-bottom: 0;
+
+    padding: golden-factor(1) golden-factor(2);
+    position: relative;
+
+    background-color: $color-gamma;
+
+    font-family: 'Whitney SSm A', 'Whitney SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: rem(18px);
+    text-align: center;
+    letter-spacing: -1px;
+
+    color: darken($color-gamma, 60%);
+
+    &.applyable {
+      text-align: left;
+      padding-right: rem(90px);
+    }
+  }
+
+  .btn--apply {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    margin-top: rem(-13px);
+    right: rem(24px);
+
+    width: 50px;
+    height: 22px;
+    line-height: 22px;
+    padding: 0;
+
+    font-size: rem(10px);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 0;
+
+    border: 2px solid transparent;
+    color: darken($color-gamma, 50%);
+
+    @include transition(none);
+
+    span {
+      display: none;
+    }
+
+    &.apply ._apply,
+    &.applying ._applying,
+    &.removing ._removing,
+    &.applied ._applied {
+      display: block;
+    }
+
+    &:hover {
+      color: darken($color-gamma, 75%);
+      border-color: darken($color-gamma, 30%);
+    }
+
+    &.apply {
+      border-color: darken($color-gamma, 10%);
+    }
+
+    &.applying,
+    &.removing,
+    &.applied {
+      color: white;
+      width: 56px;
+    }
+
+    &.applying,
+    &.removing {
+      border-color: darken($color-gamma, 15%);
+      background-color: darken($color-gamma, 15%);
+      font-style: italic;
+      cursor: default;
+    }
+
+    &.removing {
+      width: 64px;
+    }
+
+    &.applied {
+      border-color: darken($color-gamma, 30%);
+      background-color: darken($color-gamma, 30%);
+      &:hover {
+        border-color: desaturate(darken(red, 10%), 10%);
+        color: desaturate(darken(red, 10%), 10%);
+        background-color: transparent;
+        span {
+          display: none;
+        }
+        ._remove {
+          display: block;
+        }
+      }
+    }
+
+  }
+
+  .tray {
+    padding: golden-factor(.5) golden-factor(2);
+    margin-left: golden-factor(-2);
+    margin-right: golden-factor(-2);
+
+    background-color: $color-delta;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    ul > li {
+      padding: golden-factor(.5) 0;
+      border-top: 1px solid rgba(0, 0, 0, .025);
+      &:first-child {
+        border-top: 0;
+      }
+    }
+    .label {
+      float: right;
+
+      font-size: rem(11px);
+      line-height: 21px;
+      text-transform: uppercase;
+
+      color: darken($color-delta, 30%);
+    }
+    .value {
+      float: left;
+
+      font-size: rem(13px);
+      line-height: 21px;
+      font-weight: bold;
+
+      color: darken($color-delta, 40%);
+    }
+  }
+
+}

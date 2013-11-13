@@ -1,0 +1,12 @@
+<section class="<%= classes.map { |k| "hero--#{k}" }.join(" ") if defined? classes %>">
+  <div class="gut middle--outer">
+    <div class="middle--inner">
+      <% if yield.empty? %>
+      <%=raw "<h1>#{headline}</h1>" if defined? headline %>
+      <%=raw "<h2>#{subline}</h2>" if defined? subline %>
+      <% else %>
+      <%= yield %>
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+.site-logo {
+  display: block;
+  img {
+    display: block;
+  }
+}
+
+.site-logo--header {
+  @extend .site-logo;
+  background-image: image-url("logo@2x.png");
+  background-repeat: no-repeat;
+  @include retina-img($header-logo-width, $header-logo-height);
+}
+
+.site-logo--footer {
+  @extend .site-logo;
+  background-image: image-url("logo@2x.black.png");
+  @include retina-img($footer-logo-width, $footer-logo-height);
+}
+
+.site-header.on-dark .site-logo {
+  background-image: image-url("logo@2x.white.png");
+}

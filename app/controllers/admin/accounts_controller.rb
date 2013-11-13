@@ -1,4 +1,4 @@
-class Admin::AccountsController < Admin::ApplicationController
+class Admin::AccountsController < Admin::FrontController
 
   def index
     @accounts = Account.all

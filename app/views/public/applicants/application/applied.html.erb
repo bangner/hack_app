@@ -1,0 +1,29 @@
+<% title "Application Sent to Coding Bootcamps" %>
+
+<%=
+render partial: "shared/lead", locals: {
+  classes: ["white"],
+  headline: "Boom! Application has been sent.",
+  subline: "You can now await responses from the #{"schools".pluralize(@selections.size)} in your inbox."
+}
+%>
+
+<section class="sector--space">
+  <div class="gut">
+    <% if @error %>
+    <p><%= @error %></p>
+    <% else %>
+    <div class="bootcamp-priority-wrap">
+      <ul class="bootcamp-priority list--layout">
+        <% @selections.each_with_index do |selection, index| %>
+        <li>
+          <div class="logo" style="background-image: url('<%= selection.bootcamp.logo %>');"></div>
+          <span class="priority">#<%= selection.priority %></span>
+          <span class="name"><%= selection.bootcamp.name %></span>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+  </div>
+</section>

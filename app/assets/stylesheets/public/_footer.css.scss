@@ -1,0 +1,57 @@
+/* Sticky footer */
+
+.site-wrap {
+  min-height: 100%;
+}
+
+.site-content {
+  overflow: auto;
+}
+
+.site-footer {
+  position: relative;
+  clear: both;
+}
+
+/* Regular footer */
+
+.site-footer {
+  padding: golden-factor(3.5) 0;
+
+  font-family: 'Gotham SSm A', 'Gotham SSm B', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: rem(12px);
+
+  background-color: white;
+  border-top: 1px solid rgba(0, 0, 0, .05);
+  &,
+  a {
+    color: darken($color-gamma, 30%);
+  }
+  a {
+    text-decoration: none;
+    &:hover {
+      color: darken($color-gamma, 50%);
+    }
+  }
+  nav {
+    float: left;
+    li {
+      float: left;
+      margin-left: golden-factor(3);
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+  .info {
+    float: right;
+    max-width: 340px;
+    text-align: right;
+  }
+  .site-logo--footer {
+    margin-left: auto;
+    margin-bottom: golden-factor(2);
+
+    opacity: .25;
+  }
+}

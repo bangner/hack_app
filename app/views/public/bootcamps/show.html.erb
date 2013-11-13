@@ -1,0 +1,61 @@
+<% title @bootcamp.name + " Coding Bootcamp" %>
+
+<section class="sector--space">
+  <div class="gut group">
+
+    <div class="bootcamp_show-overview">
+
+      <div class="logo" style="background-image: url('<%= @bootcamp.logo %>');">
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" />
+      </div>
+      <div class="name">
+        <%= @bootcamp.name %>
+      </div>
+      <% if @bootcamp.locations.any? %>
+      <div class="location">
+        <%= @bootcamp.locations.first.city %>, <%= @bootcamp.locations.first.state %>
+      </div>
+      <% end %>
+      <% if role_signed_in? Role::APPLICANT %>
+      <div class="btn--apply btn--clear apply" data-bootcamp="<%= @bootcamp.id %>">
+        <span class="_apply">Add to Application</span>
+        <span class="_applying">Adding</span>
+        <span class="_remove">Remove from Application</span>
+        <span class="_removing">Removing</span>
+        <span class="_applied">Added to Application</span>
+      </div>
+      <% end %>
+      <div class="connect">
+        <h2>Connect</h2>
+        <ul class="list--layout trim">
+          <li>
+            <a href="<%= @bootcamp.website %>" target="_blank"><%= @bootcamp.website.sub(/^https?\:\/\//, '').sub(/^www./,'') %></a>
+          </li>
+          <li>
+            <a href="mailto:<%= @bootcamp.email %>"><%= @bootcamp.email %></a>
+          </li>
+          <li class="twitter">
+            <a href="https://twitter.com/<%= @bootcamp.twitter[1..-1] %>" target="_blank">@<%= @bootcamp.twitter[1..-1] %></a>
+          </li>
+          <li class="facebook">
+            <a href="http://facebook.com/<%= @bootcamp.facebook %>" target="_blank">/<%= @bootcamp.facebook %></a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bootcamp_show-details">
+      <strong>Hold tight!</strong>
+      <br />
+      School details will be here soon.
+    </div>
+
+  </div>
+</section>
+
+<% content_for :scripts do %>
+<%= javascript_tag "var cardUpdatePath = \"#{applicant_application_path(current_account, format: :json)}\"" %>
+<%= javascript_include_tag "public/bootcamps/card" %>
+<% end if role_signed_in? Role::APPLICANT %>
+

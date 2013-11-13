@@ -1,0 +1,40 @@
+.hero--home {
+  @extend .hero;
+  
+  height: rem($hero-home-height);
+
+  background-image: image-url("heros/home.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &:before {
+    content: '';
+
+    position: absolute;
+    @include stretch;
+
+    background-color: rgba(0, 0, 0, .6);
+  }
+
+  h1 {
+    color: white;
+  }
+
+  h2 {
+    color: darken($color-gamma, 30%);
+  }
+
+  .btn {
+    display: inline-block;
+    margin-top: gf(4);
+  }
+
+  .btn.apply {
+    margin-left: gf(2);
+    border: 2px solid $color-alpha;
+    &:hover {
+      border-color: $color-alpha-dark;
+    }
+  }
+}

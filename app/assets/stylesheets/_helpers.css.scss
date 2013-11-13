@@ -80,20 +80,35 @@
   text-transform: lowercase;
 }
 
+.text-box {
+  display: inline-block;
+  padding: gf(.5) gf(.75);
+}
+
+.text-box--light {
+  @extend .text-box;
+  background-color: rgba(white, .05);
+}
+
+.text-box--dark {
+  @extend .text-box;
+  background-color: rgba(black, .05);
+}
+
 /* Layout */
 
 .gut {
   width: rem($gut-max-width);
 
-  padding-left: golden-factor(1.5);
-  padding-right: golden-factor(1.5);
+  padding-left: gf(1.5);
+  padding-right: gf(1.5);
 
   margin-left: auto;
   margin-right: auto;
 
   @media only screen and (min-width: 480px) {
-    padding-left: golden-factor(2);
-    padding-right: golden-factor(2);
+    padding-left: gf(2);
+    padding-right: gf(2);
   }
 }
 

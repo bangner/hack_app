@@ -1,0 +1,37 @@
+<%=
+render layout: "public/accounts/new", locals: {
+  headline: "Let's get your bootcamp on board",
+  subline: "We'll start by creating you an account to represent <span class=\"text-box--light\">#{@invitation.bootcamp.name}</span>."
+} do
+%>
+  <% if @error %>
+  <div class="form-error">
+    <%=raw @error %>
+  </div>
+  <% end %>
+  <%= form_for @admin, url: { action: "create" } do |account_form| %>
+  <div class="form-wrap--big first">
+    <fieldset>
+      <legend>Account Information</legend>
+      <%= hidden_field_tag :code, @invitation.code %>
+      <div class="form-field-group--double group">
+        <div class="form-field first">
+          <%= account_form.label :name, 'Name' %>
+          <%= account_form.text_field :name %>
+        </div>
+        <div class="form-field first">
+          <%= account_form.label :email, 'Email' %>
+          <%= account_form.email_field :email, :value => @invitation.email, :readonly => "readonly" %>
+        </div>
+      </div>
+      <div class="form-field">
+        <%= account_form.label :password_hash, 'Password' %>
+        <%= account_form.password_field :password_hash %>
+      </div>
+    </fieldset>
+  </div>
+  <div class="form-tray">
+    <%= button_tag "Create Account", :name => "commit", :type => "submit", :class => "btn--green" %>
+  </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,19 @@
+<%=
+render partial: "shared/lead", locals: {
+  classes: ["delta"],
+  headline: "Manage #{@bootcamp.name}",
+  subline: "You'll want this information to be accurate and current.<br />Applicants garner interest based on the information represented below."
+}
+%>
+
+<%=
+render partial: "shared/submenu", locals: {
+  stick: true,
+  nav: 'external',
+  items: [
+    { url: edit_bootcamp_settings_profile_path(@bootcamp), label: "Bootcamp Profile" },
+    { url: edit_bootcamp_settings_locations_path(@bootcamp), label: "Bootcamp Locations" },
+    { url: edit_bootcamp_settings_applications_path(@bootcamp), label: "Application Settings" }
+  ]
+}
+%>

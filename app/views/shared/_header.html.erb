@@ -1,0 +1,11 @@
+<header class="site-header <%= yield :header_class %>">
+  <div class="gut group">
+    <%= link_to image_tag("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7", alt: "hack_app Home"), root_path, class: "site-logo--header" %>
+    <div class="site-nav--primary">
+      <%= render "shared/nav/main" %>
+    </div>
+    <div class="site-nav--secondary group">
+      <%= render "shared/nav/engage" %>
+    </div>
+  </div>
+</header>

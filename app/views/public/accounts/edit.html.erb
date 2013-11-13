@@ -1,0 +1,53 @@
+<% title "Manage Your Account" %>
+
+<%=
+render partial: "shared/lead", locals: {
+  classes: ["delta"],
+  headline: "Manage Your Account",
+  subline: "Update any information in the fields below."
+}
+%>
+
+<section class="sector--space">
+  <div class="gut">
+
+    <% if @error %>
+    <div class="form-error">
+      <%=raw @error %>
+    </div>
+    <% end %>
+
+    <div class="form-wrap-set">
+      <%= form_for @account, url: { action: "update" } do |account_form| %>
+      <div class="form-wrap--big first">
+        <fieldset>
+          <div class="form-field-group--double group">
+            <div class="form-field first">
+              <%= account_form.label :name, 'Name' %>
+              <%= account_form.text_field :name %>
+            </div>
+            <div class="form-field first">
+              <%= account_form.label :email, 'Email' %>
+              <%= account_form.email_field :email, :readonly => "readonly" %>
+            </div>
+          </div>
+          <div class="form-field-group--double group">
+            <div class="form-field">
+              <%= label_tag :old_password, 'Old Password' %>
+              <%= password_field_tag :old_password %>
+            </div>
+            <div class="form-field">
+              <%= label_tag :new_password, 'New Password' %>
+              <%= password_field_tag :new_password %>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="form-tray">
+        <%= button_tag "Update Account", :name => "commit", :type => "submit", :class => "btn--green" %>
+      </div>
+      <% end %> 
+    </div>
+
+  </div>
+</section>

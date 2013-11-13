@@ -1,0 +1,17 @@
+<nav role="membership">
+  <ul class="list--layout group">
+    <% if guest? %>
+    <li class="featured">
+      <a href="<%= new_applicant_path %>" class="btn--green">Apply</a>
+    </li>
+    <li class="<%= active_page(login_path) %>">
+      <a href="<%= new_login_path %>">Log In</a>
+    </li>
+    <% elsif role_signed_in? Role::APPLICANT %>
+    <li class="featured">
+      <a href="<%= new_applicant_application_path(current_account) %>" class="btn--green">Apply</a>
+    </li>
+    <% end %>
+    <%= render 'shared/nav/membership' if account_signed_in? %>
+  </ul>
+</nav>

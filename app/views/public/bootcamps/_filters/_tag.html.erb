@@ -1,0 +1,24 @@
+<%
+request_hash = {
+  :location => params[:location],
+  :focus => params[:focus],
+  :price => params[:price]
+}
+all_hash = request_hash.except(key)
+%>
+<div class="bootcamp-filter--tag">
+  <h2><%= title %></h2>
+  <ul class="list--layout">
+    <li class="<%= "active" if !params.key?(key) %>">
+      <a href="<%= bootcamps_path(all_hash) %>">All</a>
+    </li>
+    <%
+    items.each do |item|
+      request_hash[key] = item[:key]
+    %>
+    <li class="<%= active_page(bootcamps_path(request_hash)) %>">
+      <a href="<%= bootcamps_path(request_hash) %>"><%= item[:label] %></a>
+    </li>
+    <% end %>
+  </ul>
+</div>

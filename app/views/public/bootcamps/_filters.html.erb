@@ -1,0 +1,34 @@
+<div class="bootcamp-filter--search<%= " active" if params.key?(:q) %>">
+  <form action="<%= bootcamps_path %>" method="get">
+    <input type="text" name="q" value="<%= params[:q] %>" placeholder="Search" />
+  </form>
+</div>
+
+<%=
+render partial: "public/bootcamps/_filters/tag", locals: {
+  key: :focus,
+  title: "Focus",
+  items: @focuses.map { |f| { key: f.downcase, label: f }}
+}
+%>
+
+<%=
+render partial: "public/bootcamps/_filters/tag", locals: {
+  key: :location,
+  title: "Location",
+  items: @locations.map { |l| { key: l.downcase, label: l }}
+}
+%>
+
+<%=
+render partial: "public/bootcamps/_filters/tag", locals: {
+  key: :price,
+  title: "Price",
+  items: [
+    { key: "0", label: "Free" },
+    { key: "0-5000", label: "Free - $5k" },
+    { key: "5000-10000", label: "$5k - $10k" },
+    { key: "10000-20000", label: "$10k - $20k" }
+  ]
+}
+%>

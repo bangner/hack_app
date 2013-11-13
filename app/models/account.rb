@@ -10,7 +10,14 @@ class Account < ActiveRecord::Base
   accepts_nested_attributes_for :roles
 
   def has_role? role
-    self.roles.where(:name => role).any?
+    self.roles.each { |r| return true if r.name.eql? role }
+    false
+  end
+
+  def add_role role
+    return if self.roles.pluck(:name).include?(role)
+    self.roles << Role.find_by_name(role)
+    self.save
   end
 
   def authenticate password

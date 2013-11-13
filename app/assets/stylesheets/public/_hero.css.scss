@@ -1,0 +1,89 @@
+.hero {
+  height: rem($hero-height);
+  text-align: center;
+
+  &,
+  .gut {
+    position: relative;
+  }
+
+  h1,
+  h2 {
+    margin: 0;
+  }
+
+  h1 {
+    margin-bottom: gf(1);
+
+    font-size: rem(38px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-family: $font-stack-primary;
+    font-size: rem(22px);
+    font-weight: 300;
+    line-height: 1.4;
+  }
+
+}
+
+.hero--dark .gut {
+  padding-top: rem($header-height);
+}
+
+.hero--white,
+.hero--gamma {
+  h1 {
+    color: darken($color-gamma, 60%);
+  }
+  h2 {
+    color: darken($color-gamma, 30%);
+  }
+}
+
+.hero--white {
+  @extend .hero;
+  background-color: white;
+  .logo {
+    border-color: white;
+  }
+}
+
+.hero--gamma {
+  @extend .hero;
+  background-color: $color-gamma;
+  .logo {
+    border-color: $color-gamma;
+  }
+}
+
+.hero--delta {
+  @extend .hero;
+  background-color: $color-delta;
+  h1 {
+    color: $color-beta;
+  }
+  h2 {
+    color: darken($color-delta, 40%);
+  }
+  .logo {
+    border-color: $color-delta;
+  }
+}
+
+.hero--beta {
+  @extend .hero;
+  background-color: $color-beta;
+  h1 {
+    color: white;
+  }
+  h2 {
+    color: lighten($color-beta, 30%);
+  }
+  .logo {
+    border-color: $color-beta;
+  }
+}
