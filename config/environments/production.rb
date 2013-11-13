@@ -59,7 +59,7 @@ HackappNew::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  config.assets.precompile += ['admin.js', 'card.js', 'main.js', 'admin.css', 'main.css']
+  config.assets.precompile += ['admin.js', 'public/bootcamps/card.js', 'public.js', 'admin.css', 'public.css']
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
